@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/bottom_navigation"
+            app:startDestination="@id/homeFragment"
+>
+
+    <fragment
+            android:id="@+id/homeFragment"
+            android:name="com.example.hindidict.HomeFragment"
+            android:label="Add word fragment"
+            tools:layout="@layout/fragment_home">
+    </fragment>
+
+    <fragment
+            android:id="@+id/addWordFragment"
+            android:name="com.example.hindidict.AddWordFragment"
+            android:label="Add word fragment"
+            tools:layout="@layout/fragment_add_word">
+    </fragment>
+
+</navigation>
