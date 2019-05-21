@@ -5,7 +5,7 @@ import com.example.hindidict.model.WordLiveData
 /*
 Has knowledge of where the data comes from
  */
-interface DataRepository {
+interface IDataRepository {
 
     fun getWordData(uuid: String): WordLiveData
 
