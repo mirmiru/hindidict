@@ -9,9 +9,10 @@ Manages the database
 class FirestoreRepository: DataRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
+    private val COLLECTION_PATH = "WORDS"
 
     override fun getWordData(uuid: String): WordLiveData {
-        val ref = firestore.collection("coll-name").document(uuid)
+        val ref = firestore.collection(COLLECTION_PATH).document(uuid)
         return WordLiveData(ref)
     }
 

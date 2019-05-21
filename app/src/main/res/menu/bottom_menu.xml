@@ -13,4 +13,10 @@
             android:icon="@drawable/ic_add_circle_black_24dp"
     />
 
+    <item
+            android:id="@id/wordFragment"
+            android:title="Test Word"
+            android:icon="@drawable/ic_add_circle_black_24dp"
+    />
+
 </menu>

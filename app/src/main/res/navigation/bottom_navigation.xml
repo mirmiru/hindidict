@@ -20,4 +20,11 @@
             tools:layout="@layout/fragment_add_word">
     </fragment>
 
+    <fragment
+            android:id="@+id/wordFragment"
+            android:name="com.example.hindidict.WordFragment"
+            android:label="Single word fragment"
+            tools:layout="@layout/fragment_word">
+    </fragment>
+
 </navigation>
