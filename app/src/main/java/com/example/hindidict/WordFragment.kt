@@ -14,15 +14,14 @@ import kotlinx.android.synthetic.main.fragment_word.*
 
 
 // Firestore is not present here - view separate from repo
-
 class WordFragment : Fragment() {
     private val TEST_DOC_ID = "K9AJxbyJTlBhAnwABRwD"
+    private val TEST_DOC_ID_ERROR = "XXX"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_word, container, false)
     }
 
@@ -35,17 +34,21 @@ class WordFragment : Fragment() {
     }
 
     private fun observeWord(mainViewModel: MainViewModel) {
-        /*mainViewModel.getWordLiveData(TEST_DOC_ID).observe(this, Observer {
-            it?.let {
-                //textView_word_hindi.text = it.wordHindi
-                var a = it.wordHindi
-            }
-        })*/
-
         val liveData = mainViewModel.getWordLiveData(TEST_DOC_ID)
+
         liveData.observe(this, Observer<Word> { word ->
             if (word != null) {
-                textView_word_hindi.text = word.wordHindi
+                word.let {
+                    textView_word_hindi.text = it.definition?.hindi
+                    textView_word_eng.text = it.definition?.eng
+                    word.sentences[0].let {
+                        textView_sentence_hindi.text = it.hindiSentence
+                        textView_sentence_eng.text = it.engSentence
+
+                        // TODO Use for ordering sentences NEW -> OLD?
+                        val date = it.dateCreated?.toDate()
+                    }
+                }
             }
         })
 

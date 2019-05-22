@@ -1,8 +1,7 @@
 package com.example.hindidict.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.hindidict.model.Word
+import com.example.hindidict.model.WordLiveData
 import com.example.hindidict.repo.FirestoreRepositoryI
 
 /*
@@ -16,10 +15,11 @@ class MainViewModel: ViewModel() {
     private var repository: FirestoreRepositoryI = FirestoreRepositoryI()
 
     // TODO: Method for fetching the LiveData (fetched from repo) for the UI to read
-    fun getWordLiveData(uuid: String): LiveData<Word> {
+    fun getWordLiveData(uuid: String): WordLiveData {
         val liveData = repository.getWordData(uuid)
 
-        // Cache LiveData to hold it internally
+        // TODO: Cache LiveData to hold it internally
+
 
         return liveData
     }

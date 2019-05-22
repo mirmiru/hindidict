@@ -1,7 +1,5 @@
 package com.example.hindidict.repo
 
-import androidx.lifecycle.LiveData
-import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 

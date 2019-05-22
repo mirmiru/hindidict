@@ -1,13 +1,27 @@
 package com.example.hindidict.model
 
-// Getters and setters are created automatically
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
 
+// Getters and setters are created automatically
 data class Word(
-    var uuid: String = "",
-    var wordHindi: String = "",
-    var wordEng: String = "",
-    var sentenceHindi: String = "",
-    var sentenceEnd: String = ""
+    val definition: Definition? = null,
+    val category: String? = "",
+    val isDifficult: Boolean = false,
+    val sentences: MutableList<Sentence> = mutableListOf()
+)
+
+data class Definition (
+    val eng: String? = "",
+    val hindi: String? = ""
+)
+
+data class Sentence (
+    val contains: MutableList<String> = mutableListOf(),
+    val engSentence: String? = "",
+    val hindiSentence: String? = "",
+    @ServerTimestamp val dateCreated: Timestamp? = null
+    //val dateCreated: String? = 0
 )
 
 // Data classes enable Destructuring declarations, i.e.
