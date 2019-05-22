@@ -1,6 +1,7 @@
 package com.example.hindidict.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
 import com.example.hindidict.repo.FirestoreRepositoryI
 
@@ -20,8 +21,11 @@ class MainViewModel: ViewModel() {
 
         // TODO: Cache LiveData to hold it internally
 
-
         return liveData
+    }
+
+    fun addWord(word: Word) {
+        repository.addNewWord(word)
     }
 
 

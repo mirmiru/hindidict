@@ -1,5 +1,6 @@
 package com.example.hindidict.repo
 
+import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
 
 /*
@@ -9,4 +10,5 @@ interface IDataRepository {
 
     fun getWordData(uuid: String): WordLiveData
 
+    fun addNewWord(word: Word)
 }

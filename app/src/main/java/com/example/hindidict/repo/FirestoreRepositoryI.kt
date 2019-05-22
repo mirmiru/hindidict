@@ -1,6 +1,8 @@
 package com.example.hindidict.repo
 
+import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
 
 /*
@@ -16,18 +18,18 @@ class FirestoreRepositoryI: IDataRepository {
         val ref = firestore.collection(COLLECTION_PATH).document(uuid)
 
         return WordLiveData(ref)
+    }
 
-//        ref.addSnapshotListener { snapshot, exception ->
-//            if (snapshot != null) {
-//                // Do something - Reach into snapshot, assign to model object
-//                val word = snapshot.get("definition")
-//
-//                // Do not mix data store and views, e.g. do not update UI here
-//            } else if (exception == null) {
-//                // Handle error
-//            }
-//
-//        }
+    override fun addNewWord(word: Word) {
+        try {
+            // TODO: Callback to check for task finished?
+            firestore
+                .collection(COLLECTION_PATH)
+                .add(word)
+        } catch (e: Throwable) {
+            e.printStackTrace()
+            // TODO: Handle e.
+        }
     }
 
 }
