@@ -25,6 +25,14 @@
             android:name="com.example.hindidict.WordFragment"
             android:label="Single word fragment"
             tools:layout="@layout/fragment_word">
+        <action android:id="@+id/action_wordFragment_to_editWordFragment" app:destination="@id/editWordFragment"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/editWordFragment"
+            android:name="com.example.hindidict.EditWordFragment"
+            android:label="Edit word fragment"
+            tools:layout="@layout/fragment_word">
     </fragment>
 
 </navigation>

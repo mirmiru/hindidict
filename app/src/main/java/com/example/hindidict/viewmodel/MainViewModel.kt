@@ -20,12 +20,17 @@ class MainViewModel: ViewModel() {
         val liveData = repository.getWordData(uuid)
 
         // TODO: Cache LiveData to hold it internally
+        
 
         return liveData
     }
 
     fun addWord(word: Word) {
         repository.addNewWord(word)
+    }
+
+    fun editWord(word: Word) {
+        repository.editWord(word)
     }
 
 

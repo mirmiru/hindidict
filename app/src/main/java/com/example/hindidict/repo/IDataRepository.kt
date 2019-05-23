@@ -11,4 +11,6 @@ interface IDataRepository {
     fun getWordData(uuid: String): WordLiveData
 
     fun addNewWord(word: Word)
+
+    fun editWord(word: Word)
 }

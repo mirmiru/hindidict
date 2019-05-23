@@ -23,13 +23,17 @@ class FirestoreRepositoryI: IDataRepository {
     override fun addNewWord(word: Word) {
         try {
             // TODO: Callback to check for task finished?
-            firestore
+            val documentRef = firestore
                 .collection(COLLECTION_PATH)
                 .add(word)
+            val a = documentRef
         } catch (e: Throwable) {
             e.printStackTrace()
             // TODO: Handle e.
         }
     }
 
+    override fun editWord(word: Word) {
+        val ref = firestore.collection(COLLECTION_PATH).document(word.uuid)
+    }
 }

@@ -7,38 +7,70 @@
         android:layout_height="match_parent"
         tools:context=".WordFragment" >
 
-    <TextView
-            android:id="@+id/textView_word_hindi"
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardview_word"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/textView_word_eng"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="16dp"
-            android:textSize="16sp"
-            tools:text="hindiword"/>
-
-    <TextView
-            android:id="@+id/textView_word_eng"
-            android:layout_height="48dp"
-            android:layout_width="0dp"
-            android:inputType="textPersonName"
-            app:layout_constraintTop_toBottomOf="@id/textView_word_hindi"
-            app:layout_constraintStart_toStartOf="@id/textView_word_hindi"
-            app:layout_constraintEnd_toEndOf="@id/textView_word_hindi"
             app:layout_constraintBottom_toTopOf="@id/textView_sentence_hindi"
-            android:textSize="16sp"
-            tools:text="engword"/>
+    >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/textView_word_hindi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/textView_word_eng"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="48sp"
+                    tools:text="hindiword"/>
+
+            <TextView
+                    android:id="@+id/textView_word_eng"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/textView_word_hindi"
+                    app:layout_constraintStart_toStartOf="@id/textView_word_hindi"
+                    android:layout_margin="16sp"
+                    android:textSize="24dp"
+                    tools:text="English; english"/>
+
+            <TextView
+                    android:id="@+id/textView_word_category"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/textView_word_eng"
+                    app:layout_constraintStart_toStartOf="@id/textView_word_eng"
+                    android:layout_margin="16sp"
+                    android:textSize="24dp"
+                    android:textStyle="italic"
+                    tools:text="[ adj. ]"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
 
     <TextView
             android:id="@+id/textView_sentence_hindi"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            app:layout_constraintTop_toBottomOf="@id/textView_word_eng"
+            app:layout_constraintTop_toBottomOf="@id/cardview_word"
             app:layout_constraintBottom_toTopOf="@id/textView_sentence_eng"
-            app:layout_constraintStart_toStartOf="@id/textView_word_eng"
-            app:layout_constraintEnd_toEndOf="@id/textView_word_eng"
+            app:layout_constraintStart_toStartOf="@id/cardview_word"
+            app:layout_constraintEnd_toEndOf="@id/cardview_word"
             android:layout_marginTop="16dp"
             android:textSize="16sp"
             tools:text="hindisent"/>
@@ -53,5 +85,15 @@
             android:layout_marginTop="16dp"
             android:textSize="16sp"
             tools:text="engsent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_navigate_to_edit_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_edit_white_24dp"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

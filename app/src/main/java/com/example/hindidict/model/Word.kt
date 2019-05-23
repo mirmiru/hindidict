@@ -5,6 +5,7 @@ import com.google.firebase.firestore.ServerTimestamp
 
 // Getters and setters are created automatically
 data class Word(
+    val uuid: String = "",
     val definition: Definition? = null,
     val category: String? = "",
     val isDifficult: Boolean = false,
