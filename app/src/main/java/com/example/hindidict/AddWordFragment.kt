@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.hindidict.model.Definition
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.Word
+import com.example.hindidict.viewmodel.ICallback
 import com.example.hindidict.viewmodel.MainViewModel
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldValue
@@ -56,7 +59,17 @@ class AddWordFragment : Fragment() {
                 )
             )
         )
-        mainViewModel.addWord(word)
+        mainViewModel.addWord(word, object : ICallback {
+            override fun onCallback(uuid: String) {
+                if (uuid != null) {
+                    var a = uuid
+
+                    val navController = findNavController()
+                    val action = AddWordFragmentDirections.action_addWordFragment_to_wordFragment2(uuid)
+                    findNavController().navigate(action)
+                }
+            }
+        })
     }
 
 }

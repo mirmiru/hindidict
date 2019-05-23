@@ -2,7 +2,6 @@ package com.example.hindidict
 
 
 import android.os.Bundle
-import android.os.ParcelUuid
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,11 +10,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.example.hindidict.model.Definition
 import com.example.hindidict.model.Word
-import com.example.hindidict.model.WordLiveData
 import com.example.hindidict.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.fragment_edit_word.*
 import kotlinx.android.synthetic.main.fragment_word.*
 
 

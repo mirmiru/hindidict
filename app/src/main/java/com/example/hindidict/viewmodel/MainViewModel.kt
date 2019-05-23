@@ -1,5 +1,6 @@
 package com.example.hindidict.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
@@ -20,18 +21,26 @@ class MainViewModel: ViewModel() {
         val liveData = repository.getWordData(uuid)
 
         // TODO: Cache LiveData to hold it internally
-        
+
 
         return liveData
     }
 
-    fun addWord(word: Word) {
-        repository.addNewWord(word)
+    fun addWord(word: Word, callback: ICallback) {
+        repository.addNewWord(word, callback)
+
+//        repository.addNewWord(word, object: ICallback {
+//            override fun onCallback(uuid: String) {
+//                return uuid
+//            }
+//        })
     }
 
     fun editWord(word: Word) {
         repository.editWord(word)
     }
+}
 
-
+interface ICallback {
+    fun onCallback(uuid: String)
 }

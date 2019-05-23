@@ -1,29 +1,44 @@
 package com.example.hindidict.model
 
+import android.os.Parcelable
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.ServerTimestamp
+import kotlinx.android.parcel.Parcelize
 
 // Getters and setters are created automatically
-data class Word(
+/*data class Word(
     val uuid: String = "",
     val definition: Definition? = null,
     val category: String? = "",
     val isDifficult: Boolean = false,
     val sentences: MutableList<Sentence> = mutableListOf()
-)
+)*/
 
+@Parcelize
+data class Word(
+    var uuid: String = "",
+    val definition: Definition? = null,
+    val category: String? = "",
+    val isDifficult: Boolean = false,
+    val sentences: MutableList<Sentence> = mutableListOf()
+): Parcelable
+
+
+@Parcelize
 data class Definition (
     val eng: String? = "",
     val hindi: String? = ""
-)
+) : Parcelable
 
+@Parcelize
 data class Sentence (
     val contains: MutableList<String> = mutableListOf(),
     val engSentence: String? = "",
     val hindiSentence: String? = "",
     @ServerTimestamp val dateCreated: Timestamp? = null
     //val dateCreated: String? = 0
-)
+) : Parcelable
 
 // Data classes enable Destructuring declarations, i.e.
 /*

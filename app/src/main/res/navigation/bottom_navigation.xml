@@ -18,6 +18,14 @@
             android:name="com.example.hindidict.AddWordFragment"
             android:label="Add word fragment"
             tools:layout="@layout/fragment_add_word">
+        <action
+                android:id="@+id/action_addWordFragment_to_wordFragment2"
+                app:destination="@id/wordFragment" >
+            <argument
+                    android:name="word_id"
+                    app:argType="string"
+                    android:defaultValue="null"/>
+        </action>
     </fragment>
 
     <fragment
@@ -25,7 +33,13 @@
             android:name="com.example.hindidict.WordFragment"
             android:label="Single word fragment"
             tools:layout="@layout/fragment_word">
-        <action android:id="@+id/action_wordFragment_to_editWordFragment" app:destination="@id/editWordFragment"/>
+        <action
+                android:id="@+id/action_wordFragment_to_editWordFragment"
+                app:destination="@id/editWordFragment" />
+        <argument android:name="word_id"
+                  app:argType="string"
+                  app:nullable="true"
+        />
     </fragment>
 
     <fragment
@@ -33,6 +47,10 @@
             android:name="com.example.hindidict.EditWordFragment"
             android:label="Edit word fragment"
             tools:layout="@layout/fragment_word">
+        <argument
+                android:name="word_id"
+                app:argType="string"
+                android:defaultValue="null"/>
     </fragment>
 
 </navigation>
