@@ -2,11 +2,9 @@ package com.example.hindidict
 
 
 import android.os.Bundle
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -18,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_word.*
 
 // Firestore is not present here - view separate from repo
 class WordFragment : Fragment() {
+    // TODO Move WORD_ID to mainviewmodel
     lateinit var WORD_ID: String
     lateinit var mainViewModel: MainViewModel
     lateinit var liveData: WordLiveData
@@ -29,6 +28,11 @@ class WordFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_word, container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         loadArguments()
 
@@ -37,14 +41,34 @@ class WordFragment : Fragment() {
 
             observeWord(mainViewModel)
 
-            val navController = findNavController()
-            Navigation.setViewNavController(fab_navigate_to_edit_word, navController)
-            fab_navigate_to_edit_word.setOnClickListener {
-                val actionDetail = WordFragmentDirections.action_wordFragment_to_editWordFragment()
-                actionDetail.setWord_id(WORD_ID)
-                findNavController().navigate(actionDetail)
-            }
+//            val navController = findNavController()
+//            Navigation.setViewNavController(fab_navigate_to_edit_word, navController)
+//            fab_navigate_to_edit_word.setOnClickListener {
+//                val actionDetail = WordFragmentDirections.action_wordFragment_to_editWordFragment()
+//                actionDetail.setWord_id(WORD_ID)
+//                findNavController().navigate(actionDetail)
+//            }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_edit -> {
+//            val navController = findNavController()
+//            Navigation.setViewNavController(fab_navigate_to_edit_word, navController)
+            val actionDetail = WordFragmentDirections.action_wordFragment_to_editWordFragment()
+            actionDetail.setWord_id(WORD_ID)
+            findNavController().navigate(actionDetail)
+
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.action_menu_edit, menu)
+//        super.onCreateOptionsMenu(menu, inflater)
     }
 
     private fun loadArguments() {
