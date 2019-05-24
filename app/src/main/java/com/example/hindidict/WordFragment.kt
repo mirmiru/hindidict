@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.fragment_word.*
 class WordFragment : Fragment() {
     lateinit var WORD_ID: String
     lateinit var mainViewModel: MainViewModel
-//    lateinit var currentWord: Word
     lateinit var liveData: WordLiveData
 
     override fun onCreateView(
@@ -68,13 +67,10 @@ class WordFragment : Fragment() {
                         textView_sentence_eng.text = it.engSentence
 
                         // TODO Use for ordering sentences NEW -> OLD?
-                        val date = it.dateCreated?.toDate()
+//                        val date = it.dateCreated?.toDate()
                     }
                 }
             }
-//            currentWord = word
         })
     }
-
-
 }

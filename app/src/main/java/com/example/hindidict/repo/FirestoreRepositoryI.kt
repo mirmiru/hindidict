@@ -4,6 +4,7 @@ import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
 import com.example.hindidict.viewmodel.ICallback
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 
 /*
 Manages the database
@@ -44,7 +45,7 @@ class FirestoreRepositoryI: IDataRepository {
     override fun updateWord(word: Word, callback: ICallback) {
         val documentRef = firestore.collection(COLLECTION_PATH).document(word.uuid)
         documentRef
-            .set(word)
+            .set(word, SetOptions.merge())
             .addOnCompleteListener { task ->
                 if (task.isSuccessful)
                     callback.onCallback(word.uuid)

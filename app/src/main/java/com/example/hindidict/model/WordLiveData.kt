@@ -24,6 +24,7 @@ class WordLiveData(
     override fun onEvent(snap: DocumentSnapshot?, e: FirebaseFirestoreException?) {
         if (snap != null && snap.exists()) {
             val model = snap.toObject(Word::class.java)
+            val a = model
 
             // Send object to observers
             super.setValue(model)

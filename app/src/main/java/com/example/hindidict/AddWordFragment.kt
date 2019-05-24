@@ -52,16 +52,15 @@ class AddWordFragment : Fragment() {
                 Sentence(
                     contains = mutableListOf(editText_word_hindi.text.toString()),
                     engSentence = editText_sentence_eng.text.toString(),
-                    hindiSentence = editText_sentence_hindi.text.toString(),
-                    dateCreated = Timestamp(Date())
+                    hindiSentence = editText_sentence_hindi.text.toString()
+//                    dateCreated = Timestamp(Date())
                 )
             )
         )
         mainViewModel.addWord(word, object : ICallback {
             override fun onCallback(uuid: String) {
                 if (uuid != null) {
-                    val actionDetail = AddWordFragmentDirections.action_addWordFragment_to_wordFragment2()
-                    actionDetail.setWord_id(uuid)
+                    val actionDetail = AddWordFragmentDirections.action_addWordFragment_to_wordFragment2(uuid)
                     findNavController().navigate(actionDetail)
                 }
             }

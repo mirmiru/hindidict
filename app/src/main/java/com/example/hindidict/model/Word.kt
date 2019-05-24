@@ -35,9 +35,8 @@ data class Definition (
 data class Sentence (
     val contains: MutableList<String> = mutableListOf(),
     val engSentence: String? = "",
-    val hindiSentence: String? = "",
-    @ServerTimestamp val dateCreated: Timestamp? = null
-    //val dateCreated: String? = 0
+    val hindiSentence: String? = ""
+//    @ServerTimestamp val dateCreated: Timestamp? = null
 ) : Parcelable
 
 // Data classes enable Destructuring declarations, i.e.

@@ -21,36 +21,42 @@
         <action
                 android:id="@+id/action_addWordFragment_to_wordFragment2"
                 app:destination="@id/wordFragment" >
-            <argument
-                    android:name="word_id"
-                    app:argType="string"
-                    android:defaultValue="null"/>
+            <!--<argument-->
+                    <!--android:name="word_id"-->
+                    <!--app:argType="string"-->
+                    <!--android:defaultValue="null" />-->
         </action>
+        <argument
+            android:name="word_id"
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
 
     <fragment
-            android:id="@+id/wordFragment"
-            android:name="com.example.hindidict.WordFragment"
-            android:label="Single word fragment"
-            tools:layout="@layout/fragment_word">
+        android:id="@+id/wordFragment"
+        android:name="com.example.hindidict.WordFragment"
+        android:label="Single word fragment"
+        tools:layout="@layout/fragment_word">
         <action
                 android:id="@+id/action_wordFragment_to_editWordFragment"
                 app:destination="@id/editWordFragment" />
         <argument android:name="word_id"
                   app:argType="string"
-                  app:nullable="true"
-        />
+                  app:nullable="true" />
     </fragment>
 
     <fragment
-            android:id="@+id/editWordFragment"
-            android:name="com.example.hindidict.EditWordFragment"
-            android:label="Edit word fragment"
-            tools:layout="@layout/fragment_word">
+        android:id="@+id/editWordFragment"
+        android:name="com.example.hindidict.EditWordFragment"
+        android:label="Edit word fragment"
+        tools:layout="@layout/fragment_word" >
         <argument
                 android:name="word_id"
                 app:argType="string"
-                android:defaultValue="null"/>
+                android:defaultValue="null" />
+        <action
+                android:id="@+id/action_editWordFragment_to_wordFragment"
+                app:destination="@id/wordFragment" />
     </fragment>
 
 </navigation>

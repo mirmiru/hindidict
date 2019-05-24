@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_edit_word.*
 
 class EditWordFragment : DialogFragment () {
 
-    lateinit var uneditedWord: Word
     lateinit var WORD_ID: String
     lateinit var mainViewModel: MainViewModel
 
@@ -41,7 +40,8 @@ class EditWordFragment : DialogFragment () {
             mainViewModel.updateWord(updatedWord, object: ICallback {
                 override fun onCallback(uuid: String) {
                     if (uuid != null) {
-                        // TODO Navigate from Edit -> Word fragment, send uuid as arg
+                        val actionDetail = EditWordFragmentDirections.action_editWordFragment_to_wordFragment(uuid)
+                        findNavController().navigate(actionDetail)
                     }
                 }
             })
@@ -61,7 +61,7 @@ class EditWordFragment : DialogFragment () {
         val word = Word(
             uuid = WORD_ID,
             definition = Definition(
-                eng = editText_edit_sentence_eng.text.toString(),
+                eng = editText_edit_word_eng.text.toString(),
                 hindi = editText_edit_word_hindi.text.toString()
             ),
             sentences = mutableListOf(
