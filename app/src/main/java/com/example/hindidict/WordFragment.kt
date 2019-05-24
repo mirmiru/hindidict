@@ -41,7 +41,10 @@ class WordFragment : Fragment() {
             val navController = findNavController()
             Navigation.setViewNavController(fab_navigate_to_edit_word, navController)
             fab_navigate_to_edit_word.setOnClickListener {
-                navController.navigate(R.id.editWordFragment)
+                val actionDetail = WordFragmentDirections.action_wordFragment_to_editWordFragment()
+                actionDetail.setWord_id(WORD_ID)
+                findNavController().navigate(actionDetail)
+//                navController.navigate(R.id.editWordFragment)
             }
         }
     }
