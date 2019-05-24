@@ -11,15 +11,17 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.hindidict.model.Word
+import com.example.hindidict.model.WordLiveData
 import com.example.hindidict.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_word.*
 
 
 // Firestore is not present here - view separate from repo
 class WordFragment : Fragment() {
-    private val TEST_DOC_ID = "K9AJxbyJTlBhAnwABRwD"
+    lateinit var WORD_ID: String
     lateinit var mainViewModel: MainViewModel
-    lateinit var currentWord: Word
+//    lateinit var currentWord: Word
+    lateinit var liveData: WordLiveData
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +31,8 @@ class WordFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        loadArguments()
+
         activity?.let {
             mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
 
@@ -42,8 +46,15 @@ class WordFragment : Fragment() {
         }
     }
 
+    private fun loadArguments() {
+        arguments?.let {
+            val safeArgs = WordFragmentArgs.fromBundle(it)
+            WORD_ID = safeArgs.word_id
+        }
+    }
+
     private fun observeWord(mainViewModel: MainViewModel) {
-        val liveData = mainViewModel.getWordLiveData(TEST_DOC_ID)
+        liveData = mainViewModel.getWordLiveData(WORD_ID)
 
         liveData.observe(this, Observer<Word> { word ->
             if (word != null) {
@@ -59,7 +70,7 @@ class WordFragment : Fragment() {
                     }
                 }
             }
-            currentWord = word
+//            currentWord = word
         })
     }
 
