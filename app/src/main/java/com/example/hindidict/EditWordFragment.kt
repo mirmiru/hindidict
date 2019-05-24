@@ -12,7 +12,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.hindidict.model.Definition
+import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.Word
+import com.example.hindidict.viewmodel.ICallback
 import com.example.hindidict.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_edit_word.*
@@ -33,6 +35,17 @@ class EditWordFragment : DialogFragment () {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         loadArguments()
+
+        fab_update_word.setOnClickListener {
+            val updatedWord = createWord()
+            mainViewModel.updateWord(updatedWord, object: ICallback {
+                override fun onCallback(uuid: String) {
+                    if (uuid != null) {
+                        // TODO Navigate from Edit -> Word fragment, send uuid as arg
+                    }
+                }
+            })
+        }
     }
 
     private fun loadArguments() {
@@ -42,6 +55,26 @@ class EditWordFragment : DialogFragment () {
 
             fillViews(WORD_ID)
         }
+    }
+
+    private fun createWord(): Word {
+        val word = Word(
+            uuid = WORD_ID,
+            definition = Definition(
+                eng = editText_edit_sentence_eng.text.toString(),
+                hindi = editText_edit_word_hindi.text.toString()
+            ),
+            sentences = mutableListOf(
+                Sentence(
+                    contains = mutableListOf(editText_edit_word_hindi.text.toString()),
+                    hindiSentence = editText_edit_sentence_hindi.text.toString(),
+                    engSentence = editText_edit_sentence_eng.text.toString()
+                )
+            ),
+            category = "nullForNow",
+            isDifficult = false
+        )
+        return word
     }
 
     // TODO Do not use livedata when editing word

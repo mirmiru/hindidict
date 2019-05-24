@@ -41,7 +41,16 @@ class FirestoreRepositoryI: IDataRepository {
         }
     }
 
-    override fun editWord(word: Word) {
-        val ref = firestore.collection(COLLECTION_PATH).document(word.uuid)
+    override fun updateWord(word: Word, callback: ICallback) {
+        val documentRef = firestore.collection(COLLECTION_PATH).document(word.uuid)
+        documentRef
+            .set(word)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful)
+                    callback.onCallback(word.uuid)
+            }
+            .addOnFailureListener {
+                // TODO Notify of failed update
+            }
     }
 }

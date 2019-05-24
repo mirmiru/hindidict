@@ -22,22 +22,15 @@ class MainViewModel: ViewModel() {
 
         // TODO: Cache LiveData to hold it internally
 
-
         return liveData
     }
 
     fun addWord(word: Word, callback: ICallback) {
         repository.addNewWord(word, callback)
-
-//        repository.addNewWord(word, object: ICallback {
-//            override fun onCallback(uuid: String) {
-//                return uuid
-//            }
-//        })
     }
 
-    fun editWord(word: Word) {
-        repository.editWord(word)
+    fun updateWord(word: Word, callback: ICallback) {
+        repository.updateWord(word, callback)
     }
 }
 

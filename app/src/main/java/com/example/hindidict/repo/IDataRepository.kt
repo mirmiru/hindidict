@@ -13,5 +13,5 @@ interface IDataRepository {
 
     fun addNewWord(word: Word, callback: ICallback)
 
-    fun editWord(word: Word)
+    fun updateWord(word: Word, callback: ICallback)
 }
