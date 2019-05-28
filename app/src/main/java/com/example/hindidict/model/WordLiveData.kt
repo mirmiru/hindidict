@@ -1,6 +1,7 @@
 package com.example.hindidict.model
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.*
 
 class WordLiveData(
@@ -24,18 +25,43 @@ class WordLiveData(
     override fun onEvent(snap: DocumentSnapshot?, e: FirebaseFirestoreException?) {
         if (snap != null && snap.exists()) {
             val model = snap.toObject(Word::class.java)
-            val a = model
 
             // Send object to observers
             super.setValue(model)
 
         } else if (e != null) {
-            // TODO Handle exception somehow
+           e.stackTrace
         }
+    }
+}
 
+class SentenceLiveData(
+    private val documentRef: DocumentReference
+): LiveData<List<Sentence>>(), EventListener<DocumentSnapshot> {
+    private var listenerRegistration: ListenerRegistration? = null
 
+    override fun onActive() {
+        listenerRegistration = documentRef.addSnapshotListener(this)
     }
 
+    override fun onInactive() {
+        listenerRegistration!!.remove()
+    }
+
+    override fun onEvent(snap: DocumentSnapshot?, e: FirebaseFirestoreException?) {
+        if (snap != null && snap.exists()) {
+            // Snap is returning entire Word - how to get sentences?
+            val a = snap.get("sentences")
+
+
+
+//                super.setValue(map)
+//            val model = a.toObject(Sentence::class.java)
+//            val list = listOf<Sentence>(a)
+        } else if (e != null) {
+            e.stackTrace
+        }
+    }
 
 
 }

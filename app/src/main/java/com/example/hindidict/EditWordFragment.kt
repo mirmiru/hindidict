@@ -64,20 +64,16 @@ class EditWordFragment : DialogFragment () {
                 eng = editText_edit_word_eng.text.toString(),
                 hindi = editText_edit_word_hindi.text.toString()
             ),
-            sentences = mutableListOf(
-                Sentence(
-                    contains = mutableListOf(editText_edit_word_hindi.text.toString()),
-                    hindiSentence = editText_edit_sentence_hindi.text.toString(),
-                    engSentence = editText_edit_sentence_eng.text.toString()
-                )
-            ),
+//            sentence = Sentence(
+//                        hindiSentence = editText_edit_sentence_hindi.text.toString(),
+//                        engSentence = editText_edit_sentence_eng.text.toString()
+//            ),
             category = "nullForNow",
             isDifficult = false
         )
         return word
     }
 
-    // TODO Do not use livedata when editing word
     private fun fillViews(uuid: String) {
         val liveData = mainViewModel.getWordLiveData(uuid)
         liveData.observe(this, Observer<Word> { word ->
@@ -89,13 +85,11 @@ class EditWordFragment : DialogFragment () {
                     )
                     editText_edit_word_hindi.setText(def.hindi)
                     editText_edit_word_eng.setText(def.eng)
-
-                    editText_edit_sentence_hindi.setText(it.sentences[0].hindiSentence)
-                    editText_edit_sentence_eng.setText(it.sentences[0].engSentence)
-
                     // TODO Category spinner
                 }
             }
         })
     }
+
+    // TODO Edit for sentences
 }
