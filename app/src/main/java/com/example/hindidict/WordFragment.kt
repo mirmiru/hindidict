@@ -1,8 +1,8 @@
 package com.example.hindidict
 
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hindidict.model.Sentence
-import com.example.hindidict.model.SentenceTest
 import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
 import com.example.hindidict.viewmodel.MainViewModel
@@ -20,7 +19,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.SnapshotParser
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_word.*
 import kotlinx.android.synthetic.main.sentence.view.*
 
@@ -47,15 +45,28 @@ class WordFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        getSentences()
+        adapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        adapter.stopListening()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         loadArguments()
+        setUpRecyclerView()
 
         activity?.let {
             mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
             observeWord(mainViewModel)
+        }
+
+        button_add_sentence_to_word.setOnClickListener {
+            //Open dialog
+            AlertDialog.Builder(this.context)
+                .setView(R.layout.fragment_add_sentence)
+                .create()
         }
     }
 
@@ -76,7 +87,7 @@ class WordFragment : Fragment() {
         inflater.inflate(R.menu.action_menu_edit, menu)
     }
 
-    private fun getSentences() {
+    private fun setUpRecyclerView() {
         val query = FirebaseFirestore.getInstance()
             .collection("sentences")
             .whereEqualTo("containsWord", WORD_ID)
@@ -103,6 +114,7 @@ class WordFragment : Fragment() {
         arguments?.let {
             val safeArgs = WordFragmentArgs.fromBundle(it)
             WORD_ID = safeArgs.word_id
+//            WORD_ID = safeArgs.word_id
         }
     }
 

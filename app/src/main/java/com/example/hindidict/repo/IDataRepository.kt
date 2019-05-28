@@ -1,12 +1,11 @@
 package com.example.hindidict.repo
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.example.hindidict.helper.ICallback
+import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Sentence
-import com.example.hindidict.model.SentenceLiveData
 import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
-import com.example.hindidict.viewmodel.ICallback
 
 /*
 Has knowledge of where the data comes from
@@ -19,7 +18,7 @@ interface IDataRepository {
 
     fun addSentence(sentence: Sentence, callback: ICallback)
 
-    fun updateWord(word: Word, callback: ICallback)
+    fun addSentenceToWord(sentence: Sentence, callback: IEmptyCallback)
 
-    fun getSentences(uuid: String): LiveData<List<Sentence>>
+    fun updateWord(word: Word, callback: ICallback)
 }

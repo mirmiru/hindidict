@@ -105,12 +105,24 @@
                 android:text="Sentences"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
+        <ImageButton
+                android:id="@+id/button_add_sentence_to_word"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="Add sentence"
+                android:background="@drawable/ic_add_circle_black_24dp"
+                app:layout_constraintTop_toTopOf="@id/word_title_sentences"
+                app:layout_constraintBottom_toBottomOf="@id/word_title_sentences"
+                app:layout_constraintEnd_toStartOf="@id/switch_word_sentences_visibility"
+        />
+
         <Switch
             android:id="@+id/switch_word_sentences_visibility"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/word_title_sentences"
             app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="invisible"
             android:checked="true" />
 
         <androidx.recyclerview.widget.RecyclerView
