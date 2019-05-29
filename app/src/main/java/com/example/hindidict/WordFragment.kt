@@ -4,12 +4,14 @@ package com.example.hindidict
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hindidict.model.Sentence
@@ -109,13 +111,26 @@ class WordFragment : Fragment() {
 
         adapter!!.startListening()
         adapter.notifyDataSetChanged()
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                adapter.deleteSentence(viewHolder.adapterPosition)
+            }
+        }).attachToRecyclerView(recyclerView_sentences_word)
     }
 
     private fun loadArguments() {
         arguments?.let {
             val safeArgs = WordFragmentArgs.fromBundle(it)
             WORD_ID = safeArgs.word_id
-//            WORD_ID = safeArgs.word_id
         }
     }
 
@@ -152,6 +167,9 @@ class WordFragment : Fragment() {
             return SentenceHolder(view)
         }
 
+        fun deleteSentence(position: Int) {
+            snapshots.getSnapshot(position).reference.delete()
+        }
     }
 
 }
