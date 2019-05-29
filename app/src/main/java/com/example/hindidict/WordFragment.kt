@@ -1,14 +1,11 @@
 package com.example.hindidict
 
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -30,7 +27,6 @@ import kotlinx.android.synthetic.main.sentence.view.*
 
 // Firestore is not present here - view separate from repo
 class WordFragment : Fragment() {
-    // TODO Move WORD_ID to mainviewmodel
     lateinit var WORD_ID: String
     lateinit var mainViewModel: MainViewModel
     lateinit var liveData: WordLiveData
@@ -98,7 +94,6 @@ class WordFragment : Fragment() {
         val options = FirestoreRecyclerOptions.Builder<Sentence>()
             .setQuery(query, object: SnapshotParser<Sentence> {
                 override fun parseSnapshot(snapshot: DocumentSnapshot): Sentence {
-                    val a = snapshot.data
                     return snapshot.toObject(Sentence::class.java)!!
                 }
             })
@@ -146,18 +141,24 @@ class WordFragment : Fragment() {
         })
     }
 
-    inner class SentenceHolder internal constructor(
-        private val containerView: View
-    ): RecyclerView.ViewHolder(containerView) {
-        internal fun getData(s: Sentence) {
-            containerView.textView_list_sentence_hindi.text = s.hindiSentence
-            containerView.textView_list_sentence_eng.text = s.engSentence
+    inner class SentenceHolder internal constructor(private val containerView: View): RecyclerView.ViewHolder(containerView) {
+
+        internal fun getData(sentence: Sentence) {
+            containerView.textView_list_sentence_hindi.text = sentence.hindiSentence
+            containerView.textView_list_sentence_eng.text = sentence.engSentence
+
+            containerView.setOnClickListener {
+                val actionDetail = action_wordFragment_to_editSentenceFragment(sentence.sentenceId)
+                findNavController().navigate(actionDetail)
+            }
         }
     }
 
-    inner class FirestoreSentenceRecyclerAdapter internal constructor(
-        options: FirestoreRecyclerOptions<Sentence>)
-        : FirestoreRecyclerAdapter<Sentence, SentenceHolder>(options) {
+//    inner class FirestoreSentenceRecyclerAdapter internal constructor(
+//        options: FirestoreRecyclerOptions<Sentence>)
+//        : FirestoreRecyclerAdapter<Sentence, SentenceHolder>(options) {
+    inner class FirestoreSentenceRecyclerAdapter(options: FirestoreRecyclerOptions<Sentence>)
+            : FirestoreRecyclerAdapter<Sentence, SentenceHolder>(options) {
         override fun onBindViewHolder(holder: SentenceHolder, position: Int, sentence: Sentence) {
             holder.getData(sentence)
         }

@@ -28,6 +28,11 @@ class MainViewModel: ViewModel() {
         return liveData
     }
 
+    fun getSentence(uuid: String): SentenceLiveData {
+        val sentenceLiveData = repository.getSentence(uuid)
+        return sentenceLiveData
+    }
+
     fun addWord(word: Word, callback: ICallback) {
         repository.addNewWord(word, callback)
     }
@@ -42,6 +47,10 @@ class MainViewModel: ViewModel() {
 
     fun updateWord(word: Word, callback: ICallback) {
         repository.updateWord(word, callback)
+    }
+
+    fun updateSentence(sentence: Sentence, callback: IEmptyCallback) {
+        repository.updateSentence(sentence, callback)
     }
 
 }

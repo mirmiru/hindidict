@@ -43,6 +43,9 @@
         <action
                 android:id="@+id/action_wordFragment_to_addSentenceFragment"
                 app:destination="@id/addSentenceFragment"/>
+        <action android:id="@+id/action_wordFragment_to_editSentenceFragment"
+                app:destination="@id/editSentenceFragment">
+        </action>
     </fragment>
 
     <fragment
@@ -67,9 +70,19 @@
 
         <argument
                 android:name="word_id"
-                app:argType="string"
-        />
+                app:argType="string" />
+    </fragment>
 
+    <fragment
+            android:id="@+id/editSentenceFragment"
+            android:name="com.example.hindidict.EditSentenceFragment"
+            android:label="Edit sentence"
+            tools:layout="@layout/fragment_edit_sentence" >
+        <argument
+                android:name="sentence_id"
+                app:argType="string"/>
+        <action android:id="@+id/action_editSentenceFragment_to_wordFragment" app:destination="@id/wordFragment"
+                app:popUpTo="@+id/wordFragment"/>
     </fragment>
 
 </navigation>

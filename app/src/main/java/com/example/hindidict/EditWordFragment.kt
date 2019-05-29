@@ -36,8 +36,9 @@ class EditWordFragment : DialogFragment () {
             mainViewModel.updateWord(updatedWord, object: ICallback {
                 override fun onCallback(uuid: String) {
                     if (uuid != null) {
-                        val actionDetail = EditWordFragmentDirections.action_editWordFragment_to_wordFragment(uuid)
-                        findNavController().navigate(actionDetail)
+                        findNavController().popBackStack()
+//                        val actionDetail = EditWordFragmentDirections.action_editWordFragment_to_wordFragment(uuid)
+//                        findNavController().navigate(actionDetail)
                     }
                 }
             })
@@ -82,6 +83,4 @@ class EditWordFragment : DialogFragment () {
             }
         })
     }
-
-    // TODO Edit for sentences
 }

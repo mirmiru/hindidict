@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.hindidict.helper.ICallback
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Sentence
+import com.example.hindidict.model.SentenceLiveData
 import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
 
@@ -14,6 +15,8 @@ interface IDataRepository {
 
     fun getWordData(uuid: String): WordLiveData
 
+    fun getSentence(uuid: String): SentenceLiveData
+
     fun addNewWord(word: Word, callback: ICallback)
 
     fun addSentence(sentence: Sentence, callback: ICallback)
@@ -21,4 +24,6 @@ interface IDataRepository {
     fun addSentenceToWord(sentence: Sentence, callback: IEmptyCallback)
 
     fun updateWord(word: Word, callback: ICallback)
+
+    fun updateSentence(sentence: Sentence, callback: IEmptyCallback)
 }

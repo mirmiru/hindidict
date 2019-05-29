@@ -25,10 +25,8 @@ class WordLiveData(
     override fun onEvent(snap: DocumentSnapshot?, e: FirebaseFirestoreException?) {
         if (snap != null && snap.exists()) {
             val model = snap.toObject(Word::class.java)
-
             // Send object to observers
             super.setValue(model)
-
         } else if (e != null) {
            e.stackTrace
         }
@@ -37,7 +35,7 @@ class WordLiveData(
 
 class SentenceLiveData(
     private val documentRef: DocumentReference
-): LiveData<List<Sentence>>(), EventListener<DocumentSnapshot> {
+): LiveData<Sentence>(), EventListener<DocumentSnapshot> {
     private var listenerRegistration: ListenerRegistration? = null
 
     override fun onActive() {
@@ -50,18 +48,10 @@ class SentenceLiveData(
 
     override fun onEvent(snap: DocumentSnapshot?, e: FirebaseFirestoreException?) {
         if (snap != null && snap.exists()) {
-            // Snap is returning entire Word - how to get sentences?
-            val a = snap.get("sentences")
-
-
-
-//                super.setValue(map)
-//            val model = a.toObject(Sentence::class.java)
-//            val list = listOf<Sentence>(a)
+            val model = snap.toObject(Sentence::class.java)
+            super.setValue(model)
         } else if (e != null) {
             e.stackTrace
         }
     }
-
-
 }

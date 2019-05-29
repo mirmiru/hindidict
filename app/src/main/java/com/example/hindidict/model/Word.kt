@@ -6,8 +6,6 @@ import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.ServerTimestamp
 import kotlinx.android.parcel.Parcelize
 
-// Getters and setters are created automatically
-
 @Parcelize
 data class Word(
     var uuid: String = "",
@@ -20,19 +18,6 @@ data class Word(
 data class Definition (
     val eng: String? = "",
     val hindi: String? = ""
-) : Parcelable
-
-@Parcelize
-data class Sentence (
-    val sentenceId: String = "",
-    val containsWord: String = "",
-    val engSentence: String = "",
-    val hindiSentence: String = ""
-) : Parcelable
-
-@Parcelize
-data class SentenceTest (
-    val hashMap: HashMap<String, String>
 ) : Parcelable
 
 // Data classes enable Destructuring declarations, i.e.

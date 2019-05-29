@@ -3,6 +3,7 @@ package com.example.hindidict.repo
 import com.example.hindidict.helper.ICallback
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Sentence
+import com.example.hindidict.model.SentenceLiveData
 import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,7 +20,6 @@ class FirestoreRepository: IDataRepository {
 
     override fun getWordData(uuid: String): WordLiveData {
         val ref = firestore.collection(COLLECTION_PATH).document(uuid)
-
         return WordLiveData(ref)
     }
 
@@ -60,6 +60,11 @@ class FirestoreRepository: IDataRepository {
             }
     }
 
+    override fun getSentence(uuid: String): SentenceLiveData {
+        val documentRef = firestore.collection(COLLECTION_SENTENCES).document(uuid)
+        return SentenceLiveData(documentRef)
+    }
+
     override fun addSentenceToWord(sentence: Sentence, callback: IEmptyCallback) {
         val documentRef = firestore.collection(COLLECTION_SENTENCES).document()
         val sentenceId = documentRef.id
@@ -88,6 +93,20 @@ class FirestoreRepository: IDataRepository {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful)
                     callback.onCallback(word.uuid)
+            }
+            .addOnFailureListener { e ->
+                e.stackTrace
+            }
+    }
+
+    override fun updateSentence(sentence: Sentence, callback: IEmptyCallback) {
+        val s = sentence
+        val documentRef = firestore.collection(COLLECTION_SENTENCES).document(sentence.sentenceId)
+        documentRef
+            .set(sentence, SetOptions.merge())
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful)
+                    callback.onCallback()
             }
             .addOnFailureListener { e ->
                 e.stackTrace
