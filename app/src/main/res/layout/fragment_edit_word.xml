@@ -40,32 +40,6 @@
             app:layout_constraintStart_toStartOf="@id/editText_edit_word_eng"
             android:layout_marginTop="16dp" />
 
-    <EditText
-            android:id="@+id/editText_edit_sentence_hindi"
-            android:hint="Hindi sentence"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:inputType="textMultiLine"
-            app:layout_constraintTop_toBottomOf="@id/spinner_edit_word_category"
-            app:layout_constraintBottom_toTopOf="@id/editText_edit_sentence_eng"
-            app:layout_constraintStart_toStartOf="@id/editText_edit_word_eng"
-            app:layout_constraintEnd_toEndOf="@id/editText_edit_word_eng"
-            android:layout_marginTop="16dp"
-
-    />
-
-    <EditText
-            android:id="@+id/editText_edit_sentence_eng"
-            android:hint="English sentence"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:inputType="textMultiLine"
-            app:layout_constraintTop_toBottomOf="@id/editText_edit_sentence_hindi"
-            app:layout_constraintStart_toStartOf="@id/editText_edit_sentence_hindi"
-            app:layout_constraintEnd_toEndOf="@id/editText_edit_sentence_hindi"
-            android:layout_marginTop="16dp"
-    />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_update_word"
             android:layout_width="wrap_content"

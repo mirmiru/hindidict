@@ -89,8 +89,8 @@ class FirestoreRepository: IDataRepository {
                 if (task.isSuccessful)
                     callback.onCallback(word.uuid)
             }
-            .addOnFailureListener {
-                // TODO Notify of failed update
+            .addOnFailureListener { e ->
+                e.stackTrace
             }
     }
 
