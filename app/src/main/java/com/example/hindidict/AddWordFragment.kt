@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_add_word.*
 class AddWordFragment : Fragment() {
 
     lateinit var mainViewModel: MainViewModel
-    lateinit var sentenceId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +43,7 @@ class AddWordFragment : Fragment() {
                 eng = editText_word_eng.text.toString(),
                 hindi = editText_word_hindi.text.toString()
             ),
-            isDifficult = false,
-            sentencesLocation = ""
+            isDifficult = false
         )
 
         mainViewModel.addWord(word, object : ICallback {

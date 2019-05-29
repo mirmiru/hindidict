@@ -1,44 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   tools:context=".AddSentenceFragment" android:id="@+id/linearLayout">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AddSentenceFragment" android:id="@+id/linearLayout">
 
-    <!-- TODO: Update blank fragment layout -->
     <EditText
-            android:id="@+id/textView_add_sentence_hindi"
+            android:id="@+id/editText_add_sentence_hindi"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="HINDI"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="16dp"
-    />
+            android:layout_margin="16dp" />
 
     <EditText
-            android:id="@+id/textView_add_sentence_eng"
+            android:id="@+id/editText_add_sentence_eng"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="ENGLISH"
-            app:layout_constraintTop_toBottomOf="@id/textView_add_sentence_hindi"
-            app:layout_constraintStart_toStartOf="@id/textView_add_sentence_hindi"
-            app:layout_constraintEnd_toEndOf="@id/textView_add_sentence_hindi"
-    />
+            app:layout_constraintTop_toBottomOf="@id/editText_add_sentence_hindi"
+            app:layout_constraintStart_toStartOf="@id/editText_add_sentence_hindi"
+            app:layout_constraintEnd_toEndOf="@id/editText_add_sentence_hindi" />
 
     <Button
             android:id="@+id/button_dialog_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
-            app:layout_constraintTop_toBottomOf="@id/textView_add_sentence_eng"
+            app:layout_constraintTop_toBottomOf="@id/editText_add_sentence_eng"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/button_dialog_add"
             android:layout_margin="16dp"
-            app:layout_constraintHorizontal_chainStyle="spread"
-    />
+            app:layout_constraintHorizontal_chainStyle="spread" />
 
     <Button
             android:id="@+id/button_dialog_add"
@@ -48,7 +45,6 @@
             app:layout_constraintTop_toTopOf="@id/button_dialog_cancel"
             app:layout_constraintStart_toEndOf="@id/button_dialog_cancel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread"
-    />
+            app:layout_constraintHorizontal_chainStyle="spread" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

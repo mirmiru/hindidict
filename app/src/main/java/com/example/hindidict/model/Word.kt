@@ -13,9 +13,7 @@ data class Word(
     var uuid: String = "",
     val definition: Definition? = null,
     val category: String? = "",
-    val isDifficult: Boolean = false,
-//    val sentences: List<Sentence>? = null,
-    var sentencesLocation: String? = ""
+    val isDifficult: Boolean = false
 ): Parcelable
 
 @Parcelize

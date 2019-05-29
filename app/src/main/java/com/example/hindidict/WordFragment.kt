@@ -7,6 +7,8 @@ import android.view.*
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,7 @@ import com.example.hindidict.viewmodel.MainViewModel
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.SnapshotParser
+import com.example.hindidict.WordFragmentDirections.*
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_word.*
@@ -63,16 +66,14 @@ class WordFragment : Fragment() {
         }
 
         button_add_sentence_to_word.setOnClickListener {
-            //Open dialog
-            AlertDialog.Builder(this.context)
-                .setView(R.layout.fragment_add_sentence)
-                .create()
+            val navDirections = action_wordFragment_to_addSentenceFragment(WORD_ID)
+            it.findNavController().navigate(navDirections)
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_edit -> {
-            val actionDetail = WordFragmentDirections.action_wordFragment_to_editWordFragment()
+            val actionDetail = action_wordFragment_to_editWordFragment()
             actionDetail.setWord_id(WORD_ID)
             findNavController().navigate(actionDetail)
 

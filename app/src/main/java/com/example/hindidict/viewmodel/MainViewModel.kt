@@ -20,7 +20,6 @@ Implement a ViewModel that yields a LiveData
 class MainViewModel: ViewModel() {
 
     private var repository: FirestoreRepository = FirestoreRepository()
-//    lateinit var WORD_ID: LiveData<String>
 
     fun getWordLiveData(uuid: String): WordLiveData {
         val liveData = repository.getWordData(uuid)

@@ -32,7 +32,6 @@ class FirestoreRepository: IDataRepository {
                 .set(word)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful)
-                        // Callback in order to move from AddWord -> Word fragment
                         callback.onCallback(word.uuid)
                 }
                 .addOnFailureListener {
@@ -72,7 +71,14 @@ class FirestoreRepository: IDataRepository {
                 this.put("engSentence", sentence.engSentence)
                 this.put("hindiSentence", sentence.hindiSentence)
             })
-
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    callback.onCallback()
+                }
+            }
+            .addOnFailureListener { e ->
+                e.stackTrace
+            }
     }
 
     override fun updateWord(word: Word, callback: ICallback) {

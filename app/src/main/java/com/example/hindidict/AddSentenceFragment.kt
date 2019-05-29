@@ -8,15 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.viewmodel.MainViewModel
+import com.example.hindidict.AddSentenceFragmentArgs.fromBundle
 import kotlinx.android.synthetic.main.fragment_add_sentence.*
 import kotlinx.android.synthetic.main.fragment_add_word.*
 
 class AddSentenceFragment : Fragment() {
 
     lateinit var mainViewModel: MainViewModel
+    private val WORD_ID by lazy {
+        fromBundle(arguments).word_id
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,16 +39,15 @@ class AddSentenceFragment : Fragment() {
         }
 
         button_dialog_cancel.setOnClickListener {
-            // Return to Word fragment
+            findNavController().popBackStack()
         }
     }
 
     fun addNewSentence() {
         val sentence = Sentence(
-            // GET WORDID AS BUNDLE FROM WORD FRAG
-            containsWord = "WORD_ID",
-            engSentence = editText_sentence_eng.text.toString(),
-            hindiSentence = editText_sentence_hindi.text.toString()
+            containsWord = WORD_ID,
+            engSentence =   editText_add_sentence_eng.text.toString(),
+            hindiSentence = editText_add_sentence_hindi.text.toString()
         )
 
         if (sentence.hindiSentence.trim().isEmpty() || sentence.engSentence.trim().isEmpty()) {
@@ -53,7 +57,7 @@ class AddSentenceFragment : Fragment() {
 
         mainViewModel.addSentenceToWord(sentence, object : IEmptyCallback {
             override fun onCallback() {
-                // Return to Word fragment
+                findNavController().popBackStack()
             }
         })
     }
