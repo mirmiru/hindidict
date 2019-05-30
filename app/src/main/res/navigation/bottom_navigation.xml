@@ -85,4 +85,10 @@
                 app:popUpTo="@+id/wordFragment"/>
     </fragment>
 
+    <fragment
+        android:id="@+id/listHolderFragment"
+        android:name="com.example.hindidict.fragment.ListHolderFragment"
+        android:label="List Holder"
+        tools:layout="@layout/fragment_list_holder" />
+
 </navigation>
