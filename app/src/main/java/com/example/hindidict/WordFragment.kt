@@ -154,9 +154,6 @@ class WordFragment : Fragment() {
         }
     }
 
-//    inner class FirestoreSentenceRecyclerAdapter internal constructor(
-//        options: FirestoreRecyclerOptions<Sentence>)
-//        : FirestoreRecyclerAdapter<Sentence, SentenceHolder>(options) {
     inner class FirestoreSentenceRecyclerAdapter(options: FirestoreRecyclerOptions<Sentence>)
             : FirestoreRecyclerAdapter<Sentence, SentenceHolder>(options) {
         override fun onBindViewHolder(holder: SentenceHolder, position: Int, sentence: Sentence) {
