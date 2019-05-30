@@ -10,9 +10,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.android.synthetic.main.word.view.*
 
-class WordListAdapter(
+class WordListEnglishAdapter(
     options: FirestoreRecyclerOptions<Word>
-): FirestoreRecyclerAdapter<Word, WordListAdapter.WordHolder>(options) {
+): FirestoreRecyclerAdapter<Word, WordListEnglishAdapter.WordHolder>(options) {
     override fun onBindViewHolder(holder: WordHolder, position: Int, word: Word) {
         holder.getData(word)
     }
