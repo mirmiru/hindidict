@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hindidict.R
 import com.example.hindidict.model.Word
+import androidx.navigation.Navigation.findNavController
+import com.example.hindidict.fragment.ListHolderFragmentDirections
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import kotlinx.android.synthetic.main.word.view.*
@@ -30,7 +32,9 @@ class WordListHindiAdapter(
             containerView.textView_listItem_word.text = word.definition?.hindi
 
             containerView.setOnClickListener {
-                // TODO NAVIGATE TO WORD FRAGMENT
+                val actionDetails = ListHolderFragmentDirections
+                    .action_listHolderFragment_to_wordFragment(word.uuid)
+                findNavController(it).navigate(actionDetails)
             }
         }
 
