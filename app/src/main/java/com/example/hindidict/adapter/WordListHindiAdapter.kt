@@ -28,6 +28,10 @@ class WordListHindiAdapter(
 
         fun getData(word: Word) {
             containerView.textView_listItem_word.text = word.definition?.hindi
+
+            containerView.setOnClickListener {
+                // TODO NAVIGATE TO WORD FRAGMENT
+            }
         }
 
     }

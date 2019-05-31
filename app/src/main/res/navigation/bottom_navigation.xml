@@ -89,6 +89,17 @@
         android:id="@+id/listHolderFragment"
         android:name="com.example.hindidict.fragment.ListHolderFragment"
         android:label="List Holder"
-        tools:layout="@layout/fragment_list_holder" />
+        tools:layout="@layout/fragment_list_holder">
+        <action
+                android:id="@+id/action_listHolderFragment_to_wordFragment"
+                app:destination="@id/wordFragment"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/listEnglishFragment"
+            android:name="com.example.hindidict.fragment.ListEngToHindiFragment"
+            tools:layout="@layout/fragment_list_eng_to_hindi" >
+
+    </fragment>
 
 </navigation>

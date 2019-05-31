@@ -3,7 +3,9 @@ package com.example.hindidict.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hindidict.fragment.ListHolderFragmentDirections
 import com.example.hindidict.R
 import com.example.hindidict.model.Word
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
@@ -28,6 +30,12 @@ class WordListEnglishAdapter(
 
         fun getData(word: Word) {
             containerView.textView_listItem_word.text = word.definition?.eng
+
+            containerView.setOnClickListener {
+                val actionDetails = ListHolderFragmentDirections
+                    .action_listHolderFragment_to_wordFragment(word.uuid)
+                findNavController(it).navigate(actionDetails)
+            }
         }
 
     }
