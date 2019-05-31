@@ -13,9 +13,20 @@
             android:textSize="24sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/button_star"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
             />
+
+    <ImageButton
+            android:id="@+id/button_star"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/button_star_states"
+            android:scaleType="fitXY"
+            android:background="@color/cardview_light_background"
+            app:layout_constraintTop_toTopOf="@id/textView_listItem_word"
+            app:layout_constraintBottom_toBottomOf="@id/textView_listItem_word"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

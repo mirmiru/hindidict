@@ -3,6 +3,7 @@ package com.example.hindidict.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hindidict.fragment.ListHolderFragmentDirections
@@ -35,6 +36,10 @@ class WordListEnglishAdapter(
                 val actionDetails = ListHolderFragmentDirections
                     .action_listHolderFragment_to_wordFragment(word.uuid)
                 findNavController(it).navigate(actionDetails)
+            }
+
+            containerView.button_star.setOnClickListener {
+                it.button_star.isActivated = !it.button_star.isActivated
             }
         }
 
