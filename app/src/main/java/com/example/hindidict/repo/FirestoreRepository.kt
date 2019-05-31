@@ -15,17 +15,17 @@ Manages the database
 class FirestoreRepository: IDataRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
-    private val COLLECTION_PATH = "words"
+    private val COLLECTION_WORDS = "words"
     private val COLLECTION_SENTENCES = "sentences"
 
     override fun getWordData(uuid: String): WordLiveData {
-        val ref = firestore.collection(COLLECTION_PATH).document(uuid)
+        val ref = firestore.collection(COLLECTION_WORDS).document(uuid)
         return WordLiveData(ref)
     }
 
     override fun addNewWord(word: Word, callback: ICallback) {
         try {
-            val documentRef = firestore.collection(COLLECTION_PATH).document()
+            val documentRef = firestore.collection(COLLECTION_WORDS).document()
             word.uuid = documentRef.id
 
             documentRef
@@ -87,7 +87,7 @@ class FirestoreRepository: IDataRepository {
     }
 
     override fun updateWord(word: Word, callback: ICallback) {
-        val documentRef = firestore.collection(COLLECTION_PATH).document(word.uuid)
+        val documentRef = firestore.collection(COLLECTION_WORDS).document(word.uuid)
         documentRef
             .set(word, SetOptions.merge())
             .addOnCompleteListener { task ->
@@ -107,6 +107,22 @@ class FirestoreRepository: IDataRepository {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful)
                     callback.onCallback()
+            }
+            .addOnFailureListener { e ->
+                e.stackTrace
+            }
+    }
+
+    override fun addWordToFavorites(uuid: String, callback: IEmptyCallback) {
+        val documentRef = firestore.collection(COLLECTION_WORDS).document(uuid)
+
+        documentRef
+                //TODO Create new collection where docs use isDifficult instead of difficult
+            .update("difficult",true)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    callback.onCallback()
+                }
             }
             .addOnFailureListener { e ->
                 e.stackTrace
