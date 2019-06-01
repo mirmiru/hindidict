@@ -20,24 +20,62 @@
 
     <Button
             android:id="@+id/button_quiz_0"
-            android:text="No idea"
-            android:layout_width="wrap_content"
+            android:text="0"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/textView_quiz_rateLabel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/button_quiz_5"
-            app:layout_constraintHorizontal_chainStyle="spread" />
+            app:layout_constraintEnd_toStartOf="@id/button_quiz_1"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     <Button
-            android:id="@+id/button_quiz_5"
-            android:text="No problem"
-            android:layout_width="wrap_content"
+            android:id="@+id/button_quiz_1"
+            android:text="1"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/button_quiz_0"
             app:layout_constraintStart_toEndOf="@id/button_quiz_0"
+            app:layout_constraintEnd_toStartOf="@id/button_quiz_2"
+            app:layout_constraintBottom_toBottomOf="@id/button_quiz_0"/>
+
+    <Button
+            android:id="@+id/button_quiz_2"
+            android:text="2"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/button_quiz_1"
+            app:layout_constraintStart_toEndOf="@id/button_quiz_1"
+            app:layout_constraintEnd_toStartOf="@id/button_quiz_3"
+            app:layout_constraintBottom_toBottomOf="@id/button_quiz_1"/>
+
+    <Button
+            android:id="@+id/button_quiz_3"
+            android:text="3"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/button_quiz_2"
+            app:layout_constraintStart_toEndOf="@id/button_quiz_2"
+            app:layout_constraintEnd_toStartOf="@id/button_quiz_4"
+            app:layout_constraintBottom_toBottomOf="@id/button_quiz_2"/>
+
+    <Button
+            android:id="@+id/button_quiz_4"
+            android:text="4"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/button_quiz_3"
+            app:layout_constraintStart_toEndOf="@id/button_quiz_3"
+            app:layout_constraintEnd_toStartOf="@id/button_quiz_5"
+            app:layout_constraintBottom_toBottomOf="@id/button_quiz_3"/>
+
+    <Button
+            android:id="@+id/button_quiz_5"
+            android:text="5"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/button_quiz_4"
+            app:layout_constraintStart_toEndOf="@id/button_quiz_4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/button_quiz_0"
-            app:layout_constraintHorizontal_chainStyle="spread" />
+            app:layout_constraintBottom_toBottomOf="@id/button_quiz_4"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

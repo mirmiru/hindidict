@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,8 +20,6 @@ import kotlinx.android.synthetic.main.fragment_quiz_bottom.*
 class QuizBottomFragment : Fragment() {
 
     private lateinit var viewModel: QuizViewModel
-    private var canFlip = MutableLiveData<Boolean>()
-    private lateinit var currentCard: Word
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -40,20 +40,27 @@ class QuizBottomFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity!!)
             .get(QuizViewModel::class.java)
 
-        viewModel.isLastCard.observe(this, Observer {
-            canFlip.postValue(!it)
-        })
-
+        button_quiz_0.setOnClickListener {
+            setStudyDate(0)
+        }
+        button_quiz_1.setOnClickListener {
+            setStudyDate(1)
+        }
+        button_quiz_2.setOnClickListener {
+            setStudyDate(2)
+        }
+        button_quiz_3.setOnClickListener {
+            setStudyDate(3)
+        }
+        button_quiz_4.setOnClickListener {
+            setStudyDate(4)
+        }
         button_quiz_5.setOnClickListener {
-//            viewModel.getNextCard()
             setStudyDate(5)
         }
     }
 
-    // User rates card 0-5 -> get next study date
     private fun setStudyDate(response: Int) {
         viewModel.setStudyDate(response)
     }
-
-
 }

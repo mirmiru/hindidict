@@ -29,14 +29,16 @@ class QuizViewModel : ViewModel() {
     }
 
     fun getNextCard() {
-        if (!cardSet.isEmpty()) {
+        if (cardSet.isNotEmpty()) {
             val next = cardSet.first()
             cardSet.remove(next)
             currentCard.postValue(next)
-        }
 
-        if (cardSet.size == 0) {
-            isLastCard.postValue(true)
+            if (cardSet.size == 1) {
+                isLastCard.postValue(true)
+            }
+        } else {
+            // TODO Go to Quiz start fragment
         }
     }
 

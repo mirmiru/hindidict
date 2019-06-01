@@ -1,5 +1,8 @@
 package com.example.hindidict.viewmodel
 
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.hindidict.WordFragment
@@ -56,6 +59,8 @@ class MainViewModel: ViewModel() {
     fun addWordToFavorites(uuid: String, isDifficult: Boolean, callback: IEmptyCallback) {
         repository.addWordToFavorites(uuid, isDifficult, callback)
     }
+
+
 
 }
 

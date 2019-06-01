@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -13,12 +14,14 @@ import com.example.hindidict.model.Definition
 import com.example.hindidict.model.QuizData
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.Word
+import com.example.hindidict.viewmodel.AddWordViewModel
 import com.example.hindidict.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_add_word.*
 
 class AddWordFragment : Fragment() {
 
     lateinit var mainViewModel: MainViewModel
+    lateinit var viewModel: AddWordViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,11 +33,17 @@ class AddWordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         activity?.let {
             mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
+            viewModel = ViewModelProviders.of(it).get(AddWordViewModel::class.java)
         }
 
         fab_add_new_word.setOnClickListener {
             addWord()
         }
+
+        // SPINNER
+        val arrayAdapter = ArrayAdapter<String>(this.context, android.R.layout.simple_spinner_dropdown_item, viewModel.populateSpinner())
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner_word_category.adapter = arrayAdapter
     }
 
     private fun addWord() {

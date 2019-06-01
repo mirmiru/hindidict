@@ -2,12 +2,12 @@ package com.example.hindidict
 
 import com.example.hindidict.model.QuizData
 
-class SpacedRepetitionAlgorithm() {
+class SpacedRepetitionAlgorithm {
 
     private var repetitions = 0
     private var interval = 0
     private var easiness = 0F
-    private val secondsPerDay = 86400
+    private val secondsPerDay = 60*60*24
 
     /*
     * 5 - perfect response
@@ -31,7 +31,7 @@ class SpacedRepetitionAlgorithm() {
     * Range from 1.3 to 2.5
     * */
     private fun setEasiness() {
-        easiness = Math.max(1.3F, easiness+0.1F - 5.0F-response) * (0.08F + (5.0F-response) * 0.02F)
+        easiness = Math.max(1.3F, easiness+0.1F - (5.0F-response) * (0.08F + (5.0F-response) * 0.02F))
     }
 
     // # of times card is shown to user.
@@ -47,8 +47,6 @@ class SpacedRepetitionAlgorithm() {
     * Number of days between repetitions.
     * */
     private fun setInterval() {
-        val b = repetitions
-
             if (repetitions <= 1) {
                 interval = 1
             }
@@ -58,14 +56,6 @@ class SpacedRepetitionAlgorithm() {
             else {
                 interval = Math.round(interval * easiness)
             }
-
-        val a = interval
-
-//        interval = when {
-//            (repetitions <= 1) -> 1
-//            (repetitions == 2) -> 6
-//            else -> Math.round(interval*easiness)
-//        }
     }
 
     /*
@@ -79,7 +69,7 @@ class SpacedRepetitionAlgorithm() {
         setInterval()
 
         val currentTime = System.currentTimeMillis()
-        val nextDate = currentTime + (secondsPerDay * interval)
+        val nextDate =  currentTime + (secondsPerDay * interval)
 
         return QuizData(
             easiness = this.easiness,
