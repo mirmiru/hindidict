@@ -53,8 +53,8 @@ class MainViewModel: ViewModel() {
         repository.updateSentence(sentence, callback)
     }
 
-    fun addWordToFavorites(uuid: String, callback: IEmptyCallback) {
-        repository.addWordToFavorites(uuid, callback)
+    fun addWordToFavorites(uuid: String, isDifficult: Boolean, callback: IEmptyCallback) {
+        repository.addWordToFavorites(uuid, isDifficult, callback)
     }
 
 }

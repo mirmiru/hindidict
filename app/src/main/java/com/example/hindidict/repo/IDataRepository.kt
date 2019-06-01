@@ -21,7 +21,7 @@ interface IDataRepository {
 
     fun addSentence(sentence: Sentence, callback: ICallback)
 
-    fun addWordToFavorites(uuid: String, callback: IEmptyCallback)
+    fun addWordToFavorites(uuid: String, isDifficult: Boolean, callback: IEmptyCallback)
 
     fun addSentenceToWord(sentence: Sentence, callback: IEmptyCallback)
 

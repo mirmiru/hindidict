@@ -113,12 +113,11 @@ class FirestoreRepository: IDataRepository {
             }
     }
 
-    override fun addWordToFavorites(uuid: String, callback: IEmptyCallback) {
+    override fun addWordToFavorites(uuid: String, isDifficult: Boolean, callback: IEmptyCallback) {
         val documentRef = firestore.collection(COLLECTION_WORDS).document(uuid)
 
         documentRef
-                //TODO Create new collection where docs use isDifficult instead of difficult
-            .update("difficult",true)
+            .update("difficult",isDifficult)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     callback.onCallback()

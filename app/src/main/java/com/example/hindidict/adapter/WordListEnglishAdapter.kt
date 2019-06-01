@@ -4,15 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hindidict.fragment.ListHolderFragmentDirections
 import com.example.hindidict.viewmodel.MainViewModel
 import com.example.hindidict.R
-import com.example.hindidict.fragment.ListEngToHindiFragment
-import com.example.hindidict.fragment.ListHolderFragment
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Word
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
@@ -48,21 +44,19 @@ class WordListEnglishAdapter(
             }
 
             containerView.button_star.setOnClickListener {
-                var a = it.context
-
                 it.button_star.isActivated = !it.button_star.isActivated
-                when (it.button_star.isActivated) {
-                    true -> viewModel.addWordToFavorites(word.uuid, object : IEmptyCallback{
-                        override fun onCallback() {
-                            Toast
-                                .makeText(it.context, "Added to favorites", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    })
-                    else -> ""
-                    // TODO Remove from favorites
-
+                val isDifficult = when (it.button_star.isActivated) {
+                    true -> true
+                    else -> false
                 }
+
+                viewModel.addWordToFavorites(word.uuid, isDifficult, object : IEmptyCallback{
+                    override fun onCallback() {
+                        Toast
+                            .makeText(it.context, "Updated Favorites", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                })
             }
         }
 
