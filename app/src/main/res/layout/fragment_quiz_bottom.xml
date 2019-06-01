@@ -18,12 +18,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
     />
+
     <Button
             android:id="@+id/button_quiz_hard"
-            android:text="Hard"
+            android:text="No idea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textView_quiz_rateLabel"
+            app:layout_constraintTop_toBottomOf="@id/button_quiz_answer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/button_quiz_easy"
@@ -32,7 +33,7 @@
 
     <Button
             android:id="@+id/button_quiz_easy"
-            android:text="Easy"
+            android:text="No problem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/button_quiz_hard"
