@@ -37,6 +37,12 @@ class WordListEnglishAdapter(
         fun getData(word: Word) {
             containerView.textView_listItem_word.text = word.definition?.eng
 
+            containerView.button_star.isActivated =
+                when (word.difficult) {
+                    true -> true
+                    else -> false
+                }
+
             containerView.setOnClickListener {
                 val actionDetails = ListHolderFragmentDirections
                     .action_listHolderFragment_to_wordFragment(word.uuid)

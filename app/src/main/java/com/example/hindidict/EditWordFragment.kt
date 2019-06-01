@@ -62,7 +62,7 @@ class EditWordFragment : DialogFragment () {
                 hindi = editText_edit_word_hindi.text.toString()
             ),
             category = "nullForNow",
-            isDifficult = false
+            difficult = false
         )
         return word
     }

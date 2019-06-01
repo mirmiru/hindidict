@@ -14,18 +14,18 @@ Manages the database
  */
 class FirestoreRepository: IDataRepository {
 
-    private val firestore = FirebaseFirestore.getInstance()
+    private val FIRESTORE = FirebaseFirestore.getInstance()
     private val COLLECTION_WORDS = "words"
     private val COLLECTION_SENTENCES = "sentences"
 
     override fun getWordData(uuid: String): WordLiveData {
-        val ref = firestore.collection(COLLECTION_WORDS).document(uuid)
+        val ref = FIRESTORE.collection(COLLECTION_WORDS).document(uuid)
         return WordLiveData(ref)
     }
 
     override fun addNewWord(word: Word, callback: ICallback) {
         try {
-            val documentRef = firestore.collection(COLLECTION_WORDS).document()
+            val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document()
             word.uuid = documentRef.id
 
             documentRef
@@ -43,7 +43,7 @@ class FirestoreRepository: IDataRepository {
     }
 
     override fun addSentence(sentence: Sentence, callback: ICallback) {
-        val documentRef = firestore.collection(COLLECTION_SENTENCES).document()
+        val documentRef = FIRESTORE.collection(COLLECTION_SENTENCES).document()
         val sentenceId = documentRef.id
 
         documentRef
@@ -61,12 +61,12 @@ class FirestoreRepository: IDataRepository {
     }
 
     override fun getSentence(uuid: String): SentenceLiveData {
-        val documentRef = firestore.collection(COLLECTION_SENTENCES).document(uuid)
+        val documentRef = FIRESTORE.collection(COLLECTION_SENTENCES).document(uuid)
         return SentenceLiveData(documentRef)
     }
 
     override fun addSentenceToWord(sentence: Sentence, callback: IEmptyCallback) {
-        val documentRef = firestore.collection(COLLECTION_SENTENCES).document()
+        val documentRef = FIRESTORE.collection(COLLECTION_SENTENCES).document()
         val sentenceId = documentRef.id
 
         documentRef
@@ -87,7 +87,7 @@ class FirestoreRepository: IDataRepository {
     }
 
     override fun updateWord(word: Word, callback: ICallback) {
-        val documentRef = firestore.collection(COLLECTION_WORDS).document(word.uuid)
+        val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document(word.uuid)
         documentRef
             .set(word, SetOptions.merge())
             .addOnCompleteListener { task ->
@@ -101,7 +101,7 @@ class FirestoreRepository: IDataRepository {
 
     override fun updateSentence(sentence: Sentence, callback: IEmptyCallback) {
         val s = sentence
-        val documentRef = firestore.collection(COLLECTION_SENTENCES).document(sentence.sentenceId)
+        val documentRef = FIRESTORE.collection(COLLECTION_SENTENCES).document(sentence.sentenceId)
         documentRef
             .set(sentence, SetOptions.merge())
             .addOnCompleteListener { task ->
@@ -114,7 +114,7 @@ class FirestoreRepository: IDataRepository {
     }
 
     override fun addWordToFavorites(uuid: String, isDifficult: Boolean, callback: IEmptyCallback) {
-        val documentRef = firestore.collection(COLLECTION_WORDS).document(uuid)
+        val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document(uuid)
 
         documentRef
             .update("difficult",isDifficult)

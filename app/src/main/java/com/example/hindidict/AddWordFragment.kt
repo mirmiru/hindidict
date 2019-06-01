@@ -43,7 +43,7 @@ class AddWordFragment : Fragment() {
                 eng = editText_word_eng.text.toString(),
                 hindi = editText_word_hindi.text.toString()
             ),
-            isDifficult = false
+            difficult = false
         )
 
         mainViewModel.addWord(word, object : ICallback {

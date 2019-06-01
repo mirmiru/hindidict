@@ -11,7 +11,7 @@ data class Word(
     var uuid: String = "",
     val definition: Definition? = null,
     val category: String? = "",
-    val isDifficult: Boolean = false
+    val difficult: Boolean = false
 ): Parcelable
 
 @Parcelize
