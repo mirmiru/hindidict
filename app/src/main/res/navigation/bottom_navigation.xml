@@ -14,6 +14,13 @@
     </fragment>
 
     <fragment
+            android:id="@+id/quizFragment"
+            android:name="com.example.hindidict.fragment.QuizHolderFragment"
+            android:label="Quiz"
+            tools:layout="@layout/fragment_quiz_holder">
+    </fragment>
+
+    <fragment
             android:id="@+id/addWordFragment"
             android:name="com.example.hindidict.AddWordFragment"
             android:label="Add word fragment"
