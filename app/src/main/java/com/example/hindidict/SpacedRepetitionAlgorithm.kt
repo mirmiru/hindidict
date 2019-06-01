@@ -1,12 +1,12 @@
 package com.example.hindidict
 
-import com.example.hindidict.model.QuizWord
+import com.example.hindidict.model.QuizData
 
-class SpacedRepetitionAlgorithm(quizWord: QuizWord, userResponse: Int) {
+class SpacedRepetitionAlgorithm(quizData: QuizData, userResponse: Int) {
 
-    private var repetitions = quizWord.repetitions
-    private var interval = quizWord.interval
-    private var easiness = quizWord.easiness
+    private var repetitions = quizData.repetitions
+    private var interval = quizData.interval
+    private var easiness = quizData.easiness
 
     /*
     * 5 - perfect response

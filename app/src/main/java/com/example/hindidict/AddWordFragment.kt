@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.hindidict.helper.ICallback
 import com.example.hindidict.model.Definition
+import com.example.hindidict.model.QuizData
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.Word
 import com.example.hindidict.viewmodel.MainViewModel
@@ -43,7 +44,9 @@ class AddWordFragment : Fragment() {
                 eng = editText_word_eng.text.toString(),
                 hindi = editText_word_hindi.text.toString()
             ),
-            difficult = false
+            difficult = false,
+            quizData = QuizData(),
+            nextQuizDate = 0
         )
 
         mainViewModel.addWord(word, object : ICallback {

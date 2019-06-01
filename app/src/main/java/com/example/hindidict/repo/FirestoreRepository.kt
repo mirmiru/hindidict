@@ -1,6 +1,7 @@
 package com.example.hindidict.repo
 
 import com.example.hindidict.helper.ICallback
+import com.example.hindidict.helper.ICardsCallback
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.SentenceLiveData
@@ -17,6 +18,7 @@ class FirestoreRepository: IDataRepository {
     private val FIRESTORE = FirebaseFirestore.getInstance()
     private val COLLECTION_WORDS = "words"
     private val COLLECTION_SENTENCES = "sentences"
+    private val COLLECTION_QUIZ_CARDS = "quiz_cards"
 
     override fun getWordData(uuid: String): WordLiveData {
         val ref = FIRESTORE.collection(COLLECTION_WORDS).document(uuid)
@@ -125,6 +127,35 @@ class FirestoreRepository: IDataRepository {
             }
             .addOnFailureListener { e ->
                 e.stackTrace
+            }
+    }
+
+    override fun updateStudyDate(uuid: String, nextDate: Long, callback: IEmptyCallback) {
+        val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document(uuid)
+
+        documentRef
+            .update("nextQuizDate", nextDate)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful)
+                    callback.onCallback()
+            }.addOnFailureListener { e ->
+                e.stackTrace
+            }
+    }
+
+    override fun getCardSet(callback: ICardsCallback) {
+        FIRESTORE
+            .collection(COLLECTION_WORDS)
+            .whereEqualTo("difficult", true)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val list = mutableListOf<Word>()
+                    task.result?.forEach {
+                        list.add(it.toObject(Word::class.java))
+                    }
+                    callback.onCallback(list)
+                }
             }
     }
 

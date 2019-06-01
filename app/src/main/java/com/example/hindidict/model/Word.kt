@@ -1,9 +1,6 @@
 package com.example.hindidict.model
 
 import android.os.Parcelable
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.Exclude
-import com.google.firebase.firestore.ServerTimestamp
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -11,23 +8,20 @@ data class Word(
     var uuid: String = "",
     val definition: Definition? = null,
     val category: String? = "",
-    val difficult: Boolean = false
+    val difficult: Boolean = false,
+    val quizData: QuizData? = null,
+    val nextQuizDate: Long = 0
 ): Parcelable
 
 @Parcelize
 data class Definition (
     val eng: String? = "",
     val hindi: String? = ""
-) : Parcelable
+): Parcelable
 
-// Data classes enable Destructuring declarations, i.e.
-/*
-val steveJobs= User("Steve Jobs", 56)
-
-fun print() {
-    val (name, age) = steveJobs
-    println("$name, $age years of age") // prints "Steve Jobs, 56 years of age"
-
-    steveJobs.component1() // name
-    steveJobs.component2() // age
-}*/
+@Parcelize
+data class QuizData(
+    var repetitions: Int = 0,
+    var interval: Int = 1,
+    var easiness: Float = 2.5F
+): Parcelable
