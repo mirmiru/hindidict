@@ -1,12 +1,10 @@
 package com.example.hindidict.repo
 
+import android.text.format.DateUtils
 import com.example.hindidict.helper.ICallback
 import com.example.hindidict.helper.ICardsCallback
 import com.example.hindidict.helper.IEmptyCallback
-import com.example.hindidict.model.Sentence
-import com.example.hindidict.model.SentenceLiveData
-import com.example.hindidict.model.Word
-import com.example.hindidict.model.WordLiveData
+import com.example.hindidict.model.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
@@ -16,9 +14,8 @@ Manages the database
 class FirestoreRepository: IDataRepository {
 
     private val FIRESTORE = FirebaseFirestore.getInstance()
-    private val COLLECTION_WORDS = "words"
+    private val COLLECTION_WORDS = "wordsss"
     private val COLLECTION_SENTENCES = "sentences"
-    private val COLLECTION_QUIZ_CARDS = "quiz_cards"
 
     override fun getWordData(uuid: String): WordLiveData {
         val ref = FIRESTORE.collection(COLLECTION_WORDS).document(uuid)
@@ -130,11 +127,12 @@ class FirestoreRepository: IDataRepository {
             }
     }
 
-    override fun updateStudyDate(uuid: String, nextDate: Long, callback: IEmptyCallback) {
+    override fun updateStudyDate(uuid: String, quizData: QuizData, callback: IEmptyCallback) {
         val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document(uuid)
 
         documentRef
-            .update("nextQuizDate", nextDate)
+//            .update("nextQuizDate", nextDate)
+            .update("quizData", quizData)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful)
                     callback.onCallback()
@@ -155,6 +153,25 @@ class FirestoreRepository: IDataRepository {
                         list.add(it.toObject(Word::class.java))
                     }
                     callback.onCallback(list)
+                }
+            }
+    }
+
+    fun getTodaysCards(callback: ICardsCallback) {
+        FIRESTORE.collection(COLLECTION_WORDS)
+            .whereEqualTo("difficult", true)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    task.result?.forEach{
+                        val word = it.toObject(Word::class.java)
+                        val list = mutableListOf<Word>()
+
+                        if (DateUtils.isToday(word.quizData?.nextQuizDate!!)) {
+                            list.add(word)
+                        }
+                        callback.onCallback(list)
+                    }
                 }
             }
     }

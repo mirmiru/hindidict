@@ -29,5 +29,5 @@ interface IDataRepository {
 
     fun getCardSet(callback: ICardsCallback)
 
-    fun updateStudyDate(uuid: String, nextDate: Long,callback: IEmptyCallback)
+    fun updateStudyDate(uuid: String, quizData: QuizData, callback: IEmptyCallback)
 }

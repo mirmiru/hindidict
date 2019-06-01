@@ -2,11 +2,12 @@ package com.example.hindidict
 
 import com.example.hindidict.model.QuizData
 
-class SpacedRepetitionAlgorithm(quizData: QuizData, userResponse: Int) {
+class SpacedRepetitionAlgorithm() {
 
-    private var repetitions = quizData.repetitions
-    private var interval = quizData.interval
-    private var easiness = quizData.easiness
+    private var repetitions = 0
+    private var interval = 0
+    private var easiness = 0F
+    private val secondsPerDay = 86400
 
     /*
     * 5 - perfect response
@@ -16,7 +17,14 @@ class SpacedRepetitionAlgorithm(quizData: QuizData, userResponse: Int) {
     * 1 - incorrect response; the correct one remembered
     * 0 - complete blackout.
     * */
-    private var response = userResponse
+    private var response = 0
+
+    private fun setValues(quizData: QuizData, userResponse: Int) {
+        repetitions = quizData.repetitions
+        interval = quizData.interval
+        easiness = quizData.easiness
+        response = userResponse
+    }
 
     /*
     * Multiplier used to increase interval factor.
@@ -31,7 +39,7 @@ class SpacedRepetitionAlgorithm(quizData: QuizData, userResponse: Int) {
     private fun setRepetitions() {
         repetitions = when {
             response < 3 -> 0       // User does not remember card
-            else -> repetitions++
+            else -> repetitions+1
         }
     }
 
@@ -39,23 +47,45 @@ class SpacedRepetitionAlgorithm(quizData: QuizData, userResponse: Int) {
     * Number of days between repetitions.
     * */
     private fun setInterval() {
-        interval = when {
-            repetitions <= 1 -> 1
-            repetitions == 2 -> 6
-            else -> Math.round(interval*easiness)
-        }
+        val b = repetitions
+
+            if (repetitions <= 1) {
+                interval = 1
+            }
+            else if (repetitions == 2) {
+                interval = 6
+            }
+            else {
+                interval = Math.round(interval * easiness)
+            }
+
+        val a = interval
+
+//        interval = when {
+//            (repetitions <= 1) -> 1
+//            (repetitions == 2) -> 6
+//            else -> Math.round(interval*easiness)
+//        }
     }
 
     /*
     * When will card be shown the next time.
     * */
-    fun getNextStudyDate(): Long {
+    fun getNextStudyDate(quizData: QuizData, response: Int): QuizData {
+        setValues(quizData, response)
+
         setEasiness()
         setRepetitions()
         setInterval()
 
-        var secondsPerDay = 86400
-        var currentTime = System.currentTimeMillis()
-        return currentTime + (secondsPerDay * interval)
+        val currentTime = System.currentTimeMillis()
+        val nextDate = currentTime + (secondsPerDay * interval)
+
+        return QuizData(
+            easiness = this.easiness,
+            repetitions = this.repetitions,
+            interval = this.interval,
+            nextQuizDate = nextDate
+        )
     }
 }

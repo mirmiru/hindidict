@@ -41,7 +41,11 @@ class QuizCardFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(activity!!)
             .get(QuizViewModel::class.java)
-            .also { it.getCardSet() }
+            .also {
+                it.getCardSet()
+                // TODO Remove this test
+                it.getTodaysCards()
+            }
 
         viewModel.currentCard.observe(this, Observer<Word> {
             cardview_card_front_mainText.text = it?.definition?.hindi

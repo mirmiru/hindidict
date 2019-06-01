@@ -9,8 +9,8 @@ data class Word(
     val definition: Definition? = null,
     val category: String? = "",
     val difficult: Boolean = false,
-    val quizData: QuizData? = null,
-    val nextQuizDate: Long = 0
+    val quizData: QuizData? = null
+//    val nextQuizDate: Long = 0
 ): Parcelable
 
 @Parcelize
@@ -23,5 +23,6 @@ data class Definition (
 data class QuizData(
     var repetitions: Int = 0,
     var interval: Int = 1,
-    var easiness: Float = 2.5F
+    var easiness: Float = 2.5F,
+    var nextQuizDate: Long? = System.currentTimeMillis()
 ): Parcelable

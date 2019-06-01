@@ -45,8 +45,7 @@ class AddWordFragment : Fragment() {
                 hindi = editText_word_hindi.text.toString()
             ),
             difficult = false,
-            quizData = QuizData(),
-            nextQuizDate = 0
+            quizData = QuizData()
         )
 
         mainViewModel.addWord(word, object : ICallback {

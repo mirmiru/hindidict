@@ -11,16 +11,12 @@ import java.util.*
 
 class QuizViewModel : ViewModel() {
 
-    private lateinit var algorithm: SpacedRepetitionAlgorithm
     private var repository: FirestoreRepository = FirestoreRepository()
     private var cardSet: MutableList<Word> = mutableListOf()
+    private var todaysCards: MutableList<Word> = mutableListOf()
 
     var currentCard = MutableLiveData<Word>()
     var isLastCard = MutableLiveData<Boolean>()
-
-    // After user has rated a card, a new card is shown.
-    fun setCurrentWord(uuid: String) {
-    }
 
     fun getCardSet() {
         repository.getCardSet(object : ICardsCallback{
@@ -44,11 +40,21 @@ class QuizViewModel : ViewModel() {
         }
     }
 
+    fun getTodaysCards() {
+        repository.getTodaysCards(object : ICardsCallback{
+            override fun onCallback(list: MutableList<Word>) {
+                todaysCards = list
+            }
+        })
+    }
+
     fun setStudyDate(response: Int) {
         val quizData = currentCard.value?.quizData
-        val algorithm = SpacedRepetitionAlgorithm(quizData!!, response)
-        val studyDate = algorithm.getNextStudyDate()
-        val readableDate = Date(studyDate)
+        val algorithm = SpacedRepetitionAlgorithm()
+        val studyDate = algorithm.getNextStudyDate(quizData!!, response)
+
+        //TODO Remove test
+        val readableDate = Date(studyDate.nextQuizDate!!)
 
         repository.updateStudyDate(currentCard.value!!.uuid, studyDate, object : IEmptyCallback {
             override fun onCallback() {
