@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import com.example.hindidict.R
+import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.Word
 import com.example.hindidict.viewmodel.QuizViewModel
 import kotlinx.android.synthetic.main.fragment_quiz_bottom.*
@@ -48,10 +49,17 @@ class QuizCardFragment : Fragment() {
             }
 
         viewModel.currentCard.observe(this, Observer<Word> {
-            cardview_card_front_mainText.text = it?.definition?.hindi
-            cardview_card_back_mainText.text = it?.definition?.eng
+            if (easyFlipView.isBackSide) {
+                cardview_card_front_mainText.text = it?.definition?.eng
+                cardview_card_back_mainText.text = it?.definition?.hindi
+            } else {
+                cardview_card_front_mainText.text = it?.definition?.hindi
+                cardview_card_back_mainText.text = it?.definition?.eng
+            }
             button_quiz_answer.isEnabled = true
         })
+
+        viewModel.currentCard
 
         button_quiz_answer.setOnClickListener {
             showAnswer()
