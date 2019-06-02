@@ -21,12 +21,12 @@ class AddWordViewModel : ViewModel() {
         return spinnerList[position]
     }
 
-    fun addWord(word: Word, callback: ICallback) {
-        repository.addNewWord(word, callback)
-    }
-
-    fun addSentence(sentence: Sentence, callback: ICallback) {
-        repository.addSentence(sentence, callback)
-    }
+//    fun addWord(word: Word, callback: ICallback) {
+//        repository.addNewWord(word, callback)
+//    }
+//
+//    fun addSentence(sentence: Sentence, callback: ICallback) {
+//        repository.addSentence(sentence, callback)
+//    }
 
 }

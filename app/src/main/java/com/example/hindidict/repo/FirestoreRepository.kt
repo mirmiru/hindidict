@@ -14,7 +14,7 @@ Manages the database
 class FirestoreRepository: IDataRepository {
 
     private val FIRESTORE = FirebaseFirestore.getInstance()
-    private val COLLECTION_WORDS = "wordsss"
+    private val COLLECTION_WORDS = "wordsfinal"
     private val COLLECTION_SENTENCES = "sentences"
 
     override fun getWordData(uuid: String): WordLiveData {
@@ -24,8 +24,8 @@ class FirestoreRepository: IDataRepository {
 
     override fun addNewWord(word: Word, callback: ICallback) {
         try {
-            val documentRef = FIRESTORE.collection(COLLECTION_WORDS)
-                .document()
+            val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document()
+            word.uuid = documentRef.id
 
             documentRef
                 .set(word)

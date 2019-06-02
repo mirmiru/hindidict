@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class Word(
     var uuid: String = "",
     var definition: Definition = Definition(),
-    var category: String = "",
+    var category: String = "Noun",
     var difficult: Boolean = false,
     var quizData: QuizData = QuizData()
 //    val nextQuizDate: Long = 0

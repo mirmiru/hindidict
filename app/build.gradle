@@ -62,5 +62,8 @@ dependencies {
 
     // Flip view
     implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.1.2'
+
+    // Bubble scroll
+    implementation 'com.l4digital.fastscroll:fastscroll:2.0.1'
 }
 apply plugin: 'com.google.gms.google-services'

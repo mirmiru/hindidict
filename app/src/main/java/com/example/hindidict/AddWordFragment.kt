@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_add_word.*
 
 class AddWordFragment : Fragment() {
 
-//    lateinit var mainViewModel: MainViewModel
+    lateinit var mainViewModel: MainViewModel
     lateinit var viewModel: AddWordViewModel
     private var word = Word()
 
@@ -35,7 +35,7 @@ class AddWordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         activity?.let {
-//            mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
+            mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
             viewModel = ViewModelProviders.of(it).get(AddWordViewModel::class.java)
         }
 
@@ -79,7 +79,7 @@ class AddWordFragment : Fragment() {
             quizData = QuizData()
         )
 
-        viewModel.addWord(word, object : ICallback {
+        mainViewModel.addWord(word, object : ICallback {
             override fun onCallback(uuid: String) {
                 addSentence(uuid)
             }
@@ -92,7 +92,7 @@ class AddWordFragment : Fragment() {
             engSentence = editText_sentence_eng.text.toString(),
             hindiSentence = editText_sentence_hindi.text.toString()
         )
-        viewModel.addSentence(sentence, object : ICallback {
+        mainViewModel.addSentence(sentence, object : ICallback {
             override fun onCallback(uuid: String) {
                 val actionDetail = AddWordFragmentDirections.action_addWordFragment_to_wordFragment2(uuid)
                 findNavController().navigate(actionDetail)

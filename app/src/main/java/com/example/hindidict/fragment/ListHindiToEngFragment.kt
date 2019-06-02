@@ -6,15 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.hindidict.R
 import com.example.hindidict.adapter.WordListHindiAdapter
 import com.example.hindidict.model.Word
+import com.example.hindidict.viewmodel.MainViewModel
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.SnapshotParser
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.l4digital.fastscroll.FastScrollRecyclerView
 import kotlinx.android.synthetic.main.fragment_list_hindi_to_eng.*
 
 class ListHindiToEngFragment : Fragment() {
@@ -44,7 +47,7 @@ class ListHindiToEngFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         val query = FirebaseFirestore.getInstance()
-            .collection("wordsss")
+            .collection("wordsfinal")
             .orderBy("definition.hindi")
 
         val options = FirestoreRecyclerOptions.Builder<Word>()
@@ -55,17 +58,23 @@ class ListHindiToEngFragment : Fragment() {
             })
             .build()
 
-        listHindiAdapter = WordListHindiAdapter(options)
+        val recyclerView: FastScrollRecyclerView? = view?.findViewById(R.id.recyclerView_list_hindi)
+        recyclerView?.layoutManager = LinearLayoutManager(this.context)
+        listHindiAdapter = WordListHindiAdapter(
+            options, ViewModelProviders.of(this).get(MainViewModel::class.java)
+        )
+        recyclerView?.adapter = listHindiAdapter
+        listHindiAdapter.startListening()
 
-        recyclerView_list_hindi.apply {
-            layoutManager = LinearLayoutManager(this.context)
-            adapter = listHindiAdapter
-        }
-
-        listHindiAdapter.apply {
-            startListening()
-            notifyDataSetChanged()
-        }
+//        recyclerView_list_hindi.apply {
+//            layoutManager = LinearLayoutManager(this.context)
+//            adapter = listHindiAdapter
+//        }
+//
+//        listHindiAdapter.apply {
+//            startListening()
+//            notifyDataSetChanged()
+//        }
     }
 
 }

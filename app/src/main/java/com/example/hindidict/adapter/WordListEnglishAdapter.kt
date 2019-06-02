@@ -13,13 +13,19 @@ import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Word
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.l4digital.fastscroll.FastScroller
 import kotlinx.android.synthetic.main.word.view.*
 
 class WordListEnglishAdapter(
     options: FirestoreRecyclerOptions<Word>,
     viewModel: MainViewModel
-): FirestoreRecyclerAdapter<Word, WordListEnglishAdapter.WordHolder>(options) {
+): FastScroller.SectionIndexer, FirestoreRecyclerAdapter<Word, WordListEnglishAdapter.WordHolder>(options) {
     private val viewModel = viewModel
+
+    override fun getSectionText(position: Int): CharSequence {
+        val word = getItem(position).definition.eng
+        return word[0]+""
+    }
 
     override fun onBindViewHolder(holder: WordHolder, position: Int, word: Word) {
         holder.getData(word)

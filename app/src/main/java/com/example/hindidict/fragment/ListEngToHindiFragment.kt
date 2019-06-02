@@ -17,6 +17,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.SnapshotParser
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.l4digital.fastscroll.FastScrollRecyclerView
 import kotlinx.android.synthetic.main.fragment_list_eng_to_hindi.*
 
 class ListEngToHindiFragment : Fragment() {
@@ -47,7 +48,7 @@ class ListEngToHindiFragment : Fragment() {
     private fun setUpRecyclerView() {
         val query = FirebaseFirestore.getInstance()
 //            .collection("words")
-            .collection("wordsss")
+            .collection("wordsfinal")
             .orderBy("definition.eng")
 
         val options = FirestoreRecyclerOptions.Builder<Word>()
@@ -58,18 +59,35 @@ class ListEngToHindiFragment : Fragment() {
             })
             .build()
 
+        // TEST
+        val recyclerView: FastScrollRecyclerView? = view?.findViewById(R.id.recyclerView_list_english)
+        recyclerView?.layoutManager = LinearLayoutManager(this.context)
         listAdapter = WordListEnglishAdapter(
             options, ViewModelProviders.of(this).get(MainViewModel::class.java)
         )
+        recyclerView?.adapter = listAdapter
 
-        recyclerView_list_english.apply {
-            layoutManager = LinearLayoutManager(this.context)
-            adapter = listAdapter
-        }
+        listAdapter.startListening()
 
-        listAdapter.apply {
-            startListening()
-            notifyDataSetChanged()
-        }
+
+//        listAdapter = WordListEnglishAdapter(options, ViewModelProviders.of(this).get(MainViewModel::class.java))
+//        listAdapter.startListening
+//        listAdapter.notifyDataSetChanged()
+
+        //TEST
+
+//        listAdapter = WordListEnglishAdapter(
+//            options, ViewModelProviders.of(this).get(MainViewModel::class.java)
+//        )
+//
+//        recyclerView_list_english.apply {
+//            layoutManager = LinearLayoutManager(this.context)
+//            adapter = listAdapter
+//        }
+
+//        listAdapter.apply {
+//            startListening()
+//            notifyDataSetChanged()
+//        }
     }
 }
