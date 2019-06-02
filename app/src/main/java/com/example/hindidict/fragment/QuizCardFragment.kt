@@ -59,11 +59,15 @@ class QuizCardFragment : Fragment() {
             button_quiz_answer.isEnabled = true
         })
 
-        viewModel.currentCard
+//        viewModel.currentCard
 
         button_quiz_answer.setOnClickListener {
             showAnswer()
         }
+//
+//        button_quiz_getSentence.setOnClickListener {
+//            cardview_card_front_sentence.isVisible = true
+//        }
     }
 
     private fun showAnswer() {

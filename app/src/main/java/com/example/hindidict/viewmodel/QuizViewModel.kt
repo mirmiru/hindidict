@@ -4,7 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.hindidict.SpacedRepetitionAlgorithm
 import com.example.hindidict.helper.ICardsCallback
+import com.example.hindidict.helper.IWordsCallback
 import com.example.hindidict.helper.IEmptyCallback
+import com.example.hindidict.helper.ISentencesCallback
+import com.example.hindidict.model.Card
+import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.Word
 import com.example.hindidict.repo.FirestoreRepository
 import java.util.*
@@ -13,13 +17,13 @@ class QuizViewModel : ViewModel() {
 
     private var repository: FirestoreRepository = FirestoreRepository()
     private var cardSet: MutableList<Word> = mutableListOf()
-    private var todaysCards: MutableList<Word> = mutableListOf()
+    private var wordList: MutableList<Word> = mutableListOf()
 
     var currentCard = MutableLiveData<Word>()
     var isLastCard = MutableLiveData<Boolean>()
 
     fun getCardSet() {
-        repository.getCardSet(object : ICardsCallback{
+        repository.getCardSet(object : IWordsCallback{
             override fun onCallback(list: MutableList<Word>) {
                 cardSet = list
                 getNextCard()
@@ -43,9 +47,19 @@ class QuizViewModel : ViewModel() {
     }
 
     fun getTodaysCards() {
-        repository.getTodaysCards(object : ICardsCallback{
+        repository.getTodaysCards(object : IWordsCallback{
             override fun onCallback(list: MutableList<Word>) {
-                todaysCards = list
+                list.forEach {
+                    wordList.add(it)
+                }
+            }
+        })
+    }
+
+    fun getSentenceForCard(uuid: String) {
+        repository.getQuizSentences(uuid, object : ISentencesCallback{
+            override fun onCallback(sentences: MutableList<Sentence>) {
+                val s = sentences
             }
         })
     }

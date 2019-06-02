@@ -1,12 +1,12 @@
 package com.example.hindidict.repo
 
 import android.text.format.DateUtils
-import com.example.hindidict.helper.ICallback
-import com.example.hindidict.helper.ICardsCallback
-import com.example.hindidict.helper.IEmptyCallback
+import com.example.hindidict.helper.*
 import com.example.hindidict.model.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import java.util.*
+import kotlin.collections.HashMap
 
 /*
 Manages the database
@@ -24,8 +24,8 @@ class FirestoreRepository: IDataRepository {
 
     override fun addNewWord(word: Word, callback: ICallback) {
         try {
-            val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document()
-            word.uuid = documentRef.id
+            val documentRef = FIRESTORE.collection(COLLECTION_WORDS)
+                .document()
 
             documentRef
                 .set(word)
@@ -130,7 +130,6 @@ class FirestoreRepository: IDataRepository {
         val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document(uuid)
 
         documentRef
-//            .update("nextQuizDate", nextDate)
             .update("quizData", quizData)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful)
@@ -140,7 +139,7 @@ class FirestoreRepository: IDataRepository {
             }
     }
 
-    override fun getCardSet(callback: ICardsCallback) {
+    override fun getCardSet(callback: IWordsCallback) {
         FIRESTORE
             .collection(COLLECTION_WORDS)
             .whereEqualTo("difficult", true)
@@ -156,23 +155,53 @@ class FirestoreRepository: IDataRepository {
             }
     }
 
-    fun getTodaysCards(callback: ICardsCallback) {
+    fun getTodaysCards(callback: IWordsCallback) {
+        getQuizWords(object : IWordsCallback{
+            override fun onCallback(list: MutableList<Word>) {
+                val words = mutableListOf<Word>()
+                list.forEach {word ->
+                    val date = Date(word.quizData.nextQuizDate!!)
+                    if (DateUtils.isToday(word.quizData?.nextQuizDate!!)) {
+                        words.add(word)
+                    }
+                }
+                callback.onCallback(words)
+            }
+        })
+    }
+
+    private fun getQuizWords(callback: IWordsCallback) {
         FIRESTORE.collection(COLLECTION_WORDS)
             .whereEqualTo("difficult", true)
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    task.result?.forEach{
+                    var words = mutableListOf<Word>()
+                    task.result?.forEach {
                         val word = it.toObject(Word::class.java)
-                        val list = mutableListOf<Word>()
-
                         if (DateUtils.isToday(word.quizData?.nextQuizDate!!)) {
-                            list.add(word)
+                            words.add(word)
                         }
-                        callback.onCallback(list)
                     }
+                    callback.onCallback(words)
                 }
             }
+    }
+
+    fun getQuizSentences(uuid: String, callback: ISentencesCallback) {
+        val documentRef = FIRESTORE.collection(COLLECTION_SENTENCES)
+            .whereEqualTo("containsWord", uuid)
+
+        documentRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                var sentences = mutableListOf<Sentence>()
+                task.result?.forEach { it ->
+                    val sentence = it.toObject(Sentence::class.java)
+                    sentences.add(sentence)
+                }
+                callback.onCallback(sentences)
+            }
+        }
     }
 
 }

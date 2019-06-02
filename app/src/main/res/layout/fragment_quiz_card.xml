@@ -71,6 +71,8 @@
 
                 <TextView
                         android:id="@+id/cardview_card_front_sentence"
+                        android:clickable="true"
+                        android:visibility="invisible"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Front of card sentence"
@@ -86,14 +88,24 @@
     </com.google.android.material.card.MaterialCardView>
 
     <Button
-            android:id="@+id/button_quiz_answer"
-            android:text="Flip"
+            android:id="@+id/button_quiz_getSentence"
+            android:text="Usage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/cardview_card"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/button_quiz_answer"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="16dp" />
+
+    <Button
+            android:id="@+id/button_quiz_answer"
+            android:text="Flip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/button_quiz_getSentence"
+            app:layout_constraintStart_toEndOf="@id/button_quiz_getSentence"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/button_quiz_getSentence"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

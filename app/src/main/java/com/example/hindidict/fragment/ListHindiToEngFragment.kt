@@ -44,7 +44,7 @@ class ListHindiToEngFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         val query = FirebaseFirestore.getInstance()
-            .collection("words")
+            .collection("wordsss")
             .orderBy("definition.hindi")
 
         val options = FirestoreRecyclerOptions.Builder<Word>()

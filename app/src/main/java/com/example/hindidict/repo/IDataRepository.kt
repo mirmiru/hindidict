@@ -1,8 +1,7 @@
 package com.example.hindidict.repo
 
-import androidx.lifecycle.LiveData
 import com.example.hindidict.helper.ICallback
-import com.example.hindidict.helper.ICardsCallback
+import com.example.hindidict.helper.IWordsCallback
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.*
 
@@ -27,7 +26,7 @@ interface IDataRepository {
 
     fun updateSentence(sentence: Sentence, callback: IEmptyCallback)
 
-    fun getCardSet(callback: ICardsCallback)
+    fun getCardSet(callback: IWordsCallback)
 
     fun updateStudyDate(uuid: String, quizData: QuizData, callback: IEmptyCallback)
 }
