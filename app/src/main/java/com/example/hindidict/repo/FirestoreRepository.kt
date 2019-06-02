@@ -99,7 +99,6 @@ class FirestoreRepository: IDataRepository {
     }
 
     override fun updateSentence(sentence: Sentence, callback: IEmptyCallback) {
-        val s = sentence
         val documentRef = FIRESTORE.collection(COLLECTION_SENTENCES).document(sentence.sentenceId)
         documentRef
             .set(sentence, SetOptions.merge())

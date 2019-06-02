@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -20,8 +22,9 @@ import kotlinx.android.synthetic.main.fragment_add_word.*
 
 class AddWordFragment : Fragment() {
 
-    lateinit var mainViewModel: MainViewModel
+//    lateinit var mainViewModel: MainViewModel
     lateinit var viewModel: AddWordViewModel
+    private var word = Word()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +35,7 @@ class AddWordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         activity?.let {
-            mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
+//            mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
             viewModel = ViewModelProviders.of(it).get(AddWordViewModel::class.java)
         }
 
@@ -40,15 +43,34 @@ class AddWordFragment : Fragment() {
             addWord()
         }
 
-        // SPINNER
-        val arrayAdapter = ArrayAdapter<String>(this.context, android.R.layout.simple_spinner_dropdown_item, viewModel.populateSpinner())
+        setUpSpinner()
+    }
+
+    private fun setUpSpinner() {
+        val arrayAdapter = ArrayAdapter<String>(
+            this.context!!,
+            android.R.layout.simple_spinner_dropdown_item,
+            viewModel.populateSpinner()
+        )
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner_word_category.adapter = arrayAdapter
+
+        spinner_word_category.onItemSelectedListener
+
+        spinner_word_category.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                word.category = viewModel.getCategory(position)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
     }
 
     private fun addWord() {
         val word = Word(
-            category = "adjective",
+            category = word.category,
             definition = Definition(
                 eng = editText_word_eng.text.toString(),
                 hindi = editText_word_hindi.text.toString()
@@ -57,7 +79,7 @@ class AddWordFragment : Fragment() {
             quizData = QuizData()
         )
 
-        mainViewModel.addWord(word, object : ICallback {
+        viewModel.addWord(word, object : ICallback {
             override fun onCallback(uuid: String) {
                 addSentence(uuid)
             }
@@ -70,12 +92,11 @@ class AddWordFragment : Fragment() {
             engSentence = editText_sentence_eng.text.toString(),
             hindiSentence = editText_sentence_hindi.text.toString()
         )
-        mainViewModel.addSentence(sentence, object : ICallback {
+        viewModel.addSentence(sentence, object : ICallback {
             override fun onCallback(uuid: String) {
                 val actionDetail = AddWordFragmentDirections.action_addWordFragment_to_wordFragment2(uuid)
                 findNavController().navigate(actionDetail)
             }
         })
     }
-
 }

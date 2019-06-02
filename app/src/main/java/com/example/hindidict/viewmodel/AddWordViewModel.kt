@@ -1,21 +1,32 @@
 package com.example.hindidict.viewmodel
 
-import android.view.View
-import android.widget.AdapterView
 import androidx.lifecycle.ViewModel
+import com.example.hindidict.helper.ICallback
+import com.example.hindidict.model.Sentence
+import com.example.hindidict.model.Word
+import com.example.hindidict.repo.FirestoreRepository
 
-class AddWordViewModel : ViewModel(), AdapterView.OnItemSelectedListener {
+class AddWordViewModel : ViewModel() {
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    private val spinnerList = listOf(
+        "Noun", "Verb", "Adjective", "Adverb", "Grammar"
+    )
+    private var repository: FirestoreRepository = FirestoreRepository()
 
     fun populateSpinner(): List<String> {
-        return listOf<String>("Noun", "Verb", "Adjective", "Adverb")
+        return spinnerList
+    }
+
+    fun getCategory(position: Int): String {
+        return spinnerList[position]
+    }
+
+    fun addWord(word: Word, callback: ICallback) {
+        repository.addNewWord(word, callback)
+    }
+
+    fun addSentence(sentence: Sentence, callback: ICallback) {
+        repository.addSentence(sentence, callback)
     }
 
 }

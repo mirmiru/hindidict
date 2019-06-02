@@ -6,17 +6,17 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Word(
     var uuid: String = "",
-    val definition: Definition? = null,
-    val category: String? = "",
-    val difficult: Boolean = false,
-    val quizData: QuizData? = null
+    var definition: Definition = Definition(),
+    var category: String = "",
+    var difficult: Boolean = false,
+    var quizData: QuizData = QuizData()
 //    val nextQuizDate: Long = 0
 ): Parcelable
 
 @Parcelize
 data class Definition (
-    val eng: String? = "",
-    val hindi: String? = ""
+    var eng: String = "",
+    var hindi: String = ""
 ): Parcelable
 
 @Parcelize

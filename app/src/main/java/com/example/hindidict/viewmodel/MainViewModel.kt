@@ -36,13 +36,13 @@ class MainViewModel: ViewModel() {
         return sentenceLiveData
     }
 
-    fun addWord(word: Word, callback: ICallback) {
-        repository.addNewWord(word, callback)
-    }
-
-    fun addSentence(sentence: Sentence, callback: ICallback) {
-        repository.addSentence(sentence, callback)
-    }
+//    fun addWord(word: Word, callback: ICallback) {
+//        repository.addNewWord(word, callback)
+//    }
+//
+//    fun addSentence(sentence: Sentence, callback: ICallback) {
+//        repository.addSentence(sentence, callback)
+//    }
 
     fun addSentenceToWord(sentence: Sentence, callback: IEmptyCallback) {
         repository.addSentenceToWord(sentence, callback)
