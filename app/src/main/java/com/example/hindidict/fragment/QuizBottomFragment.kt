@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 
 import com.example.hindidict.R
 import com.example.hindidict.model.Word
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_quiz_bottom.*
 class QuizBottomFragment : Fragment() {
 
     private lateinit var viewModel: QuizViewModel
+    private var isLastCard: Boolean = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -39,6 +41,12 @@ class QuizBottomFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(activity!!)
             .get(QuizViewModel::class.java)
+
+        viewModel.isLastCard.observe(this, Observer<Boolean> {
+            if (it) {
+                isLastCard = true
+            }
+        })
 
         button_quiz_0.setOnClickListener {
             setStudyDate(0)
@@ -62,5 +70,10 @@ class QuizBottomFragment : Fragment() {
 
     private fun setStudyDate(response: Int) {
         viewModel.setStudyDate(response)
+
+        if (isLastCard) {
+            val actionDetails = QuizHolderFragmentDirections.action_quizFragment_to_quizDoneFragment()
+            findNavController().navigate(actionDetails)
+        }
     }
 }

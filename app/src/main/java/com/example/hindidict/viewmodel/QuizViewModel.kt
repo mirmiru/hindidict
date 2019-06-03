@@ -20,6 +20,10 @@ class QuizViewModel : ViewModel() {
     var currentCard = MutableLiveData<Word>()
     var isLastCard = MutableLiveData<Boolean>()
 
+    fun clearStack() {
+        currentCard.postValue(null)
+    }
+
     fun getCardSet() {
         repository.getCardSet(object : IWordsCallback{
             override fun onCallback(list: MutableList<Word>) {
@@ -31,14 +35,14 @@ class QuizViewModel : ViewModel() {
     }
 
     fun getNextCard() {
+        if (cardSet.size == 1) {
+            isLastCard.postValue(true)
+        }
+
         if (cardSet.isNotEmpty()) {
             val next = cardSet.first()
             cardSet.remove(next)
             currentCard.postValue(next)
-
-            if (cardSet.size == 1) {
-                isLastCard.postValue(true)
-            }
         } else {
             // TODO Go to Quiz start fragment
         }

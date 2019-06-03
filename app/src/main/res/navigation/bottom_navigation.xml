@@ -18,6 +18,15 @@
             android:name="com.example.hindidict.fragment.QuizHolderFragment"
             android:label="Quiz"
             tools:layout="@layout/fragment_quiz_holder">
+        <action android:id="@+id/action_quizFragment_to_quizDoneFragment" app:destination="@id/quizDoneFragment"
+                app:popEnterAnim="@anim/nav_default_enter_anim"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/quizDoneFragment"
+            android:name="com.example.hindidict.fragment.QuizDoneFragment"
+            android:label="Done!"
+            tools:layout="@layout/fragment_quiz_done">
     </fragment>
 
     <fragment
