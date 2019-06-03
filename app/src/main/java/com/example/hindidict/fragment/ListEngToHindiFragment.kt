@@ -18,7 +18,6 @@ import com.firebase.ui.firestore.SnapshotParser
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.l4digital.fastscroll.FastScrollRecyclerView
-import kotlinx.android.synthetic.main.fragment_list_eng_to_hindi.*
 
 class ListEngToHindiFragment : Fragment() {
 
@@ -47,7 +46,6 @@ class ListEngToHindiFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         val query = FirebaseFirestore.getInstance()
-//            .collection("words")
             .collection("wordsfinal")
             .orderBy("definition.eng")
 

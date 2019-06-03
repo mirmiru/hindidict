@@ -6,15 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 
 import com.example.hindidict.R
-import com.example.hindidict.model.Word
 import com.example.hindidict.viewmodel.QuizViewModel
 import kotlinx.android.synthetic.main.fragment_quiz_bottom.*
 
@@ -25,8 +21,8 @@ class QuizBottomFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(activity!!)
-            .get(QuizViewModel::class.java)
+//        viewModel = ViewModelProviders.of(activity!!)
+//            .get(QuizViewModel::class.java)
     }
 
     override fun onCreateView(

@@ -54,8 +54,22 @@ class QuizCardFragment : Fragment() {
             button_quiz_answer.isEnabled = true
         })
 
+        viewModel.sentenceData.observe(this, Observer { sentence ->
+            if (easyFlipView.isBackSide) {
+                cardview_card_front_sentence.text = sentence.engSentence
+                cardview_card_back_sentence.text = sentence.hindiSentence
+            } else {
+                cardview_card_front_sentence.text = sentence.hindiSentence
+                cardview_card_back_sentence.text = sentence.engSentence
+            }
+        })
+
         button_quiz_answer.setOnClickListener {
             showAnswer()
+        }
+
+        button_quiz_getSentence.setOnClickListener {
+            viewModel.getSentenceForCard()
         }
     }
 

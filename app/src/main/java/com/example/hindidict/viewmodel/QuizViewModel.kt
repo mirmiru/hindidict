@@ -19,6 +19,7 @@ class QuizViewModel : ViewModel() {
 
     var currentCard = MutableLiveData<Word>()
     var isLastCard = MutableLiveData<Boolean>()
+    var sentenceData = MutableLiveData<Sentence>()
 
     fun clearStack() {
         currentCard.postValue(null)
@@ -58,10 +59,12 @@ class QuizViewModel : ViewModel() {
         })
     }
 
-    fun getSentenceForCard(uuid: String) {
-        repository.getQuizSentences(uuid, object : ISentencesCallback{
+    fun getSentenceForCard() {
+        repository.getQuizSentences(currentCard.value?.uuid!!, object : ISentencesCallback{
             override fun onCallback(sentences: MutableList<Sentence>) {
-                val s = sentences
+                // Given multiple sentences, get random
+                val i = Random().nextInt(sentences.size)
+                sentenceData.postValue(sentences[i])
             }
         })
     }

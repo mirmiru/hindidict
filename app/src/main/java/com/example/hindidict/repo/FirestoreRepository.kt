@@ -3,6 +3,7 @@ package com.example.hindidict.repo
 import android.text.format.DateUtils
 import com.example.hindidict.helper.*
 import com.example.hindidict.model.*
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import java.time.Instant
@@ -118,7 +119,27 @@ class FirestoreRepository: IDataRepository {
         val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document(uuid)
 
         documentRef
-            .update("difficult",isDifficult)
+            .update("difficult", isDifficult)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    if (!isDifficult) {
+                        resetQuizData(documentRef, object : IEmptyCallback {
+                            override fun onCallback() {
+                                callback.onCallback()
+                            }
+                        })
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                e.stackTrace
+            }
+
+    }
+
+    private fun resetQuizData(documentRef: DocumentReference, callback: IEmptyCallback) {
+        documentRef
+            .update("quizData", QuizData())
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     callback.onCallback()
@@ -158,7 +179,7 @@ class FirestoreRepository: IDataRepository {
             }
     }
 
-    fun getCardsDueToday(callback: IWordsCallback) {
+    override fun getCardsDueToday(callback: IWordsCallback) {
         getQuizWords(object : IWordsCallback{
             override fun onCallback(list: MutableList<Word>) {
                 val words = mutableListOf<Word>()
@@ -177,7 +198,7 @@ class FirestoreRepository: IDataRepository {
         })
     }
 
-    private fun getQuizWords(callback: IWordsCallback) {
+    override fun getQuizWords(callback: IWordsCallback) {
         FIRESTORE.collection(COLLECTION_WORDS)
             .whereEqualTo("difficult", true)
             .get()
