@@ -5,6 +5,9 @@ import com.example.hindidict.helper.*
 import com.example.hindidict.model.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -155,13 +158,17 @@ class FirestoreRepository: IDataRepository {
             }
     }
 
-    fun getTodaysCards(callback: IWordsCallback) {
+    fun getCardsDueToday(callback: IWordsCallback) {
         getQuizWords(object : IWordsCallback{
             override fun onCallback(list: MutableList<Word>) {
                 val words = mutableListOf<Word>()
                 list.forEach {word ->
-                    val date = Date(word.quizData.nextQuizDate!!)
-                    if (DateUtils.isToday(word.quizData?.nextQuizDate!!)) {
+                    val loggedDate = word.quizData.nextQuizDate
+                    val asDate = Date(loggedDate!!)
+                    val todaysDate = Calendar.getInstance().timeInMillis
+                    val asDate2 = Date(todaysDate!!)
+                    if (todaysDate > loggedDate) {
+                        val a = todaysDate-loggedDate
                         words.add(word)
                     }
                 }
@@ -179,9 +186,7 @@ class FirestoreRepository: IDataRepository {
                     var words = mutableListOf<Word>()
                     task.result?.forEach {
                         val word = it.toObject(Word::class.java)
-                        if (DateUtils.isToday(word.quizData?.nextQuizDate!!)) {
                             words.add(word)
-                        }
                     }
                     callback.onCallback(words)
                 }

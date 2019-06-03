@@ -3,11 +3,9 @@ package com.example.hindidict.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.hindidict.SpacedRepetitionAlgorithm
-import com.example.hindidict.helper.ICardsCallback
 import com.example.hindidict.helper.IWordsCallback
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.helper.ISentencesCallback
-import com.example.hindidict.model.Card
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.Word
 import com.example.hindidict.repo.FirestoreRepository
@@ -17,7 +15,7 @@ class QuizViewModel : ViewModel() {
 
     private var repository: FirestoreRepository = FirestoreRepository()
     private var cardSet: MutableList<Word> = mutableListOf()
-    private var wordList: MutableList<Word> = mutableListOf()
+    private var cardsDueToday: MutableList<Word> = mutableListOf()
 
     var currentCard = MutableLiveData<Word>()
     var isLastCard = MutableLiveData<Boolean>()
@@ -46,12 +44,12 @@ class QuizViewModel : ViewModel() {
         }
     }
 
-    fun getTodaysCards() {
-        repository.getTodaysCards(object : IWordsCallback{
+    fun getCardsDueToday() {
+        repository.getCardsDueToday(object : IWordsCallback{
             override fun onCallback(list: MutableList<Word>) {
-                list.forEach {
-                    wordList.add(it)
-                }
+                cardSet = list
+                getNextCard()
+                isLastCard.value = false
             }
         })
     }

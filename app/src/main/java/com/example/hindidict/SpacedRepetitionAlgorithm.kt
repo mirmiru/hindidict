@@ -1,13 +1,19 @@
 package com.example.hindidict
 
+import android.text.format.Time
 import com.example.hindidict.model.QuizData
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
+import java.util.*
 
 class SpacedRepetitionAlgorithm {
 
     private var repetitions = 0
     private var interval = 0
     private var easiness = 0F
-    private val secondsPerDay = 60*60*24
+    private val secondsPerDay = 86400
 
     /*
     * 5 - perfect response
@@ -68,14 +74,24 @@ class SpacedRepetitionAlgorithm {
         setRepetitions()
         setInterval()
 
-        val currentTime = System.currentTimeMillis()
-        val nextDate =  currentTime + (secondsPerDay * interval)
+        val cal = Calendar.getInstance()
+        val a = cal.time
+        val aInMillis = cal.timeInMillis
+        val b = Date(aInMillis)
+
+        val nextCal = Calendar.getInstance()
+        val addition: Long = (secondsPerDay*interval).toLong()
+//        val nextStudyDate = nextCal.timeInMillis + addition
+        nextCal.add(Calendar.DATE, interval)
+        val d = nextCal
+
+//        val nextStudyDate = currentTime.add(Calendar.DATE, interval)
 
         return QuizData(
             easiness = this.easiness,
             repetitions = this.repetitions,
             interval = this.interval,
-            nextQuizDate = nextDate
+            nextQuizDate = nextCal.timeInMillis
         )
     }
 }
