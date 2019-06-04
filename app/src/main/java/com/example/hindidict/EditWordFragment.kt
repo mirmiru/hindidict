@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
@@ -20,9 +22,10 @@ import kotlinx.android.synthetic.main.fragment_edit_word.*
 
 class EditWordFragment : DialogFragment () {
 
-    lateinit var WORD_ID: String
+//    lateinit var WORD_ID: String
     lateinit var mainViewModel: MainViewModel
     lateinit var wordViewModel: WordViewModel
+    private var updatedWord = Word()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,17 +37,12 @@ class EditWordFragment : DialogFragment () {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         wordViewModel = ViewModelProviders.of(this).get(WordViewModel::class.java)
+
+        setUpSpinner()
         loadArguments()
 
         fab_update_word.setOnClickListener {
             val updatedWord = createWord()
-//            mainViewModel.updateWord(updatedWord, object: ICallback {
-////                override fun onCallback(uuid: String) {
-////                    if (uuid != null) {
-////                        findNavController().popBackStack(R.id.wordFragment, true)
-////                    }
-////                }
-////            })
             wordViewModel.updateWord(updatedWord, object: ICallbackResult {
                 override fun onCallbackResult(successful: Boolean) {
                     val message = when (successful) {
@@ -62,38 +60,70 @@ class EditWordFragment : DialogFragment () {
     private fun loadArguments() {
         arguments?.let {
             val safeArgs = EditWordFragmentArgs.fromBundle(it)
-            WORD_ID = safeArgs.word_id
+//            WORD_ID = safeArgs.word_id
+            fillViews(safeArgs.word_id)
+        }
+    }
 
-            fillViews(WORD_ID)
+    private fun setUpSpinner() {
+        val arrayAdapter = ArrayAdapter<String>(
+            this.context,
+            android.R.layout.simple_spinner_dropdown_item,
+            wordViewModel.populateSpinner()
+        )
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner_edit_word_category.apply {
+            adapter = arrayAdapter
+            this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    updatedWord.category = wordViewModel.getCategory(position)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // TODO Implement
+                }
+            }
         }
     }
 
     private fun createWord(): Word {
-        val word = Word(
-            uuid = WORD_ID,
+//        val word = Word(
+//            uuid = WORD_ID,
+//            definition = Definition(
+//                eng = editText_edit_word_eng.text.toString(),
+//                hindi = editText_edit_word_hindi.text.toString()
+//            ),
+//            category = "nullForNow",
+//            difficult = false
+//        )
+        return Word(
+            uuid = updatedWord.uuid,
             definition = Definition(
                 eng = editText_edit_word_eng.text.toString(),
                 hindi = editText_edit_word_hindi.text.toString()
             ),
-            category = "nullForNow",
-            difficult = false
+            category = updatedWord.category,
+            difficult = updatedWord.difficult
         )
-        return word
+//        return word
     }
 
     private fun fillViews(uuid: String) {
         val liveData = mainViewModel.getWordLiveData(uuid)
         liveData.observe(this, Observer<Word> { word ->
             if (word != null) {
-                word.let {
+                updatedWord = word
+                updatedWord.let {
                     val def = Definition(
                         hindi = it.definition!!.hindi,
                         eng = it.definition!!.eng
                     )
                     editText_edit_word_hindi.setText(def.hindi)
                     editText_edit_word_eng.setText(def.eng)
-                    // TODO Category spinner
                 }
+                spinner_edit_word_category.setSelection(
+                        wordViewModel.getSpinnerPosition(updatedWord.category)
+                    )
             }
         })
     }

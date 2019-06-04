@@ -5,7 +5,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".EditWordFragment" android:id="@+id/frameLayout">
+        tools:context=".EditWordFragment"
+        android:id="@+id/frameLayout">
 
     <EditText
             android:id="@+id/editText_edit_word_hindi"
@@ -34,8 +35,8 @@
 
     <Spinner
             android:id="@+id/spinner_edit_word_category"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/editText_edit_word_eng"
             app:layout_constraintStart_toStartOf="@id/editText_edit_word_eng"
             android:layout_marginTop="16dp" />

@@ -17,6 +17,10 @@ class WordViewModel : ViewModel() {
         return spinnerList
     }
 
+    fun getSpinnerPosition(string: String): Int {
+        return spinnerList.indexOf(string)
+    }
+
     fun getCategory(position: Int): String {
         return spinnerList[position]
     }
