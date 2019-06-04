@@ -53,7 +53,7 @@ class EditWordFragment : DialogFragment () {
                     }
                     Toast.makeText(this@EditWordFragment.context, message, Toast.LENGTH_SHORT).show()
 
-                    findNavController().popBackStack(R.id.wordFragment, true)
+                    findNavController().popBackStack()
                 }
             })
         }
