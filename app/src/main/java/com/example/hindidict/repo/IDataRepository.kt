@@ -1,13 +1,12 @@
 package com.example.hindidict.repo
 
 import com.example.hindidict.helper.ICallback
+import com.example.hindidict.helper.ICallbackResult
 import com.example.hindidict.helper.IWordsCallback
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.*
+import com.google.firebase.firestore.DocumentReference
 
-/*
-Has knowledge of where the data comes from
- */
 interface IDataRepository {
 
     fun getWordData(uuid: String): WordLiveData
@@ -15,6 +14,10 @@ interface IDataRepository {
     fun getSentence(uuid: String): SentenceLiveData
 
     fun addNewWord(word: Word, callback: ICallback)
+
+    fun deleteWord(uuid: String, callback: ICallbackResult)
+
+    fun deleteSentences(uuid: String, callback: ICallbackResult)
 
     fun addSentence(sentence: Sentence, callback: ICallback)
 
@@ -31,6 +34,8 @@ interface IDataRepository {
     fun getCardsDueToday(callback: IWordsCallback)
 
     fun getQuizWords(callback: IWordsCallback)
+
+    fun resetQuizData(documentRef: DocumentReference, callback: IEmptyCallback)
 
     fun updateStudyDate(uuid: String, quizData: QuizData, callback: IEmptyCallback)
 }

@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
@@ -32,6 +31,12 @@ class QuizCardFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_quiz_card, container, false)
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        viewModel.getCurrentCard().removeObservers(this)
+        viewModel.getSentenceData().removeObservers(this)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -43,7 +48,7 @@ class QuizCardFragment : Fragment() {
                 it.getCardsDueToday()
             }
 
-        viewModel.currentCard.observe(this, Observer<Word> {
+        viewModel.getCurrentCard().observe(this, Observer<Word> {
             if (easyFlipView.isBackSide) {
                 cardview_card_front_mainText.text = it?.definition?.eng
                 cardview_card_back_mainText.text = it?.definition?.hindi
@@ -54,7 +59,7 @@ class QuizCardFragment : Fragment() {
             button_quiz_answer.isEnabled = true
         })
 
-        viewModel.sentenceData.observe(this, Observer { sentence ->
+        viewModel.getSentenceData().observe(this, Observer { sentence ->
             if (easyFlipView.isBackSide) {
                 cardview_card_front_sentence.text = sentence.engSentence
                 cardview_card_back_sentence.text = sentence.hindiSentence

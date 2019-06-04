@@ -38,7 +38,7 @@ class QuizBottomFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity!!)
             .get(QuizViewModel::class.java)
 
-        viewModel.isLastCard.observe(this, Observer<Boolean> {
+        viewModel.getIsLastCard().observe(this, Observer<Boolean> {
             if (it) {
                 isLastCard = true
             }

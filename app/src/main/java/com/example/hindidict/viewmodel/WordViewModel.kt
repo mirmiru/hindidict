@@ -1,12 +1,11 @@
 package com.example.hindidict.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.hindidict.helper.ICallback
-import com.example.hindidict.model.Sentence
-import com.example.hindidict.model.Word
+import com.example.hindidict.helper.ICallbackResult
+import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.repo.FirestoreRepository
 
-class AddWordViewModel : ViewModel() {
+class WordViewModel : ViewModel() {
 
     private val spinnerList = listOf(
         "Noun", "Verb", "Adjective", "Adverb", "Grammar"
@@ -19,6 +18,16 @@ class AddWordViewModel : ViewModel() {
 
     fun getCategory(position: Int): String {
         return spinnerList[position]
+    }
+
+    fun deleteWord(uuid: String, callback: ICallbackResult) {
+        repository.deleteWord(uuid, object : ICallbackResult{
+            override fun onCallbackResult(successful: Boolean) {
+                if (successful) {
+                    repository.deleteSentences(uuid, callback)
+                }
+            }
+        })
     }
 
 //    fun addWord(word: Word, callback: ICallback) {

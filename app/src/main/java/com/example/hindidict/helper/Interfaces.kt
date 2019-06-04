@@ -23,3 +23,7 @@ interface ISentencesCallback {
 interface ICardsCallback {
     fun onCallback(cards: MutableList<Card>)
 }
+
+interface ICallbackResult {
+    fun onCallbackResult(successful: Boolean)
+}

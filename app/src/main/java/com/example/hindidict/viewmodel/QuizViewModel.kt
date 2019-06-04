@@ -1,5 +1,6 @@
 package com.example.hindidict.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.hindidict.SpacedRepetitionAlgorithm
@@ -15,15 +16,15 @@ class QuizViewModel : ViewModel() {
 
     private var repository: FirestoreRepository = FirestoreRepository()
     private var cardSet: MutableList<Word> = mutableListOf()
-    private var cardsDueToday: MutableList<Word> = mutableListOf()
 
-    var currentCard = MutableLiveData<Word>()
-    var isLastCard = MutableLiveData<Boolean>()
-    var sentenceData = MutableLiveData<Sentence>()
+    private var currentCard = MutableLiveData<Word>()
+    fun getCurrentCard(): LiveData<Word> = currentCard
 
-    fun clearStack() {
-        currentCard.postValue(null)
-    }
+    private var isLastCard = MutableLiveData<Boolean>()
+    fun getIsLastCard(): LiveData<Boolean> = isLastCard
+
+    private var sentenceData = MutableLiveData<Sentence>()
+    fun getSentenceData(): LiveData<Sentence> = sentenceData
 
     fun getCardSet() {
         repository.getCardSet(object : IWordsCallback{
@@ -35,7 +36,7 @@ class QuizViewModel : ViewModel() {
         })
     }
 
-    fun getNextCard() {
+    private fun getNextCard() {
         if (cardSet.size == 1) {
             isLastCard.postValue(true)
         }
@@ -45,7 +46,7 @@ class QuizViewModel : ViewModel() {
             cardSet.remove(next)
             currentCard.postValue(next)
         } else {
-            // TODO Go to Quiz start fragment
+            // TODO
         }
     }
 
@@ -73,9 +74,6 @@ class QuizViewModel : ViewModel() {
         val quizData = currentCard.value?.quizData
         val algorithm = SpacedRepetitionAlgorithm()
         val studyDate = algorithm.getNextStudyDate(quizData!!, response)
-
-        //TODO Remove test
-        val readableDate = Date(studyDate.nextQuizDate!!)
 
         repository.updateStudyDate(currentCard.value!!.uuid, studyDate, object : IEmptyCallback {
             override fun onCallback() {

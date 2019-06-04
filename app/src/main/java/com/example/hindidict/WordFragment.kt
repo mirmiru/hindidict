@@ -3,6 +3,7 @@ package com.example.hindidict
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -19,16 +20,22 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.SnapshotParser
 import com.example.hindidict.WordFragmentDirections.*
+import com.example.hindidict.helper.ICallbackResult
+import com.example.hindidict.helper.IEmptyCallback
+import com.example.hindidict.viewmodel.WordViewModel
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_word.*
 import kotlinx.android.synthetic.main.sentence.view.*
 
 
-// Firestore is not present here - view separate from repo
 class WordFragment : Fragment() {
-    lateinit var WORD_ID: String
+
     lateinit var mainViewModel: MainViewModel
+    lateinit var wordViewModel: WordViewModel
+
+    // TODO Get ID from livedata - don't store data in fragment
+    lateinit var WORD_ID: String
     lateinit var liveData: WordLiveData
     lateinit var adapter: FirestoreSentenceRecyclerAdapter
 
@@ -61,6 +68,7 @@ class WordFragment : Fragment() {
         activity?.let {
             mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
             observeWord(mainViewModel)
+            wordViewModel = ViewModelProviders.of(it).get(WordViewModel::class.java)
         }
 
         button_add_sentence_to_word.setOnClickListener {
@@ -74,7 +82,18 @@ class WordFragment : Fragment() {
             val actionDetail = action_wordFragment_to_editWordFragment()
             actionDetail.setWord_id(WORD_ID)
             findNavController().navigate(actionDetail)
-
+            true
+        }
+        R.id.action_delete -> {
+            wordViewModel.deleteWord(WORD_ID, object: ICallbackResult{
+                override fun onCallbackResult(successful: Boolean) {
+                    val message = when (successful) {
+                        true -> "Deleted"
+                        else -> "An error occurred"
+                    }
+                    Toast.makeText(this@WordFragment.context, message, Toast.LENGTH_SHORT)
+                }
+            })
             true
         }
         else -> {

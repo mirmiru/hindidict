@@ -10,24 +10,25 @@
             android:id="@+id/homeFragment"
             android:name="com.example.hindidict.HomeFragment"
             android:label="Add word fragment"
-            tools:layout="@layout/fragment_home">
-    </fragment>
+            tools:layout="@layout/fragment_home" />
 
     <fragment
             android:id="@+id/quizFragment"
             android:name="com.example.hindidict.fragment.QuizHolderFragment"
             android:label="Quiz"
             tools:layout="@layout/fragment_quiz_holder">
-        <action android:id="@+id/action_quizFragment_to_quizDoneFragment" app:destination="@id/quizDoneFragment"
+        <action
+                android:id="@+id/action_quizFragment_to_quizDoneFragment"
+                app:destination="@id/quizDoneFragment"
                 app:popEnterAnim="@anim/nav_default_enter_anim"/>
+        <argument android:name="quiz_type" app:argType="integer"/>
     </fragment>
 
     <fragment
             android:id="@+id/quizDoneFragment"
             android:name="com.example.hindidict.fragment.QuizDoneFragment"
             android:label="Done!"
-            tools:layout="@layout/fragment_quiz_done">
-    </fragment>
+            tools:layout="@layout/fragment_quiz_done" />
 
     <fragment
             android:id="@+id/addWordFragment"
@@ -36,8 +37,7 @@
             tools:layout="@layout/fragment_add_word">
         <action
                 android:id="@+id/action_addWordFragment_to_wordFragment2"
-                app:destination="@id/wordFragment" >
-        </action>
+                app:destination="@id/wordFragment" />
         <argument
             android:name="word_id"
             app:argType="string"
@@ -58,10 +58,9 @@
                 app:nullable="true" />
         <action
                 android:id="@+id/action_wordFragment_to_addSentenceFragment"
-                app:destination="@id/addSentenceFragment"/>
+                app:destination="@id/addSentenceFragment" />
         <action android:id="@+id/action_wordFragment_to_editSentenceFragment"
-                app:destination="@id/editSentenceFragment">
-        </action>
+                app:destination="@id/editSentenceFragment" />
     </fragment>
 
     <fragment
@@ -96,26 +95,26 @@
             tools:layout="@layout/fragment_edit_sentence" >
         <argument
                 android:name="sentence_id"
-                app:argType="string"/>
-        <action android:id="@+id/action_editSentenceFragment_to_wordFragment" app:destination="@id/wordFragment"
-                app:popUpTo="@+id/wordFragment"/>
+                app:argType="string" />
+        <action
+                android:id="@+id/action_editSentenceFragment_to_wordFragment"
+                app:destination="@id/wordFragment"
+                app:popUpTo="@+id/wordFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/listHolderFragment"
-        android:name="com.example.hindidict.fragment.ListHolderFragment"
-        android:label="List Holder"
-        tools:layout="@layout/fragment_list_holder">
+            android:id="@+id/listHolderFragment"
+            android:name="com.example.hindidict.fragment.ListHolderFragment"
+            android:label="List Holder"
+            tools:layout="@layout/fragment_list_holder" >
         <action
                 android:id="@+id/action_listHolderFragment_to_wordFragment"
-                app:destination="@id/wordFragment"/>
+                app:destination="@id/wordFragment" />
     </fragment>
 
     <fragment
             android:id="@+id/listEnglishFragment"
             android:name="com.example.hindidict.fragment.ListEngToHindiFragment"
-            tools:layout="@layout/fragment_list_eng_to_hindi" >
-
-    </fragment>
+            tools:layout="@layout/fragment_list_eng_to_hindi" />
 
 </navigation>

@@ -1,20 +1,13 @@
 package com.example.hindidict.repo
 
-import android.text.format.DateUtils
 import com.example.hindidict.helper.*
 import com.example.hindidict.model.*
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 import java.util.*
 import kotlin.collections.HashMap
 
-/*
-Manages the database
- */
 class FirestoreRepository: IDataRepository {
 
     private val FIRESTORE = FirebaseFirestore.getInstance()
@@ -43,6 +36,38 @@ class FirestoreRepository: IDataRepository {
         } catch (e: Throwable) {
             e.printStackTrace()
         }
+    }
+
+    override fun deleteWord(uuid: String, callback: ICallbackResult) {
+        val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document(uuid)
+
+        documentRef.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    callback.onCallbackResult(true)
+                }
+            }
+            .addOnFailureListener {
+                callback.onCallbackResult(false)
+            }
+    }
+
+    override fun deleteSentences(uuid: String, callback: ICallbackResult) {
+        FIRESTORE.collection(COLLECTION_SENTENCES)
+            .whereEqualTo("containsWord", uuid)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    task.result?.forEach {
+                        FIRESTORE.collection(COLLECTION_SENTENCES)
+                            .document(it.id)
+                            .delete()
+                    }
+                    callback.onCallbackResult(true)
+                } else {
+                    callback.onCallbackResult(false)
+                }
+            }
     }
 
     override fun addSentence(sentence: Sentence, callback: ICallback) {
@@ -134,10 +159,9 @@ class FirestoreRepository: IDataRepository {
             .addOnFailureListener { e ->
                 e.stackTrace
             }
-
     }
 
-    private fun resetQuizData(documentRef: DocumentReference, callback: IEmptyCallback) {
+    override fun resetQuizData(documentRef: DocumentReference, callback: IEmptyCallback) {
         documentRef
             .update("quizData", QuizData())
             .addOnCompleteListener { task ->
@@ -185,11 +209,11 @@ class FirestoreRepository: IDataRepository {
                 val words = mutableListOf<Word>()
                 list.forEach {word ->
                     val loggedDate = word.quizData.nextQuizDate
-                    val asDate = Date(loggedDate!!)
                     val todaysDate = Calendar.getInstance().timeInMillis
+                    // TODO Remove check
+                    val asDate = Date(loggedDate!!)
                     val asDate2 = Date(todaysDate!!)
                     if (todaysDate > loggedDate) {
-                        val a = todaysDate-loggedDate
                         words.add(word)
                     }
                 }
@@ -229,5 +253,4 @@ class FirestoreRepository: IDataRepository {
             }
         }
     }
-
 }
