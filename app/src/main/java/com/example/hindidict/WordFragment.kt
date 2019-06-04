@@ -21,7 +21,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.SnapshotParser
 import com.example.hindidict.WordFragmentDirections.*
 import com.example.hindidict.helper.ICallbackResult
-import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.viewmodel.WordViewModel
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore

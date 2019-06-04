@@ -25,7 +25,8 @@ interface IDataRepository {
 
     fun addSentenceToWord(sentence: Sentence, callback: IEmptyCallback)
 
-    fun updateWord(word: Word, callback: ICallback)
+//    fun updateWord(word: Word, callback: ICallback)
+    fun updateWord(word: Word, callback: ICallbackResult)
 
     fun updateSentence(sentence: Sentence, callback: IEmptyCallback)
 

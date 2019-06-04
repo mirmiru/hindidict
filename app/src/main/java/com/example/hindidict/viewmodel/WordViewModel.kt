@@ -3,6 +3,7 @@ package com.example.hindidict.viewmodel
 import androidx.lifecycle.ViewModel
 import com.example.hindidict.helper.ICallbackResult
 import com.example.hindidict.helper.IEmptyCallback
+import com.example.hindidict.model.Word
 import com.example.hindidict.repo.FirestoreRepository
 
 class WordViewModel : ViewModel() {
@@ -28,6 +29,10 @@ class WordViewModel : ViewModel() {
                 }
             }
         })
+    }
+
+    fun updateWord(word: Word, callback: ICallbackResult) {
+        repository.updateWord(word, callback)
     }
 
 //    fun addWord(word: Word, callback: ICallback) {

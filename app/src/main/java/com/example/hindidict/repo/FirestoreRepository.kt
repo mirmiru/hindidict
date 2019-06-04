@@ -114,7 +114,7 @@ class FirestoreRepository: IDataRepository {
             }
     }
 
-    override fun updateWord(word: Word, callback: ICallback) {
+    /*override fun updateWord(word: Word, callback: ICallback) {
         val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document(word.uuid)
         documentRef
             .set(word, SetOptions.merge())
@@ -124,6 +124,19 @@ class FirestoreRepository: IDataRepository {
             }
             .addOnFailureListener { e ->
                 e.stackTrace
+            }
+    }*/
+
+    override fun updateWord(word: Word, callback: ICallbackResult) {
+        val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document(word.uuid)
+        documentRef
+            .set(word, SetOptions.merge())
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful)
+                    callback.onCallbackResult(true)
+            }
+            .addOnFailureListener {
+                callback.onCallbackResult(false)
             }
     }
 

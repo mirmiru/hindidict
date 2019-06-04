@@ -35,9 +35,9 @@ class MainViewModel: ViewModel() {
         repository.addSentenceToWord(sentence, callback)
     }
 
-    fun updateWord(word: Word, callback: ICallback) {
-        repository.updateWord(word, callback)
-    }
+//    fun updateWord(word: Word, callback: ICallback) {
+//        repository.updateWord(word, callback)
+//    }
 
     fun updateSentence(sentence: Sentence, callback: IEmptyCallback) {
         repository.updateSentence(sentence, callback)
