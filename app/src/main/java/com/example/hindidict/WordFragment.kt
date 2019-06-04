@@ -91,7 +91,9 @@ class WordFragment : Fragment() {
                         true -> "Deleted"
                         else -> "An error occurred"
                     }
-                    Toast.makeText(this@WordFragment.context, message, Toast.LENGTH_SHORT)
+                    Toast.makeText(this@WordFragment.context, message, Toast.LENGTH_SHORT).show()
+
+                    findNavController().popBackStack(R.id.homeFragment, true)
                 }
             })
             true
