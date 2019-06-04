@@ -1,6 +1,8 @@
 package com.example.hindidict
 
 
+import android.graphics.Canvas
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -8,7 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +28,7 @@ import com.example.hindidict.helper.ICallbackResult
 import com.example.hindidict.viewmodel.WordViewModel
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_word.*
 import kotlinx.android.synthetic.main.sentence.view.*
 
@@ -98,6 +103,7 @@ class WordFragment : Fragment() {
             true
         }
         else -> {
+            NavigationUI.onNavDestinationSelected(item, NavHostFragment.findNavController(this))
             super.onOptionsItemSelected(item)
         }
     }
@@ -139,6 +145,21 @@ class WordFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 adapter.deleteSentence(viewHolder.adapterPosition)
             }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                val background = ColorDrawable(resources.getColor(R.color.colorAccent))
+                background.setBounds(0, viewHolder.itemView.top, (viewHolder.itemView.left + dX).toInt(), viewHolder.itemView.bottom)
+                background.draw(c)
+            }
         }).attachToRecyclerView(recyclerView_sentences_word)
     }
 
@@ -156,6 +177,8 @@ class WordFragment : Fragment() {
                 word.let {
                     textView_word_hindi.text = it.definition?.hindi
                     textView_word_eng.text = it.definition?.eng
+
+                    textView_word_category.text = "--${it.category}"
                 }
             }
         })

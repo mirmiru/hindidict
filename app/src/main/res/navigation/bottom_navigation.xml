@@ -9,7 +9,6 @@
     <fragment
             android:id="@+id/homeFragment"
             android:name="com.example.hindidict.HomeFragment"
-            android:label="Add word fragment"
             tools:layout="@layout/fragment_home" />
 
     <fragment
@@ -27,13 +26,12 @@
     <fragment
             android:id="@+id/quizDoneFragment"
             android:name="com.example.hindidict.fragment.QuizDoneFragment"
-            android:label="Done!"
             tools:layout="@layout/fragment_quiz_done" />
 
     <fragment
             android:id="@+id/addWordFragment"
             android:name="com.example.hindidict.AddWordFragment"
-            android:label="Add word fragment"
+            android:label="Add word"
             tools:layout="@layout/fragment_add_word">
         <action
                 android:id="@+id/action_addWordFragment_to_wordFragment2"
@@ -47,7 +45,6 @@
     <fragment
         android:id="@+id/wordFragment"
         android:name="com.example.hindidict.WordFragment"
-        android:label="Single word fragment"
         tools:layout="@layout/fragment_word">
         <action
                 android:id="@+id/action_wordFragment_to_editWordFragment"
@@ -66,7 +63,7 @@
     <fragment
         android:id="@+id/editWordFragment"
         android:name="com.example.hindidict.EditWordFragment"
-        android:label="Edit word fragment"
+        android:label="Edit word"
         tools:layout="@layout/fragment_word" >
         <argument
                 android:name="word_id"
@@ -82,7 +79,6 @@
         android:name="com.example.hindidict.AddSentenceFragment"
         android:label="Add sentence"
         tools:layout="@layout/fragment_add_sentence" >
-
         <argument
                 android:name="word_id"
                 app:argType="string" />
@@ -105,7 +101,6 @@
     <fragment
             android:id="@+id/listHolderFragment"
             android:name="com.example.hindidict.fragment.ListHolderFragment"
-            android:label="List Holder"
             tools:layout="@layout/fragment_list_holder" >
         <action
                 android:id="@+id/action_listHolderFragment_to_wordFragment"

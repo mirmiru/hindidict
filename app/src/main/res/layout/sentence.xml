@@ -5,9 +5,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" >
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" >
 
     <TextView
             android:id="@+id/textView_list_sentence_hindi"
@@ -17,8 +17,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/textView_list_sentence_eng"
-            android:layout_margin="16dp"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:textAppearance="@style/Widget.AppCompat.TextView"
             android:maxLines="2"
             tools:text="A hindi sentence."/>
@@ -29,8 +28,10 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@id/textView_list_sentence_hindi"
             app:layout_constraintTop_toBottomOf="@id/textView_list_sentence_hindi"
-            android:textSize="16sp"
-            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="@id/textView_list_sentence_hindi"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            android:textColor="@color/text_dark_grey"
             android:textAppearance="@style/Widget.AppCompat.TextView"
             android:maxLines="2"
             tools:text="An english sentence."/>

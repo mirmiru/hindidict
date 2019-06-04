@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.hindidict.fragment.BaseFragment
 import com.example.hindidict.helper.ICallback
 import com.example.hindidict.model.Definition
 import com.example.hindidict.model.QuizData
@@ -19,7 +20,8 @@ import com.example.hindidict.viewmodel.WordViewModel
 import com.example.hindidict.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_add_word.*
 
-class AddWordFragment : Fragment() {
+//class AddWordFragment : Fragment() {
+class AddWordFragment : BaseFragment() {
 
     lateinit var mainViewModel: MainViewModel
     lateinit var viewModel: WordViewModel

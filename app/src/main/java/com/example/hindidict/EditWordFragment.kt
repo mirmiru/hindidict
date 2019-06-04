@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.example.hindidict.helper.ICallback
+import com.example.hindidict.fragment.BaseFragment
 import com.example.hindidict.helper.ICallbackResult
 import com.example.hindidict.model.Definition
 import com.example.hindidict.model.Word
@@ -20,9 +19,9 @@ import com.example.hindidict.viewmodel.MainViewModel
 import com.example.hindidict.viewmodel.WordViewModel
 import kotlinx.android.synthetic.main.fragment_edit_word.*
 
-class EditWordFragment : DialogFragment () {
+//class EditWordFragment : DialogFragment () {
+class EditWordFragment : BaseFragment() {
 
-//    lateinit var WORD_ID: String
     lateinit var mainViewModel: MainViewModel
     lateinit var wordViewModel: WordViewModel
     private var updatedWord = Word()
@@ -87,15 +86,6 @@ class EditWordFragment : DialogFragment () {
     }
 
     private fun createWord(): Word {
-//        val word = Word(
-//            uuid = WORD_ID,
-//            definition = Definition(
-//                eng = editText_edit_word_eng.text.toString(),
-//                hindi = editText_edit_word_hindi.text.toString()
-//            ),
-//            category = "nullForNow",
-//            difficult = false
-//        )
         return Word(
             uuid = updatedWord.uuid,
             definition = Definition(
@@ -105,7 +95,6 @@ class EditWordFragment : DialogFragment () {
             category = updatedWord.category,
             difficult = updatedWord.difficult
         )
-//        return word
     }
 
     private fun fillViews(uuid: String) {

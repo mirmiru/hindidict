@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNavigateUp(): Boolean {
         return super.onNavigateUp()
-        val a = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
