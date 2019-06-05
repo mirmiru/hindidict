@@ -8,11 +8,24 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".fragment.ListHolderFragment">
 
+    <ImageView
+            android:id="@+id/image_top_banner"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:src="@drawable/top_banner"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tabs_listHolder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+    />
+
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs_listHolder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_top_banner"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:tabMode="fixed" />
