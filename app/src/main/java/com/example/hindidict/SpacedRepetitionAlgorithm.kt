@@ -85,7 +85,7 @@ class SpacedRepetitionAlgorithm {
         nextCal.add(Calendar.DATE, interval)
         val d = nextCal
 
-//        val nextStudyDate = currentTime.add(Calendar.DATE, interval)
+        val x = Date(nextCal.timeInMillis)
 
         return QuizData(
             easiness = this.easiness,

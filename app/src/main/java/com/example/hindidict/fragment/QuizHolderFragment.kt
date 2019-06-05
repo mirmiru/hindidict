@@ -3,7 +3,9 @@ package com.example.hindidict.fragment
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 
@@ -31,9 +33,16 @@ class QuizHolderFragment : Fragment() {
 
         // Cards due today
         viewModel.getCardsDueToday()
+
+        // Check whether there are any(more) cards due today
+        viewModel.getNoCardsDue().observe(this, Observer { noCardsDue ->
+            if (noCardsDue) {
+                finishQuiz()
+            }
+        })
     }
 
     fun finishQuiz() {
-        findNavController().popBackStack(R.id.quizDoneFragment, true)
+        findNavController().navigate(R.id.quizDoneFragment)
     }
 }
