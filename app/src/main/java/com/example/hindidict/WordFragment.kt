@@ -49,8 +49,6 @@ class WordFragment : BaseFragment() {
     lateinit var liveData: WordLiveData
     lateinit var adapter: FirestoreSentenceRecyclerAdapter
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,7 +58,7 @@ class WordFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setHasOptionsMenu(true)
+        setHasOptionsMenu(true)
     }
 
     override fun onStart() {
@@ -72,15 +70,16 @@ class WordFragment : BaseFragment() {
         super.onStop()
         (activity as AppCompatActivity).supportActionBar?.hide()
         adapter.stopListening()
+
+        (activity as MainActivity).isToolBarSetup = false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         loadArguments()
         setUpRecyclerView()
 
-//         TOOLBAR MENU TEST
         if(!(activity as MainActivity).isToolBarSetup) {
-        setUpToolbar()
+            setUpToolbar()
             (activity as MainActivity).isToolBarSetup = true
         }
 
@@ -99,6 +98,7 @@ class WordFragment : BaseFragment() {
     private fun setUpToolbar() {
         val toolbar = activity!!.findViewById<Toolbar>(R.id.top_toolbar)
         toolbar.inflateMenu(R.menu.action_menu_edit)
+
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_edit -> {
@@ -129,6 +129,7 @@ class WordFragment : BaseFragment() {
         }
     }
 
+    // TEST BUG UNULLPOINTER
 //    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
 //        R.id.action_edit -> {
 //            val actionDetail = action_wordFragment_to_editWordFragment()
