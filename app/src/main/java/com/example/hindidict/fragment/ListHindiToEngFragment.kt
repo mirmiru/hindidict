@@ -18,11 +18,11 @@ import com.firebase.ui.firestore.SnapshotParser
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.l4digital.fastscroll.FastScrollRecyclerView
-import kotlinx.android.synthetic.main.fragment_list_hindi_to_eng.*
 
 class ListHindiToEngFragment : Fragment() {
 
     lateinit var listHindiAdapter: WordListHindiAdapter
+    private val COLLECTION_WORDS = "wordsfinal"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +47,7 @@ class ListHindiToEngFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         val query = FirebaseFirestore.getInstance()
-            .collection("wordsfinal")
+            .collection(COLLECTION_WORDS)
             .orderBy("definition.hindi")
 
         val options = FirestoreRecyclerOptions.Builder<Word>()
@@ -65,16 +65,6 @@ class ListHindiToEngFragment : Fragment() {
         )
         recyclerView?.adapter = listHindiAdapter
         listHindiAdapter.startListening()
-
-//        recyclerView_list_hindi.apply {
-//            layoutManager = LinearLayoutManager(this.context)
-//            adapter = listHindiAdapter
-//        }
-//
-//        listHindiAdapter.apply {
-//            startListening()
-//            notifyDataSetChanged()
-//        }
     }
 
 }

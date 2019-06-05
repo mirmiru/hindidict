@@ -22,6 +22,7 @@ import com.l4digital.fastscroll.FastScrollRecyclerView
 class ListEngToHindiFragment : Fragment() {
 
     lateinit var listAdapter: WordListEnglishAdapter
+    private val COLLECTION_WORDS = "wordsfinal"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +47,7 @@ class ListEngToHindiFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         val query = FirebaseFirestore.getInstance()
-            .collection("wordsfinal")
+            .collection(COLLECTION_WORDS)
             .orderBy("definition.eng")
 
         val options = FirestoreRecyclerOptions.Builder<Word>()
@@ -57,7 +58,6 @@ class ListEngToHindiFragment : Fragment() {
             })
             .build()
 
-        // TEST
         val recyclerView: FastScrollRecyclerView? = view?.findViewById(R.id.recyclerView_list_english)
         recyclerView?.layoutManager = LinearLayoutManager(this.context)
         listAdapter = WordListEnglishAdapter(

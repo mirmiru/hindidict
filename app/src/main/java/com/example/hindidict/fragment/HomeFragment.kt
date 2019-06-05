@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.hindidict.R
 import com.example.hindidict.helper.ICallbackWord
@@ -29,6 +30,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel.getWordsDueCount()
 
         viewModel.getWordOfTheDay(object: ICallbackWord{
             override fun onCallbackWord(word: Word) {
@@ -36,6 +38,9 @@ class HomeFragment : Fragment() {
                 textView_home_word_of_the_day_eng.text = word.definition.eng
 
             }
+        })
+        viewModel.getWordCount().observe(this, Observer { count ->
+            textView_home_word_count.text = "${count.toString()} words due."
         })
     }
 

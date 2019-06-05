@@ -43,8 +43,7 @@ class QuizCardFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity!!)
             .get(QuizViewModel::class.java)
             .also {
-                it.getCardSet()
-                // TODO Remove this test
+//                it.getCardSet()
                 it.getCardsDueToday()
             }
 
@@ -82,5 +81,4 @@ class QuizCardFragment : Fragment() {
         easyFlipView.flipTheView()
         button_quiz_answer.isEnabled = false
     }
-
 }

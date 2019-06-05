@@ -1,9 +1,12 @@
 package com.example.hindidict.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.hindidict.helper.ICallback
 import com.example.hindidict.helper.ICallbackWord
 import com.example.hindidict.helper.IEmptyCallback
+import com.example.hindidict.helper.IWordsCallback
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.SentenceLiveData
 import com.example.hindidict.model.Word
@@ -13,6 +16,8 @@ import com.example.hindidict.repo.FirestoreRepository
 class MainViewModel: ViewModel() {
 
     private var repository: FirestoreRepository = FirestoreRepository()
+    private var wordCount = MutableLiveData<Int>()
+    fun getWordCount(): LiveData<Int> = wordCount
 
     fun getWordLiveData(uuid: String): WordLiveData {
         val liveData = repository.getWordData(uuid)
@@ -36,10 +41,6 @@ class MainViewModel: ViewModel() {
         repository.addSentenceToWord(sentence, callback)
     }
 
-//    fun updateWord(word: Word, callback: ICallback) {
-//        repository.updateWord(word, callback)
-//    }
-
     fun updateSentence(sentence: Sentence, callback: IEmptyCallback) {
         repository.updateSentence(sentence, callback)
     }
@@ -50,6 +51,15 @@ class MainViewModel: ViewModel() {
 
     fun getWordOfTheDay(callback: ICallbackWord) {
         repository.getWordOfTheDay(callback)
+    }
+
+    fun getWordsDueCount() {
+        repository.getCardsDueToday(object: IWordsCallback{
+            override fun onCallback(list: MutableList<Word>) {
+                val count = list.size
+                wordCount.postValue(count)
+            }
+        })
     }
 }
 

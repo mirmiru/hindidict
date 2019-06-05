@@ -64,12 +64,9 @@ class QuizViewModel : ViewModel() {
         repository.getCardsDueToday(object : IWordsCallback{
             override fun onCallback(list: MutableList<Word>) {
                 cardSet = list
-
                 if (list.isEmpty()) {
-                    // TODO Notify user
                     noCardsDue.postValue(true)
                 }
-
                 getNextCard()
                 isLastCard.value = false
             }
@@ -99,9 +96,8 @@ class QuizViewModel : ViewModel() {
     }
 }
 
-
+// Use SingleLiveEvent in order to remove old LiveData when reloading fragment
 class SingleLiveEvent<T>: MutableLiveData<T>() {
-
     private val pending = AtomicBoolean(false)
 
     @MainThread
@@ -121,14 +117,5 @@ class SingleLiveEvent<T>: MutableLiveData<T>() {
     override fun setValue(value: T) {
         pending.set(true)
         super.setValue(value)
-    }
-
-//    @MainThread
-//    fun call() {
-//        value = null
-//    }
-
-    companion object {
-        private const val TAG = "singleLiveEvent"
     }
 }

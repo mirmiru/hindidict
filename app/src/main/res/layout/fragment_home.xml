@@ -3,7 +3,9 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@drawable/blue_bg_watercolor"
         tools:context=".fragment.HomeFragment">
 
     <ImageView
@@ -24,6 +26,8 @@
             android:id="@+id/cardview_home_word_today"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@android:color/transparent"
             app:layout_constraintTop_toBottomOf="@id/image_top_banner"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
+                android:background="@android:color/transparent"
         >
 
             <TextView
@@ -70,11 +75,22 @@
                     app:layout_constraintBottom_toBottomOf="parent"
             />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </com.google.android.material.card.MaterialCardView>
 
+    <TextView
+            android:id="@+id/textView_home_word_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cardview_home_word_today"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@id/image_bottom_banner"
+    />
+
     <ImageView
+            android:id="@+id/image_bottom_banner"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +99,6 @@
             android:background="@drawable/bg_image"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-
     />
 
 

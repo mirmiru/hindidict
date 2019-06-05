@@ -2,11 +2,14 @@ package com.example.hindidict
 
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -18,6 +21,8 @@ import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.Word
 import com.example.hindidict.viewmodel.WordViewModel
 import com.example.hindidict.viewmodel.MainViewModel
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_add_word.*
 
 //class AddWordFragment : Fragment() {
@@ -41,7 +46,9 @@ class AddWordFragment : BaseFragment() {
         }
 
         fab_add_new_word.setOnClickListener {
-            addWord()
+            if (inputIsValid()) {
+                addWord()
+            }
         }
 
         setUpSpinner()
@@ -73,8 +80,8 @@ class AddWordFragment : BaseFragment() {
         val word = Word(
             category = word.category,
             definition = Definition(
-                eng = editText_word_eng.text.toString(),
-                hindi = editText_word_hindi.text.toString()
+                eng = editText_word_eng.editText?.text.toString(),
+                hindi = editText_word_hindi.editText?.text.toString()
             ),
             difficult = false,
             quizData = QuizData()
@@ -82,7 +89,7 @@ class AddWordFragment : BaseFragment() {
 
         mainViewModel.addWord(word, object : ICallback {
             override fun onCallback(uuid: String) {
-                addSentence(uuid)
+                    addSentence(uuid)
             }
         })
     }
@@ -90,8 +97,8 @@ class AddWordFragment : BaseFragment() {
     private fun addSentence(wordId: String) {
         val sentence = Sentence(
             containsWord = wordId,
-            engSentence = editText_sentence_eng.text.toString(),
-            hindiSentence = editText_sentence_hindi.text.toString()
+            engSentence = editText_sentence_eng.editText?.text.toString(),
+            hindiSentence = editText_sentence_hindi.editText?.text.toString()
         )
         mainViewModel.addSentence(sentence, object : ICallback {
             override fun onCallback(uuid: String) {
@@ -99,5 +106,26 @@ class AddWordFragment : BaseFragment() {
                 findNavController().navigate(actionDetail)
             }
         })
+    }
+
+    private fun inputIsValid(): Boolean {
+        var isValid: Boolean = true
+        if (editText_word_hindi.editText?.text.toString().trim().isEmpty()) {
+            isValid = false
+            editText_word_hindi.error = "Please enter a word"
+        }
+        if (editText_word_eng.editText?.text.toString().trim().isEmpty()) {
+            isValid = false
+            editText_word_eng.error = "Please enter a word"
+        }
+        if (editText_sentence_hindi.editText?.text.toString().trim().isEmpty()) {
+            isValid = false
+            editText_sentence_hindi.error = "Please enter a sentence"
+        }
+        if (editText_sentence_eng.editText?.text.toString().trim().isEmpty()) {
+            isValid = false
+            editText_sentence_eng.error = "Please enter a sentence"
+        }
+        return isValid
     }
 }

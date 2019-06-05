@@ -1,9 +1,11 @@
 package com.example.hindidict.fragment
 
 import android.content.Context
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.example.hindidict.R
@@ -15,6 +17,11 @@ open class BaseFragment : Fragment() {
 //        menu.clear()
 ////        inflater.inflate(R.menu.action_menu_empty, menu)
 //    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        super.onViewCreated(view, savedInstanceState)
+    }
 
     override fun onDestroyView() {
         hideKeyboard(view!!)

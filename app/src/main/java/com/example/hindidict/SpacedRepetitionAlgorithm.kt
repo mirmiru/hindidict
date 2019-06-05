@@ -1,11 +1,6 @@
 package com.example.hindidict
 
-import android.text.format.Time
 import com.example.hindidict.model.QuizData
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
 import java.util.*
 
 class SpacedRepetitionAlgorithm {
@@ -32,10 +27,8 @@ class SpacedRepetitionAlgorithm {
         response = userResponse
     }
 
-    /*
-    * Multiplier used to increase interval factor.
-    * Range from 1.3 to 2.5
-    * */
+    // Multiplier used to increase interval factor.
+    // Range from 1.3 to 2.5
     private fun setEasiness() {
         easiness = Math.max(1.3F, easiness+0.1F - (5.0F-response) * (0.08F + (5.0F-response) * 0.02F))
     }
@@ -49,9 +42,7 @@ class SpacedRepetitionAlgorithm {
         }
     }
 
-    /*
-    * Number of days between repetitions.
-    * */
+    // Number of days between repetitions.
     private fun setInterval() {
             if (repetitions <= 1) {
                 interval = 1
@@ -64,9 +55,7 @@ class SpacedRepetitionAlgorithm {
             }
     }
 
-    /*
-    * When will card be shown the next time.
-    * */
+    // When will card be shown the next time.
     fun getNextStudyDate(quizData: QuizData, response: Int): QuizData {
         setValues(quizData, response)
 
@@ -75,15 +64,14 @@ class SpacedRepetitionAlgorithm {
         setInterval()
 
         val cal = Calendar.getInstance()
-        val a = cal.time
+//        val a = cal.time
         val aInMillis = cal.timeInMillis
-        val b = Date(aInMillis)
+//        val b = Date(aInMillis)
 
         val nextCal = Calendar.getInstance()
         val addition: Long = (secondsPerDay*interval).toLong()
-//        val nextStudyDate = nextCal.timeInMillis + addition
         nextCal.add(Calendar.DATE, interval)
-        val d = nextCal
+//        val d = nextCal
 
         val x = Date(nextCal.timeInMillis)
 
