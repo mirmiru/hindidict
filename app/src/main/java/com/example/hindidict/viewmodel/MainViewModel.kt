@@ -18,10 +18,21 @@ class MainViewModel: ViewModel() {
     private var repository: FirestoreRepository = FirestoreRepository()
     private var wordCount = MutableLiveData<Int>()
     fun getWordCount(): LiveData<Int> = wordCount
+    private var allWords = mutableListOf<Word>()
+    fun getAllWords(): List<Word> = allWords
 
     fun getWordLiveData(uuid: String): WordLiveData {
         val liveData = repository.getWordData(uuid)
         return liveData
+    }
+
+    fun getAllData(callback: IEmptyCallback) {
+        repository.getAllWords(object : IWordsCallback{
+            override fun onCallback(list: MutableList<Word>) {
+                allWords = list
+                callback.onCallback()
+            }
+        })
     }
 
     fun getSentence(uuid: String): SentenceLiveData {

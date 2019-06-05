@@ -2,7 +2,10 @@ package com.example.hindidict.repo
 
 import com.example.hindidict.helper.*
 import com.example.hindidict.model.*
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.firebase.ui.firestore.SnapshotParser
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import java.util.*
@@ -282,5 +285,22 @@ class FirestoreRepository: IDataRepository {
                 callback.onCallbackWord(word)
             }
         }
+    }
+
+    fun getAllWords(callback: IWordsCallback) {
+        val documentRef = FIRESTORE.collection(COLLECTION_WORDS)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    var words = mutableListOf<Word>()
+                    task.result?.forEach {
+                        val word = it.toObject(Word::class.java)
+                        words.add(word)
+                    }
+                    callback.onCallback(words)
+                }
+            }
+
+
     }
 }
