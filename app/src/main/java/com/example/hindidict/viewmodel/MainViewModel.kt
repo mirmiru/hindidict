@@ -2,6 +2,7 @@ package com.example.hindidict.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.example.hindidict.helper.ICallback
+import com.example.hindidict.helper.ICallbackWord
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.SentenceLiveData
@@ -45,6 +46,10 @@ class MainViewModel: ViewModel() {
 
     fun addWordToFavorites(uuid: String, isDifficult: Boolean, callback: IEmptyCallback) {
         repository.addWordToFavorites(uuid, isDifficult, callback)
+    }
+
+    fun getWordOfTheDay(callback: ICallbackWord) {
+        repository.getWordOfTheDay(callback)
     }
 }
 

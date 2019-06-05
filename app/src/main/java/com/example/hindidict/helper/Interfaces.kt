@@ -20,10 +20,10 @@ interface ISentencesCallback {
     fun onCallback(sentences: MutableList<Sentence>)
 }
 
-interface ICardsCallback {
-    fun onCallback(cards: MutableList<Card>)
-}
-
 interface ICallbackResult {
     fun onCallbackResult(successful: Boolean)
+}
+
+interface ICallbackWord {
+    fun onCallbackWord(word: Word)
 }

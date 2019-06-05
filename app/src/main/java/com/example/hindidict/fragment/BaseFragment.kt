@@ -10,10 +10,11 @@ import com.example.hindidict.R
 
 open class BaseFragment : Fragment() {
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.action_menu_empty, menu)
-    }
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//        menu.clear()
+////        inflater.inflate(R.menu.action_menu_empty, menu)
+//    }
 
     override fun onDestroyView() {
         hideKeyboard(view!!)

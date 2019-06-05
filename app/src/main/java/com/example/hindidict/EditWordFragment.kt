@@ -2,12 +2,11 @@ package com.example.hindidict
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -33,7 +32,13 @@ class EditWordFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_edit_word, container, false)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         wordViewModel = ViewModelProviders.of(this).get(WordViewModel::class.java)
 
@@ -59,7 +64,6 @@ class EditWordFragment : BaseFragment() {
     private fun loadArguments() {
         arguments?.let {
             val safeArgs = EditWordFragmentArgs.fromBundle(it)
-//            WORD_ID = safeArgs.word_id
             fillViews(safeArgs.word_id)
         }
     }

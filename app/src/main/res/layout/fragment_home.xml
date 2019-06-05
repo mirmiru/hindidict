@@ -4,16 +4,72 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".HomeFragment">
+        tools:context=".fragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-            android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+    >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+        >
+
+            <TextView
+                    android:id="@+id/textView_home_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="Word of the day"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/textView_home_word_of_the_day_hindi"
+                    android:textSize="24sp"
+            />
+            <TextView
+                    android:id="@+id/textView_home_word_of_the_day_hindi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@color/text_dark_grey"
+                    app:layout_constraintTop_toBottomOf="@id/textView_home_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="16dp"
+            />
+            <TextView
+                    android:id="@+id/textView_home_word_of_the_day_eng"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textStyle="italic"
+                    android:textColor="@color/text_dark_grey"
+                    app:layout_constraintTop_toBottomOf="@id/textView_home_word_of_the_day_hindi"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="HOME FRAG"/>
+            android:background="@drawable/bg_image"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+
+    />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

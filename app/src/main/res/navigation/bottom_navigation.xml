@@ -8,13 +8,12 @@
 
     <fragment
             android:id="@+id/homeFragment"
-            android:name="com.example.hindidict.HomeFragment"
+            android:name="com.example.hindidict.fragment.HomeFragment"
             tools:layout="@layout/fragment_home" />
 
     <fragment
             android:id="@+id/quizFragment"
             android:name="com.example.hindidict.fragment.QuizHolderFragment"
-            android:label="Quiz"
             tools:layout="@layout/fragment_quiz_holder">
         <action
                 android:id="@+id/action_quizFragment_to_quizDoneFragment"
@@ -31,7 +30,6 @@
     <fragment
             android:id="@+id/addWordFragment"
             android:name="com.example.hindidict.AddWordFragment"
-            android:label="Add word"
             tools:layout="@layout/fragment_add_word">
         <action
                 android:id="@+id/action_addWordFragment_to_wordFragment2"
@@ -77,7 +75,6 @@
     <fragment
         android:id="@+id/addSentenceFragment"
         android:name="com.example.hindidict.AddSentenceFragment"
-        android:label="Add sentence"
         tools:layout="@layout/fragment_add_sentence" >
         <argument
                 android:name="word_id"
@@ -87,7 +84,6 @@
     <fragment
             android:id="@+id/editSentenceFragment"
             android:name="com.example.hindidict.EditSentenceFragment"
-            android:label="Edit sentence"
             tools:layout="@layout/fragment_edit_sentence" >
         <argument
                 android:name="sentence_id"

@@ -1,9 +1,6 @@
 package com.example.hindidict.repo
 
-import com.example.hindidict.helper.ICallback
-import com.example.hindidict.helper.ICallbackResult
-import com.example.hindidict.helper.IWordsCallback
-import com.example.hindidict.helper.IEmptyCallback
+import com.example.hindidict.helper.*
 import com.example.hindidict.model.*
 import com.google.firebase.firestore.DocumentReference
 
@@ -39,4 +36,6 @@ interface IDataRepository {
     fun resetQuizData(documentRef: DocumentReference, callback: IEmptyCallback)
 
     fun updateStudyDate(uuid: String, quizData: QuizData, callback: IEmptyCallback)
+
+    fun getWordOfTheDay(callback: ICallbackWord)
 }

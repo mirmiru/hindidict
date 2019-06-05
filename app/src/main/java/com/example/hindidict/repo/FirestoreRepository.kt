@@ -266,4 +266,21 @@ class FirestoreRepository: IDataRepository {
             }
         }
     }
+
+    override fun getWordOfTheDay(callback: ICallbackWord) {
+        val documentRef = FIRESTORE.collection(COLLECTION_WORDS).get()
+
+        documentRef.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val list = mutableListOf<Word>()
+                task.result?.forEach {
+                    list.add(it.toObject(Word::class.java))
+                }
+                val i = Random().nextInt(list.size)
+                val word = list.get(i)
+
+                callback.onCallbackWord(word)
+            }
+        }
+    }
 }

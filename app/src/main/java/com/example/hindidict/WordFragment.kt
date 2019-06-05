@@ -6,6 +6,9 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -24,6 +27,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.SnapshotParser
 import com.example.hindidict.WordFragmentDirections.*
+import com.example.hindidict.activity.MainActivity
+import com.example.hindidict.fragment.BaseFragment
 import com.example.hindidict.helper.ICallbackResult
 import com.example.hindidict.viewmodel.WordViewModel
 import com.google.firebase.firestore.DocumentSnapshot
@@ -33,7 +38,8 @@ import kotlinx.android.synthetic.main.fragment_word.*
 import kotlinx.android.synthetic.main.sentence.view.*
 
 
-class WordFragment : Fragment() {
+//class WordFragment : Fragment() {
+class WordFragment : BaseFragment() {
 
     lateinit var mainViewModel: MainViewModel
     lateinit var wordViewModel: WordViewModel
@@ -42,6 +48,8 @@ class WordFragment : Fragment() {
     lateinit var WORD_ID: String
     lateinit var liveData: WordLiveData
     lateinit var adapter: FirestoreSentenceRecyclerAdapter
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +60,7 @@ class WordFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+//        setHasOptionsMenu(true)
     }
 
     override fun onStart() {
@@ -62,12 +70,19 @@ class WordFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+        (activity as AppCompatActivity).supportActionBar?.hide()
         adapter.stopListening()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         loadArguments()
         setUpRecyclerView()
+
+//         TOOLBAR MENU TEST
+        if(!(activity as MainActivity).isToolBarSetup) {
+        setUpToolbar()
+            (activity as MainActivity).isToolBarSetup = true
+        }
 
         activity?.let {
             mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
@@ -81,35 +96,74 @@ class WordFragment : Fragment() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_edit -> {
-            val actionDetail = action_wordFragment_to_editWordFragment()
-            actionDetail.setWord_id(WORD_ID)
-            findNavController().navigate(actionDetail)
-            true
-        }
-        R.id.action_delete -> {
-            wordViewModel.deleteWord(WORD_ID, object: ICallbackResult{
-                override fun onCallbackResult(successful: Boolean) {
-                    val message = when (successful) {
-                        true -> "Deleted"
-                        else -> "An error occurred"
-                    }
-                    Toast.makeText(this@WordFragment.context, message, Toast.LENGTH_SHORT).show()
-
-                    findNavController().popBackStack(R.id.homeFragment, true)
+    private fun setUpToolbar() {
+        val toolbar = activity!!.findViewById<Toolbar>(R.id.top_toolbar)
+        toolbar.inflateMenu(R.menu.action_menu_edit)
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_edit -> {
+                    val actionDetail = action_wordFragment_to_editWordFragment()
+                    actionDetail.setWord_id(WORD_ID)
+                    findNavController().navigate(actionDetail)
+                    true
                 }
-            })
-            true
-        }
-        else -> {
-            NavigationUI.onNavDestinationSelected(item, NavHostFragment.findNavController(this))
-            super.onOptionsItemSelected(item)
+                R.id.action_delete -> {
+                    wordViewModel.deleteWord(WORD_ID, object : ICallbackResult {
+                        override fun onCallbackResult(successful: Boolean) {
+                            val message = when (successful) {
+                                true -> "Deleted"
+                                else -> "An error occurred"
+                            }
+                            Toast.makeText(this@WordFragment.context, message, Toast.LENGTH_SHORT).show()
+
+                            findNavController().popBackStack(R.id.homeFragment, true)
+                        }
+                    })
+                    true
+                }
+                else -> {
+                    NavigationUI.onNavDestinationSelected(it, NavHostFragment.findNavController(this))
+                    super.onOptionsItemSelected(it)
+                }
+            }
         }
     }
 
+//    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+//        R.id.action_edit -> {
+//            val actionDetail = action_wordFragment_to_editWordFragment()
+//            actionDetail.setWord_id(WORD_ID)
+//            findNavController().navigate(actionDetail)
+//            true
+//        }
+//        R.id.action_delete -> {
+//            wordViewModel.deleteWord(WORD_ID, object: ICallbackResult{
+//                override fun onCallbackResult(successful: Boolean) {
+//                    val message = when (successful) {
+//                        true -> "Deleted"
+//                        else -> "An error occurred"
+//                    }
+//                    Toast.makeText(this@WordFragment.context, message, Toast.LENGTH_SHORT).show()
+//
+//                    findNavController().popBackStack(R.id.homeFragment, true)
+//                }
+//            })
+//            true
+//        }
+//        else -> {
+//            NavigationUI.onNavDestinationSelected(item, NavHostFragment.findNavController(this))
+//            super.onOptionsItemSelected(item)
+//        }
+//    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        menu.clear()
         inflater.inflate(R.menu.action_menu_edit, menu)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 
     private fun setUpRecyclerView() {
