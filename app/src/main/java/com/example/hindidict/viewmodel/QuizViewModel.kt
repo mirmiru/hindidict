@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.example.hindidict.SpacedRepetitionAlgorithm
+import com.example.hindidict.helper.SpacedRepetitionAlgorithm
 import com.example.hindidict.helper.IWordsCallback
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.helper.ISentencesCallback

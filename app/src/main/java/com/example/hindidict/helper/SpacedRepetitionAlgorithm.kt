@@ -1,4 +1,4 @@
-package com.example.hindidict
+package com.example.hindidict.helper
 
 import com.example.hindidict.model.QuizData
 import java.util.*

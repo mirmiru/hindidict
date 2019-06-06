@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".AddSentenceFragment" android:id="@+id/linearLayout">
+        tools:context=".fragment.AddSentenceFragment" android:id="@+id/linearLayout">
 
     <EditText
             android:id="@+id/editText_add_sentence_hindi"

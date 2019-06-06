@@ -1,4 +1,4 @@
-package com.example.hindidict
+package com.example.hindidict.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.hindidict.fragment.EditSentenceFragmentArgs
+import com.example.hindidict.R
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.SentenceLiveData

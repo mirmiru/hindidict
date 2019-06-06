@@ -37,7 +37,7 @@
 
     <fragment
             android:id="@+id/addWordFragment"
-            android:name="com.example.hindidict.AddWordFragment"
+            android:name="com.example.hindidict.fragment.AddWordFragment"
             tools:layout="@layout/fragment_add_word">
         <action
                 android:id="@+id/action_addWordFragment_to_wordFragment2"
@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/wordFragment"
-        android:name="com.example.hindidict.WordFragment"
+        android:name="com.example.hindidict.fragment.WordFragment"
         tools:layout="@layout/fragment_word">
         <action
                 android:id="@+id/action_wordFragment_to_editWordFragment"
@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/editWordFragment"
-        android:name="com.example.hindidict.EditWordFragment"
+        android:name="com.example.hindidict.fragment.EditWordFragment"
         android:label="Edit word"
         tools:layout="@layout/fragment_word" >
         <argument
@@ -82,7 +82,7 @@
 
     <fragment
         android:id="@+id/addSentenceFragment"
-        android:name="com.example.hindidict.AddSentenceFragment"
+        android:name="com.example.hindidict.fragment.AddSentenceFragment"
         tools:layout="@layout/fragment_add_sentence" >
         <argument
                 android:name="word_id"
@@ -91,7 +91,7 @@
 
     <fragment
             android:id="@+id/editSentenceFragment"
-            android:name="com.example.hindidict.EditSentenceFragment"
+            android:name="com.example.hindidict.fragment.EditSentenceFragment"
             tools:layout="@layout/fragment_edit_sentence" >
         <argument
                 android:name="sentence_id"

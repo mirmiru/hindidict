@@ -1,4 +1,4 @@
-package com.example.hindidict
+package com.example.hindidict.fragment
 
 
 import android.os.Bundle
@@ -6,11 +6,11 @@ import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.example.hindidict.fragment.BaseFragment
+import com.example.hindidict.fragment.EditWordFragmentArgs
+import com.example.hindidict.R
 import com.example.hindidict.helper.ICallbackResult
 import com.example.hindidict.model.Definition
 import com.example.hindidict.model.Word

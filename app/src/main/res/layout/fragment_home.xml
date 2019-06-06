@@ -39,20 +39,6 @@
                 android:background="@color/colorPrimary"
         >
             <TextView
-                    android:id="@+id/textView_home_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="word of the day"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:textColor="@color/text_white"
-                    app:layout_constraintBottom_toTopOf="@id/textView_home_word_of_the_day_hindi"
-                    android:textSize="16sp"
-            />
-            <TextView
                     android:id="@+id/textView_home_word_of_the_day_hindi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,7 +46,7 @@
                     android:textColor="@color/text_white"
                     android:textAlignment="center"
                     android:letterSpacing="@integer/anim_length_half"
-                    app:layout_constraintTop_toBottomOf="@id/textView_home_label"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/textView_home_word_of_the_day_eng"

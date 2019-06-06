@@ -1,4 +1,4 @@
-package com.example.hindidict
+package com.example.hindidict.fragment
 
 
 import android.graphics.Canvas
@@ -8,9 +8,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -19,6 +17,8 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hindidict.R
+import com.example.hindidict.fragment.WordFragmentArgs
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
@@ -26,14 +26,12 @@ import com.example.hindidict.viewmodel.MainViewModel
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.SnapshotParser
-import com.example.hindidict.WordFragmentDirections.*
+import com.example.hindidict.fragment.WordFragmentDirections.*
 import com.example.hindidict.activity.MainActivity
-import com.example.hindidict.fragment.BaseFragment
 import com.example.hindidict.helper.ICallbackResult
 import com.example.hindidict.viewmodel.WordViewModel
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_word.*
 import kotlinx.android.synthetic.main.sentence.view.*
 

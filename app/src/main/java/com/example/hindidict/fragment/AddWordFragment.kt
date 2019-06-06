@@ -1,19 +1,16 @@
-package com.example.hindidict
+package com.example.hindidict.fragment
 
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.example.hindidict.fragment.BaseFragment
+import com.example.hindidict.fragment.AddWordFragmentDirections
+import com.example.hindidict.R
 import com.example.hindidict.helper.ICallback
 import com.example.hindidict.model.Definition
 import com.example.hindidict.model.QuizData
@@ -21,8 +18,6 @@ import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.Word
 import com.example.hindidict.viewmodel.WordViewModel
 import com.example.hindidict.viewmodel.MainViewModel
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_add_word.*
 
 //class AddWordFragment : Fragment() {
@@ -102,7 +97,8 @@ class AddWordFragment : BaseFragment() {
         )
         mainViewModel.addSentence(sentence, object : ICallback {
             override fun onCallback(uuid: String) {
-                val actionDetail = AddWordFragmentDirections.action_addWordFragment_to_wordFragment2(uuid)
+                val actionDetail =
+                    AddWordFragmentDirections.action_addWordFragment_to_wordFragment2(uuid)
                 findNavController().navigate(actionDetail)
             }
         })

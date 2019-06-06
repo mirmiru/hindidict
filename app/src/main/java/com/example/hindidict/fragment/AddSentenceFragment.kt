@@ -1,4 +1,4 @@
-package com.example.hindidict
+package com.example.hindidict.fragment
 
 
 import android.os.Bundle
@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.viewmodel.MainViewModel
-import com.example.hindidict.AddSentenceFragmentArgs.fromBundle
-import com.example.hindidict.fragment.BaseFragment
+import com.example.hindidict.fragment.AddSentenceFragmentArgs.fromBundle
+import com.example.hindidict.R
 import kotlinx.android.synthetic.main.fragment_add_sentence.*
 
 class AddSentenceFragment : BaseFragment() {
