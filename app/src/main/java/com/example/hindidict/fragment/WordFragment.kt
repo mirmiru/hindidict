@@ -35,14 +35,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_word.*
 import kotlinx.android.synthetic.main.sentence.view.*
 
-
-//class WordFragment : Fragment() {
 class WordFragment : BaseFragment() {
 
     lateinit var mainViewModel: MainViewModel
     lateinit var wordViewModel: WordViewModel
 
-    // TODO Get ID from livedata - don't store data in fragment
     lateinit var WORD_ID: String
     lateinit var liveData: WordLiveData
     lateinit var adapter: FirestoreSentenceRecyclerAdapter
@@ -127,36 +124,7 @@ class WordFragment : BaseFragment() {
         }
     }
 
-    // TEST BUG UNULLPOINTER
-//    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-//        R.id.action_edit -> {
-//            val actionDetail = action_wordFragment_to_editWordFragment()
-//            actionDetail.setWord_id(WORD_ID)
-//            findNavController().navigate(actionDetail)
-//            true
-//        }
-//        R.id.action_delete -> {
-//            wordViewModel.deleteWord(WORD_ID, object: ICallbackResult{
-//                override fun onCallbackResult(successful: Boolean) {
-//                    val message = when (successful) {
-//                        true -> "Deleted"
-//                        else -> "An error occurred"
-//                    }
-//                    Toast.makeText(this@WordFragment.context, message, Toast.LENGTH_SHORT).show()
-//
-//                    findNavController().popBackStack(R.id.homeFragment, true)
-//                }
-//            })
-//            true
-//        }
-//        else -> {
-//            NavigationUI.onNavDestinationSelected(item, NavHostFragment.findNavController(this))
-//            super.onOptionsItemSelected(item)
-//        }
-//    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        menu.clear()
         inflater.inflate(R.menu.action_menu_edit, menu)
     }
 

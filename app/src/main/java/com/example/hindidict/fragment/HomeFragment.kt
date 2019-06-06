@@ -75,6 +75,7 @@ class HomeFragment : BaseFragment() {
             override fun onCallbackWord(word: Word) {
                 textView_home_word_of_the_day_hindi.text = word.definition.hindi
                 textView_home_word_of_the_day_eng.text = word.definition.eng
+                textView_home_word_of_the_day_category.text = word.category
             }
         })
         viewModel.getWordCount().observe(this, Observer { count ->
