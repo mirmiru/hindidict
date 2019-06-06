@@ -22,7 +22,6 @@ class QuizViewModel : ViewModel() {
     private var cardSet: MutableList<Word> = mutableListOf()
 
     private var currentCard = SingleLiveEvent<Word>()
-//    private var currentCard = MutableLiveData<Word>()
     fun getCurrentCard(): LiveData<Word> = currentCard
 
     private var isLastCard = MutableLiveData<Boolean>()
