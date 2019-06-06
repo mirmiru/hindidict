@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,8 +60,6 @@ class HomeFragment : Fragment() {
                 list = viewModel.getAllWords()
             }
         })
-
-
         // SEARCG
         search()
 
@@ -68,12 +67,16 @@ class HomeFragment : Fragment() {
             override fun onCallbackWord(word: Word) {
                 textView_home_word_of_the_day_hindi.text = word.definition.hindi
                 textView_home_word_of_the_day_eng.text = word.definition.eng
-
             }
         })
         viewModel.getWordCount().observe(this, Observer { count ->
             textView_home_word_count.text = "${count.toString()} words due."
         })
+
+        cardview_home_search.setOnClickListener {
+            search_bar.isVisible = true
+            recyclerView_search.isVisible = true
+        }
     }
 
     fun search() {

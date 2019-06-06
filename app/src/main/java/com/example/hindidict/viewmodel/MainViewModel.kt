@@ -1,5 +1,6 @@
 package com.example.hindidict.viewmodel
 
+import android.app.AlarmManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,7 @@ import com.example.hindidict.model.SentenceLiveData
 import com.example.hindidict.model.Word
 import com.example.hindidict.model.WordLiveData
 import com.example.hindidict.repo.FirestoreRepository
+import java.util.*
 
 class MainViewModel: ViewModel() {
 
@@ -20,6 +22,8 @@ class MainViewModel: ViewModel() {
     fun getWordCount(): LiveData<Int> = wordCount
     private var allWords = mutableListOf<Word>()
     fun getAllWords(): List<Word> = allWords
+
+
 
     fun getWordLiveData(uuid: String): WordLiveData {
         val liveData = repository.getWordData(uuid)

@@ -10,7 +10,8 @@
             android:text="Word"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto_light"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/button_star"
@@ -20,8 +21,8 @@
 
     <ImageButton
             android:id="@+id/button_star"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/button_star_states"
             android:scaleType="fitXY"
             android:background="@color/cardview_light_background"
