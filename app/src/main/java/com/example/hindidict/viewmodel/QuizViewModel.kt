@@ -1,6 +1,5 @@
 package com.example.hindidict.viewmodel
 
-import android.widget.Toast
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -22,42 +21,46 @@ class QuizViewModel : ViewModel() {
     private var repository: FirestoreRepository = FirestoreRepository()
     private var cardSet: MutableList<Word> = mutableListOf()
 
-//    private var currentCard = MutableLiveData<Word>()
     private var currentCard = SingleLiveEvent<Word>()
+//    private var currentCard = MutableLiveData<Word>()
     fun getCurrentCard(): LiveData<Word> = currentCard
 
     private var isLastCard = MutableLiveData<Boolean>()
     fun getIsLastCard(): LiveData<Boolean> = isLastCard
 
-//    private var sentenceData = MutableLiveData<Sentence>()
     private var sentenceData = SingleLiveEvent<Sentence>()
     fun getSentenceData(): LiveData<Sentence> = sentenceData
 
-    private var noCardsDue = SingleLiveEvent<Boolean>()
+//    private var noCardsDue = SingleLiveEvent<Boolean>()
+    private var noCardsDue = MutableLiveData<Boolean>()
     fun getNoCardsDue(): LiveData<Boolean> = noCardsDue
 
-    fun getCardSet() {
-        repository.getCardSet(object : IWordsCallback{
-            override fun onCallback(list: MutableList<Word>) {
-                cardSet = list
-                getNextCard()
-                isLastCard.value = false
-            }
-        })
-    }
+//    fun getCardSet() {
+//        repository.getCardSet(object : IWordsCallback{
+//            override fun onCallback(list: MutableList<Word>) {
+//                cardSet = list
+//                if (list.isEmpty()) {
+//                    noCardsDue.postValue(true)
+//                }
+//                getNextCard()
+//                isLastCard.value = false
+//            }
+//        })
+//    }
 
     private fun getNextCard() {
-        if (cardSet.size == 1) {
-            isLastCard.postValue(true)
-        }
-
         if (cardSet.isNotEmpty()) {
+            if (cardSet.size == 1) {
+                isLastCard.postValue(true)
+            }
+            currentCard.postValue(cardSet.first())
+            sentenceData.postValue(Sentence())
             val next = cardSet.first()
             cardSet.remove(next)
-            currentCard.postValue(next)
-        } else {
-            // TODO
         }
+//        else if (cardSet.isEmpty()) {
+//            noCardsDue.postValue(true)
+//        }
     }
 
     fun getCardsDueToday() {
@@ -81,6 +84,10 @@ class QuizViewModel : ViewModel() {
                 sentenceData.postValue(sentences[i])
             }
         })
+    }
+
+    fun clearSentence() {
+        sentenceData.postValue(Sentence())
     }
 
     fun setStudyDate(response: Int) {

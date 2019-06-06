@@ -18,7 +18,6 @@
             app:layout_constraintBottom_toTopOf="@id/cardview_home_word_today"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
     />
 
     <com.google.android.material.card.MaterialCardView
@@ -101,6 +100,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- SEARCH -->
     <SearchView
             android:id="@+id/search_bar"
             android:visibility="invisible"
@@ -109,7 +109,8 @@
             app:layout_constraintTop_toBottomOf="@id/cardview_home_cards"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
     />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -120,20 +121,22 @@
             app:layout_constraintTop_toBottomOf="@id/search_bar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
     />
 
     <!-- CARDVIEW CARDS DUE -->
     <androidx.cardview.widget.CardView
             android:id="@+id/cardview_home_cards"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
             app:strokeColor="@color/colorPrimaryDark"
+            android:clickable="false"
             app:layout_constraintTop_toBottomOf="@id/cardview_home_word_today"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/cardview_home_search"
             app:layout_constraintBottom_toTopOf="@id/search_bar"
-            android:layout_marginTop="32dp" >
+            android:layout_marginTop="8dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -144,10 +147,11 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/badge"
+                    android:visibility="invisible"
                     android:textAlignment="center"
                     android:textSize="12sp"
-                    android:translationX="-12dp"
-                    android:translationY="25dp"
+                    android:translationX="-38dp"
+                    android:translationY="27dp"
                     android:translationZ="1dp"
                     android:fontFamily="@font/roboto_light"
                     android:textStyle="bold"
@@ -159,7 +163,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/study"
-                    android:scaleType="fitXY"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -187,8 +190,8 @@
     <androidx.cardview.widget.CardView
             android:id="@+id/cardview_home_search"
             android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
             app:strokeColor="@color/colorPrimaryDark"
             app:layout_constraintTop_toTopOf="@id/cardview_home_cards"
             app:layout_constraintStart_toEndOf="@id/cardview_home_cards"
@@ -221,7 +224,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon_search"
-                    android:scaleType="fitXY"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -244,17 +246,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <ImageView
-            android:id="@+id/image_bottom_banner"
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
-    />
+    <!--<ImageView-->
+            <!--android:id="@+id/image_bottom_banner"-->
+            <!--android:visibility="invisible"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="200dp"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:adjustViewBounds="true"-->
+    <!--/>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

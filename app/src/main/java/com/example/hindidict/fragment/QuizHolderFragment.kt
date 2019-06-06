@@ -30,10 +30,17 @@ class QuizHolderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(QuizViewModel::class.java)
 
-        // Cards due today
-        viewModel.getCardsDueToday()
+        arguments.let {
+            val type = QuizHolderFragmentArgs.fromBundle(it).quiz_type
+            when (type) {
+//                "ALL"-> viewModel.getCardSet()
+                "REVIEW" -> viewModel.getCardsDueToday()
+                else -> finishQuiz()
+            }
+        }
 
-        // Check whether there are any(more) cards due today
+//        viewModel.getCardsDueToday()
+
         viewModel.getNoCardsDue().observe(this, Observer { noCardsDue ->
             if (noCardsDue) {
                 finishQuiz()
@@ -41,7 +48,7 @@ class QuizHolderFragment : Fragment() {
         })
     }
 
-    fun finishQuiz() {
+    private fun finishQuiz() {
         findNavController().navigate(R.id.quizDoneFragment)
     }
 }

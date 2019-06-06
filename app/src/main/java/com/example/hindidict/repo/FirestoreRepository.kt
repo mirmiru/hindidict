@@ -2,10 +2,7 @@ package com.example.hindidict.repo
 
 import com.example.hindidict.helper.*
 import com.example.hindidict.model.*
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.firebase.ui.firestore.SnapshotParser
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import java.util.*
@@ -20,6 +17,19 @@ class FirestoreRepository: IDataRepository {
     override fun getWordData(uuid: String): WordLiveData {
         val ref = FIRESTORE.collection(COLLECTION_WORDS).document(uuid)
         return WordLiveData(ref)
+    }
+
+    fun getWordId(word: String, callback: ICallbackWord) {
+        val ref = FIRESTORE.collection(COLLECTION_WORDS).whereEqualTo("definition.eng", word).get()
+
+        ref.addOnCompleteListener {  task ->
+            if (task.isSuccessful) {
+                task.result?.forEach {
+                    var word = it.toObject(Word::class.java)
+                    callback.onCallbackWord(word)
+                }
+            }
+        }
     }
 
     override fun addNewWord(word: Word, callback: ICallback) {

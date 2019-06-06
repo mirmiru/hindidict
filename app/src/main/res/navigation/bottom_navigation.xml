@@ -9,7 +9,12 @@
     <fragment
             android:id="@+id/homeFragment"
             android:name="com.example.hindidict.fragment.HomeFragment"
-            tools:layout="@layout/fragment_home" />
+            tools:layout="@layout/fragment_home" >
+        <action
+                android:id="@+id/action_homeFragment_to_quizFragment"
+                app:destination="@id/quizFragment"/>
+        <action android:id="@+id/action_homeFragment_to_wordFragment" app:destination="@id/wordFragment"/>
+    </fragment>
 
     <fragment
             android:id="@+id/quizFragment"
@@ -19,7 +24,10 @@
                 android:id="@+id/action_quizFragment_to_quizDoneFragment"
                 app:destination="@id/quizDoneFragment"
                 app:popEnterAnim="@anim/nav_default_enter_anim"/>
-        <argument android:name="quiz_type" app:argType="integer"/>
+        <argument
+                android:name="quiz_type"
+                app:argType="string"
+                android:defaultValue="ALL"/>
     </fragment>
 
     <fragment

@@ -66,26 +66,5 @@ class ListEngToHindiFragment : Fragment() {
         recyclerView?.adapter = listAdapter
 
         listAdapter.startListening()
-
-
-//        listAdapter = WordListEnglishAdapter(options, ViewModelProviders.of(this).get(MainViewModel::class.java))
-//        listAdapter.startListening
-//        listAdapter.notifyDataSetChanged()
-
-        //TEST
-
-//        listAdapter = WordListEnglishAdapter(
-//            options, ViewModelProviders.of(this).get(MainViewModel::class.java)
-//        )
-//
-//        recyclerView_list_english.apply {
-//            layoutManager = LinearLayoutManager(this.context)
-//            adapter = listAdapter
-//        }
-
-//        listAdapter.apply {
-//            startListening()
-//            notifyDataSetChanged()
-//        }
     }
 }

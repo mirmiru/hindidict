@@ -19,7 +19,8 @@ open class BaseFragment : Fragment() {
 //    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+//        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        hideKeyboard(view!!)
         super.onViewCreated(view, savedInstanceState)
     }
 

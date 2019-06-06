@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.core.view.size
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hindidict.R
@@ -18,24 +21,15 @@ import com.example.hindidict.helper.ICallbackWord
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Word
 import com.example.hindidict.viewmodel.MainViewModel
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.firebase.ui.firestore.SnapshotParser
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     private lateinit var viewModel: MainViewModel
-
-    lateinit var results: RecyclerView
-    lateinit var list: List<Word>
+    private lateinit var results: RecyclerView
+    private lateinit var list: List<Word>
     private var resultsList = mutableListOf<String>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,21 +40,35 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // SEARCG
-        results = activity!!.findViewById(R.id.recyclerView_search)
-        results.layoutManager = LinearLayoutManager(this.context)
-        results.adapter = SearchAdapter(resultsList)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.getWordsDueCount()
 
-        // serch
+        results = activity!!.findViewById(R.id.recyclerView_search)
+        results.layoutManager = LinearLayoutManager(this.context)
+        results.adapter = SearchAdapter(resultsList)
+
         viewModel.getAllData(object : IEmptyCallback{
             override fun onCallback() {
                 list = viewModel.getAllWords()
             }
         })
-        // SEARCG
+        recyclerView_search.addOnLayoutChangeListener(object : View.OnLayoutChangeListener{
+            override fun onLayoutChange(
+                v: View?,
+                left: Int,
+                top: Int,
+                right: Int,
+                bottom: Int,
+                oldLeft: Int,
+                oldTop: Int,
+                oldRight: Int,
+                oldBottom: Int
+            ) {
+                recyclerView_search.scrollToPosition(results.size)
+            }
+        })
+
         search()
 
         viewModel.getWordOfTheDay(object: ICallbackWord{
@@ -70,16 +78,34 @@ class HomeFragment : Fragment() {
             }
         })
         viewModel.getWordCount().observe(this, Observer { count ->
-            textView_home_word_count.text = "${count.toString()} words due."
+            when (count) {
+                0 -> {
+                    textView_home_word_count.isVisible = false
+                    cardview_home_cards.isClickable = false
+                }
+                else -> {
+                    textView_home_word_count.apply {
+                        isVisible = true
+                        text = count.toString()
+                    }
+                    cardview_home_cards.isClickable = true
+                }
+            }
         })
 
         cardview_home_search.setOnClickListener {
             search_bar.isVisible = true
             recyclerView_search.isVisible = true
         }
+
+        cardview_home_cards.setOnClickListener {
+            val navDirections = HomeFragmentDirections.action_homeFragment_to_quizFragment()
+            navDirections.setQuiz_type("REVIEW")
+            findNavController().navigate(navDirections)
+        }
     }
 
-    fun search() {
+    private fun search() {
         search_bar.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText!!.isNotEmpty()) {
@@ -104,7 +130,6 @@ class HomeFragment : Fragment() {
                 return true
             }
         })
-
     }
 
 
