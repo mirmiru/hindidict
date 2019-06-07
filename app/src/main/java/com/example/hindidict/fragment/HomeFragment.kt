@@ -1,15 +1,14 @@
 package com.example.hindidict.fragment
 
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.core.view.size
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -53,21 +52,21 @@ class HomeFragment : BaseFragment() {
                 list = viewModel.getAllWords()
             }
         })
-        recyclerView_search.addOnLayoutChangeListener(object : View.OnLayoutChangeListener{
-            override fun onLayoutChange(
-                v: View?,
-                left: Int,
-                top: Int,
-                right: Int,
-                bottom: Int,
-                oldLeft: Int,
-                oldTop: Int,
-                oldRight: Int,
-                oldBottom: Int
-            ) {
-                recyclerView_search.scrollToPosition(results.size)
-            }
-        })
+//        recyclerView_search.addOnLayoutChangeListener(object : View.OnLayoutChangeListener{
+//            override fun onLayoutChange(
+//                v: View?,
+//                left: Int,
+//                top: Int,
+//                right: Int,
+//                bottom: Int,
+//                oldLeft: Int,
+//                oldTop: Int,
+//                oldRight: Int,
+//                oldBottom: Int
+//            ) {
+//                recyclerView_search.scrollToPosition(results.size)
+//            }
+//        })
 
         search()
 
@@ -128,6 +127,7 @@ class HomeFragment : BaseFragment() {
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
+                search_bar.clearFocus()
                 return true
             }
         })

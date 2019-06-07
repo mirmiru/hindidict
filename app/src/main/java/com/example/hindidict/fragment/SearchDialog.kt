@@ -1,13 +1,12 @@
+/*
 package com.example.hindidict.fragment
 
 
-import android.app.Dialog
 import android.os.Bundle
 import android.widget.SearchView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -83,3 +82,4 @@ class SearchDialog : Fragment() {
 
 
 }
+*/

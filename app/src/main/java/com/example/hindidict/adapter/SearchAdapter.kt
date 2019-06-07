@@ -11,6 +11,7 @@ import com.example.hindidict.helper.ICallbackWord
 import com.example.hindidict.model.Word
 import com.example.hindidict.repo.FirestoreRepository
 import kotlinx.android.synthetic.main.word.view.*
+import kotlinx.android.synthetic.main.word_search.view.*
 
 class SearchAdapter(
     private var resultsList: MutableList<String>
