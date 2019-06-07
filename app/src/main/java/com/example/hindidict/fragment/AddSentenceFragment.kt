@@ -14,10 +14,11 @@ import com.example.hindidict.viewmodel.MainViewModel
 import com.example.hindidict.fragment.AddSentenceFragmentArgs.fromBundle
 import com.example.hindidict.R
 import kotlinx.android.synthetic.main.fragment_add_sentence.*
+import kotlinx.android.synthetic.main.fragment_add_word.*
 
 class AddSentenceFragment : BaseFragment() {
 
-    lateinit var mainViewModel: MainViewModel
+    private lateinit var mainViewModel: MainViewModel
     private val WORD_ID by lazy {
         fromBundle(arguments).word_id
     }
@@ -45,11 +46,11 @@ class AddSentenceFragment : BaseFragment() {
     fun addNewSentence() {
         val sentence = Sentence(
             containsWord = WORD_ID,
-            engSentence =   editText_add_sentence_eng.text.toString(),
-            hindiSentence = editText_add_sentence_hindi.text.toString()
+            engSentence =   editText_add_sentence_eng.editText?.text.toString(),
+            hindiSentence = editText_add_sentence_hindi.editText?.text.toString()
         )
 
-        if (sentence.hindiSentence.trim().isEmpty() || sentence.engSentence.trim().isEmpty()) {
+        if (!inputIsValid()) {
             Toast.makeText(this.context, "Please insert a sentence pair.", Toast.LENGTH_SHORT).show()
             return
         }
@@ -59,6 +60,19 @@ class AddSentenceFragment : BaseFragment() {
                 findNavController().popBackStack()
             }
         })
+    }
+
+    private fun inputIsValid(): Boolean {
+        var isValid = true
+        if (editText_add_sentence_hindi.editText?.text.toString().trim().isEmpty()) {
+            isValid = false
+            editText_add_sentence_hindi.error = "Please enter a sentence"
+        }
+        if (editText_add_sentence_eng.editText?.text.toString().trim().isEmpty()) {
+            isValid = false
+            editText_add_sentence_eng.error = "Please enter a sentence"
+        }
+        return isValid
     }
 
 

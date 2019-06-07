@@ -6,25 +6,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragment.AddSentenceFragment" android:id="@+id/linearLayout">
-
-    <EditText
+    
+    <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editText_add_sentence_hindi"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="HINDI"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/editText_add_sentence_eng"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="16dp" />
+            android:layout_margin="32dp" >
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Sentence in Hindi"
+                android:inputType="text"
+                android:background="@android:color/transparent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editText_add_sentence_eng"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ENGLISH"
             app:layout_constraintTop_toBottomOf="@id/editText_add_sentence_hindi"
             app:layout_constraintStart_toStartOf="@id/editText_add_sentence_hindi"
-            app:layout_constraintEnd_toEndOf="@id/editText_add_sentence_hindi" />
+            app:layout_constraintEnd_toEndOf="@id/editText_add_sentence_hindi"
+            android:layout_margin="16dp" >
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Sentence in English"
+                android:inputType="text"
+                android:background="@android:color/transparent" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
             android:id="@+id/button_dialog_cancel"

@@ -20,7 +20,6 @@ import com.example.hindidict.viewmodel.WordViewModel
 import com.example.hindidict.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_add_word.*
 
-//class AddWordFragment : Fragment() {
 class AddWordFragment : BaseFragment() {
 
     lateinit var mainViewModel: MainViewModel
