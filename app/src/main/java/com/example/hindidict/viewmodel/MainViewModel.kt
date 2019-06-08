@@ -24,10 +24,10 @@ class MainViewModel: ViewModel() {
     private var allWords = mutableListOf<Word>()
     fun getAllWords(): List<Word> = allWords
 
-    fun getWordLiveData(uuid: String): WordLiveData {
-        val liveData = repository.getWordData(uuid)
-        return liveData
-    }
+//    fun getWordLiveData(uuid: String): WordLiveData {
+//        val liveData = repository.getWordData(uuid)
+//        return liveData
+//    }
 
     fun getAllData(callback: IEmptyCallback) {
         repository.getAllWords(object : IWordsCallback{
@@ -38,26 +38,26 @@ class MainViewModel: ViewModel() {
         })
     }
 
-    fun getSentence(uuid: String): SentenceLiveData {
-        val sentenceLiveData = repository.getSentence(uuid)
-        return sentenceLiveData
-    }
+//    fun getSentence(uuid: String): SentenceLiveData {
+//        val sentenceLiveData = repository.getSentence(uuid)
+//        return sentenceLiveData
+//    }
 
-    fun addWord(word: Word, callback: ICallback) {
-        repository.addNewWord(word, callback)
-    }
+//    fun addWord(word: Word, callback: ICallback) {
+//        repository.addNewWord(word, callback)
+//    }
 
-    fun addSentence(sentence: Sentence, callback: ICallback) {
-        repository.addSentence(sentence, callback)
-    }
+//    fun addSentence(sentence: Sentence, callback: ICallback) {
+//        repository.addSentence(sentence, callback)
+//    }
 
     fun addSentenceToWord(sentence: Sentence, callback: IEmptyCallback) {
         repository.addSentenceToWord(sentence, callback)
     }
 
-    fun updateSentence(sentence: Sentence, callback: IEmptyCallback) {
-        repository.updateSentence(sentence, callback)
-    }
+//    fun updateSentence(sentence: Sentence, callback: IEmptyCallback) {
+//        repository.updateSentence(sentence, callback)
+//    }
 
     fun addWordToFavorites(uuid: String, isDifficult: Boolean, callback: IEmptyCallback) {
         repository.addWordToFavorites(uuid, isDifficult, callback)

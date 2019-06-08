@@ -27,7 +27,7 @@
         <argument
                 android:name="quiz_type"
                 app:argType="string"
-                android:defaultValue="ALL"/>
+                android:defaultValue="REVIEW"/>
     </fragment>
 
     <fragment

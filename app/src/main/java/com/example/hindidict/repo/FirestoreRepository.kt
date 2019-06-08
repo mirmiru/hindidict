@@ -19,7 +19,7 @@ class FirestoreRepository: IDataRepository {
         return WordLiveData(ref)
     }
 
-    fun getWordId(word: String, callback: ICallbackWord) {
+    override fun getWordId(word: String, callback: ICallbackWord) {
         val ref = FIRESTORE.collection(COLLECTION_WORDS).whereEqualTo("definition.eng", word).get()
 
         ref.addOnCompleteListener {  task ->
@@ -126,19 +126,6 @@ class FirestoreRepository: IDataRepository {
                 e.stackTrace
             }
     }
-
-    /*override fun updateWord(word: Word, callback: ICallback) {
-        val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document(word.uuid)
-        documentRef
-            .set(word, SetOptions.merge())
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful)
-                    callback.onCallback(word.uuid)
-            }
-            .addOnFailureListener { e ->
-                e.stackTrace
-            }
-    }*/
 
     override fun updateWord(word: Word, callback: ICallbackResult) {
         val documentRef = FIRESTORE.collection(COLLECTION_WORDS).document(word.uuid)
@@ -264,7 +251,7 @@ class FirestoreRepository: IDataRepository {
             }
     }
 
-    fun getQuizSentences(uuid: String, callback: ISentencesCallback) {
+    override fun getQuizSentences(uuid: String, callback: ISentencesCallback) {
         val documentRef = FIRESTORE.collection(COLLECTION_SENTENCES)
             .whereEqualTo("containsWord", uuid)
 
@@ -297,8 +284,8 @@ class FirestoreRepository: IDataRepository {
         }
     }
 
-    fun getAllWords(callback: IWordsCallback) {
-        val documentRef = FIRESTORE.collection(COLLECTION_WORDS)
+    override fun getAllWords(callback: IWordsCallback) {
+        FIRESTORE.collection(COLLECTION_WORDS)
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

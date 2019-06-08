@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.example.hindidict.fragment.EditWordFragmentArgs
 import com.example.hindidict.R
 import com.example.hindidict.helper.ICallbackResult
 import com.example.hindidict.model.Definition
@@ -18,10 +17,9 @@ import com.example.hindidict.viewmodel.MainViewModel
 import com.example.hindidict.viewmodel.WordViewModel
 import kotlinx.android.synthetic.main.fragment_edit_word.*
 
-//class EditWordFragment : DialogFragment () {
 class EditWordFragment : BaseFragment() {
 
-    lateinit var mainViewModel: MainViewModel
+//    lateinit var mainViewModel: MainViewModel
     lateinit var wordViewModel: WordViewModel
     private var updatedWord = Word()
 
@@ -39,7 +37,7 @@ class EditWordFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+//        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         wordViewModel = ViewModelProviders.of(this).get(WordViewModel::class.java)
 
         setUpSpinner()
@@ -83,7 +81,6 @@ class EditWordFragment : BaseFragment() {
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // TODO Implement
                 }
             }
         }
@@ -102,7 +99,7 @@ class EditWordFragment : BaseFragment() {
     }
 
     private fun fillViews(uuid: String) {
-        val liveData = mainViewModel.getWordLiveData(uuid)
+        val liveData = wordViewModel.getWordLiveData(uuid)
         liveData.observe(this, Observer<Word> { word ->
             if (word != null) {
                 updatedWord = word

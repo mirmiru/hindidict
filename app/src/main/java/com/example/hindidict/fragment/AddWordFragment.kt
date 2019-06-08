@@ -9,7 +9,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.example.hindidict.fragment.AddWordFragmentDirections
 import com.example.hindidict.R
 import com.example.hindidict.helper.ICallback
 import com.example.hindidict.model.Definition
@@ -17,12 +16,10 @@ import com.example.hindidict.model.QuizData
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.Word
 import com.example.hindidict.viewmodel.WordViewModel
-import com.example.hindidict.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_add_word.*
 
 class AddWordFragment : BaseFragment() {
 
-    lateinit var mainViewModel: MainViewModel
     lateinit var viewModel: WordViewModel
     private var word = Word()
 
@@ -35,7 +32,6 @@ class AddWordFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         activity?.let {
-            mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
             viewModel = ViewModelProviders.of(it).get(WordViewModel::class.java)
         }
 
@@ -44,7 +40,6 @@ class AddWordFragment : BaseFragment() {
                 addWord()
             }
         }
-
         setUpSpinner()
     }
 
@@ -58,14 +53,12 @@ class AddWordFragment : BaseFragment() {
         spinner_word_category.adapter = arrayAdapter
 
         spinner_word_category.onItemSelectedListener
-
         spinner_word_category.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 word.category = viewModel.getCategory(position)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         }
     }
@@ -81,7 +74,7 @@ class AddWordFragment : BaseFragment() {
             quizData = QuizData()
         )
 
-        mainViewModel.addWord(word, object : ICallback {
+        viewModel.addWord(word, object : ICallback {
             override fun onCallback(uuid: String) {
                     addSentence(uuid)
             }
@@ -94,7 +87,7 @@ class AddWordFragment : BaseFragment() {
             engSentence = editText_sentence_eng.editText?.text.toString(),
             hindiSentence = editText_sentence_hindi.editText?.text.toString()
         )
-        mainViewModel.addSentence(sentence, object : ICallback {
+        viewModel.addSentence(sentence, object : ICallback {
             override fun onCallback(uuid: String) {
                 val actionDetail =
                     AddWordFragmentDirections.action_addWordFragment_to_wordFragment2(uuid)
@@ -104,7 +97,7 @@ class AddWordFragment : BaseFragment() {
     }
 
     private fun inputIsValid(): Boolean {
-        var isValid: Boolean = true
+        var isValid = true
         if (editText_word_hindi.editText?.text.toString().trim().isEmpty()) {
             isValid = false
             editText_word_hindi.error = "Please enter a word"

@@ -37,7 +37,7 @@ import kotlinx.android.synthetic.main.sentence.view.*
 
 class WordFragment : BaseFragment() {
 
-    lateinit var mainViewModel: MainViewModel
+//    lateinit var mainViewModel: MainViewModel
     lateinit var wordViewModel: WordViewModel
 
     lateinit var WORD_ID: String
@@ -79,9 +79,10 @@ class WordFragment : BaseFragment() {
         }
 
         activity?.let {
-            mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
-            observeWord(mainViewModel)
+            //            mainViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
+//            observeWord(mainViewModel)
             wordViewModel = ViewModelProviders.of(it).get(WordViewModel::class.java)
+            observeWord()
         }
 
         button_add_sentence_to_word.setOnClickListener {
@@ -110,8 +111,8 @@ class WordFragment : BaseFragment() {
                                 else -> "An error occurred"
                             }
                             Toast.makeText(this@WordFragment.context, message, Toast.LENGTH_SHORT).show()
-
-                            findNavController().popBackStack(R.id.homeFragment, true)
+//                            findNavController().popBackStack(R.id.homeFragment, true)
+                            findNavController().navigate(R.id.homeFragment)
                         }
                     })
                     true
@@ -191,14 +192,14 @@ class WordFragment : BaseFragment() {
         }
     }
 
-    private fun observeWord(mainViewModel: MainViewModel) {
-        liveData = mainViewModel.getWordLiveData(WORD_ID)
+//    private fun observeWord( mainViewModel: MainViewModel) {
+    private fun observeWord() {
+        liveData = wordViewModel.getWordLiveData(WORD_ID)
         liveData.observe(this, Observer<Word> { word ->
             if (word != null) {
                 word.let {
                     textView_word_hindi.text = it.definition?.hindi
                     textView_word_eng.text = it.definition?.eng
-
                     textView_word_category.text = "--${it.category}"
                 }
             }

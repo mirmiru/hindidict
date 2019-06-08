@@ -8,6 +8,8 @@ interface IDataRepository {
 
     fun getWordData(uuid: String): WordLiveData
 
+    fun getWordId(word: String, callback: ICallbackWord)
+
     fun getSentence(uuid: String): SentenceLiveData
 
     fun addNewWord(word: Word, callback: ICallback)
@@ -22,7 +24,6 @@ interface IDataRepository {
 
     fun addSentenceToWord(sentence: Sentence, callback: IEmptyCallback)
 
-//    fun updateWord(word: Word, callback: ICallback)
     fun updateWord(word: Word, callback: ICallbackResult)
 
     fun updateSentence(sentence: Sentence, callback: IEmptyCallback)
@@ -31,6 +32,8 @@ interface IDataRepository {
 
     fun getCardsDueToday(callback: IWordsCallback)
 
+    fun getQuizSentences(uuid: String, callback: ISentencesCallback)
+
     fun getQuizWords(callback: IWordsCallback)
 
     fun resetQuizData(documentRef: DocumentReference, callback: IEmptyCallback)
@@ -38,4 +41,6 @@ interface IDataRepository {
     fun updateStudyDate(uuid: String, quizData: QuizData, callback: IEmptyCallback)
 
     fun getWordOfTheDay(callback: ICallbackWord)
+
+    fun getAllWords(callback: IWordsCallback)
 }

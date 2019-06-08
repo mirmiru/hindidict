@@ -15,11 +15,14 @@ import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Sentence
 import com.example.hindidict.model.SentenceLiveData
 import com.example.hindidict.viewmodel.MainViewModel
+import com.example.hindidict.viewmodel.WordViewModel
 import kotlinx.android.synthetic.main.fragment_edit_sentence.*
+import kotlinx.android.synthetic.main.fragment_word.*
 
 class EditSentenceFragment : Fragment() {
 
-    private lateinit var viewModel: MainViewModel
+//    private lateinit var viewModel: MainViewModel
+    private lateinit var wordViewModel: WordViewModel
     private lateinit var SENTENCE_ID: String
     private lateinit var WORD_ID: String
     private lateinit var sentenceLiveData: SentenceLiveData
@@ -36,8 +39,10 @@ class EditSentenceFragment : Fragment() {
         loadArguments()
 
         activity.let {
-            viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-            observeWord(viewModel)
+//            viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+//            observeWord(viewModel)
+            wordViewModel = ViewModelProviders.of(this).get(WordViewModel::class.java)
+            observeWord(wordViewModel)
         }
 
         fab_update_sentence.setOnClickListener {
@@ -51,7 +56,8 @@ class EditSentenceFragment : Fragment() {
         }
     }
 
-    private fun observeWord(viewModel: MainViewModel) {
+//    private fun observeWord(viewModel: MainMainViewModel) {
+    private fun observeWord(viewModel: WordViewModel) {
         sentenceLiveData = viewModel.getSentence(SENTENCE_ID)
         sentenceLiveData.observe(this, Observer<Sentence> { sentence ->
             if (sentence != null) {
@@ -76,7 +82,7 @@ class EditSentenceFragment : Fragment() {
             engSentence = editText_edit_sentence_eng.text.toString(),
             hindiSentence = editText_edit_sentence_hindi.text.toString()
         )
-        viewModel.updateSentence(sentence, object : IEmptyCallback {
+        wordViewModel.updateSentence(sentence, object : IEmptyCallback {
            override fun onCallback() {
                findNavController().popBackStack()
            }

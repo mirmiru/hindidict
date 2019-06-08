@@ -12,14 +12,8 @@ import com.example.hindidict.R
 
 open class BaseFragment : Fragment() {
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        super.onCreateOptionsMenu(menu, inflater)
-//        menu.clear()
-////        inflater.inflate(R.menu.action_menu_empty, menu)
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         hideKeyboard(view!!)
         super.onViewCreated(view, savedInstanceState)
     }
