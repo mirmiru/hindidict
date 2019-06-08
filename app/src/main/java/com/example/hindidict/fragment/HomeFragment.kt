@@ -1,12 +1,10 @@
 package com.example.hindidict.fragment
 
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -52,21 +50,6 @@ class HomeFragment : BaseFragment() {
                 list = viewModel.getAllWords()
             }
         })
-//        recyclerView_search.addOnLayoutChangeListener(object : View.OnLayoutChangeListener{
-//            override fun onLayoutChange(
-//                v: View?,
-//                left: Int,
-//                top: Int,
-//                right: Int,
-//                bottom: Int,
-//                oldLeft: Int,
-//                oldTop: Int,
-//                oldRight: Int,
-//                oldBottom: Int
-//            ) {
-//                recyclerView_search.scrollToPosition(results.size)
-//            }
-//        })
 
         search()
 

@@ -10,15 +10,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.hindidict.helper.IEmptyCallback
 import com.example.hindidict.model.Sentence
-import com.example.hindidict.viewmodel.MainViewModel
 import com.example.hindidict.fragment.AddSentenceFragmentArgs.fromBundle
 import com.example.hindidict.R
+import com.example.hindidict.viewmodel.WordViewModel
 import kotlinx.android.synthetic.main.fragment_add_sentence.*
-import kotlinx.android.synthetic.main.fragment_add_word.*
 
 class AddSentenceFragment : BaseFragment() {
 
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var wordViewModel: WordViewModel
     private val WORD_ID by lazy {
         fromBundle(arguments).word_id
     }
@@ -32,7 +31,7 @@ class AddSentenceFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        wordViewModel = ViewModelProviders.of(this).get(WordViewModel::class.java)
 
         button_dialog_add.setOnClickListener {
             addNewSentence()
@@ -55,7 +54,7 @@ class AddSentenceFragment : BaseFragment() {
             return
         }
 
-        mainViewModel.addSentenceToWord(sentence, object : IEmptyCallback {
+        wordViewModel.addSentenceToWord(sentence, object : IEmptyCallback {
             override fun onCallback() {
                 findNavController().popBackStack()
             }

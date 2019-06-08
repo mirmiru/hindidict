@@ -30,22 +30,8 @@ class QuizViewModel : ViewModel() {
     private var sentenceData = SingleLiveEvent<Sentence>()
     fun getSentenceData(): LiveData<Sentence> = sentenceData
 
-//    private var noCardsDue = SingleLiveEvent<Boolean>()
     private var noCardsDue = MutableLiveData<Boolean>()
     fun getNoCardsDue(): LiveData<Boolean> = noCardsDue
-
-//    fun getCardSet() {
-//        repository.getCardSet(object : IWordsCallback{
-//            override fun onCallback(list: MutableList<Word>) {
-//                cardSet = list
-//                if (list.isEmpty()) {
-//                    noCardsDue.postValue(true)
-//                }
-//                getNextCard()
-//                isLastCard.value = false
-//            }
-//        })
-//    }
 
     private fun getNextCard() {
         if (cardSet.isNotEmpty()) {
